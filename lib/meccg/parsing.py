@@ -3,6 +3,7 @@ import re
 
 def lit(s):
     """
+    Matches a literal string
     >>> p = lit('<html>')
     >>> p('<!DOCTYPE html><html></html>')
     [(False, '<html>', '<!DOCTYPE html><html></html>')]
@@ -15,6 +16,7 @@ def lit(s):
 
 def reg(s):
     """
+    Matches a regular expression
     >>> p = reg(r'<\w+>')
     >>> p('<!DOCTYPE html><html></html>')
     [(False, '<\\\\w+>', '<!DOCTYPE html><html></html>')]
@@ -31,6 +33,7 @@ def reg(s):
 
 def dot():
     """
+    Matches any one character
     >>> p = dot()
     >>> p('')
     [(False, '(any character)', '')]
@@ -43,6 +46,7 @@ def dot():
 
 def eps():
     """
+    Matches an empty string
     >>> p = eps()
     >>> p('</html>')
     [(True, '', '</html>')]
@@ -55,6 +59,7 @@ def eps():
 
 def alt(p, q):
     """
+    Matches either p or q, with preference for p
     >>> p = alt(lit('<html>'), lit('<body>'))
     >>> list(p('<!DOCTYPE html><html></html>'))
     [(False, '<html>', '<!DOCTYPE html><html></html>'), (False, '<body>', '<!DOCTYPE html><html></html>')]
@@ -77,6 +82,7 @@ def alt(p, q):
 
 def seq(p, q):
     """
+    Matches p followed by q
     >>> p = seq(lit('<html>'), lit('<body>'))
     >>> list(p('<!DOCTYPE html><html></html>'))
     [(False, '<html>', '<!DOCTYPE html><html></html>')]
@@ -102,6 +108,7 @@ def seq(p, q):
 
 def red(f, p):
     """
+    Matches p and maps the result
     >>> p = red(lambda v: v.upper(), lit('<html>'))
     >>> list(p('<!DOCTYPE html><html></html>'))
     [(False, '<html>', '<!DOCTYPE html><html></html>')]
@@ -115,11 +122,15 @@ def red(f, p):
 
 
 def ref(f):
+    """
+    Matches the parser returned by f, can be used for recursion
+    """
     return lambda x: f()(x)
 
 
 def rep(p):
     """
+    Matches 0 or more repetitions of p, with preference for less
     >>> p = rep(dot())
     >>> list(p('Ori'))
     [(True, [], 'Ori'), (True, ['O'], 'ri'), (True, ['O', 'r'], 'i'), (True, ['O', 'r', 'i'], ''), (False, '(any character)', '')]

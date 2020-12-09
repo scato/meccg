@@ -5,6 +5,7 @@ import lib.meccg.parsing as parsing
 
 def ctx(k, v):
     """
+    Creates a context based on a variable reference and a value
     >>> ctx('name', 'Ori')
     {'name': 'Ori'}
     >>> ctx('character.name', 'Ori')
@@ -15,6 +16,7 @@ def ctx(k, v):
 
 def cmb(v, w):
     """
+    Combines two contexts into one
     >>> cmb({}, {'name': 'Ori'})
     {'name': 'Ori'}
     >>> cmb({'name': 'Ori'}, {'MP': '1'})
@@ -35,6 +37,7 @@ def cmb(v, w):
 
 def lit(s):
     """
+    Matches a literal string, ignoring whitespace and casing (very useful for HTML fragments)
     >>> t = lit('<html>')
     >>> list(t('<!DOCTYPE html><html></html>'))
     [(False, '<html>', '<!DOCTYPE html><html></html>')]
@@ -57,6 +60,7 @@ def lit(s):
 
 def safe(k):
     """
+    Matches a value for a variable reference, returning a context with that variable, prefering shorter values
     >>> t = safe('name')
     >>> list(t('Ori'))
     [(True, {'name': ''}, 'Ori'), (True, {'name': 'O'}, 'ri'), (True, {'name': 'Or'}, 'i'), (True, {'name': 'Ori'}, '')]
@@ -74,6 +78,8 @@ def safe(k):
 
 def var(k):
     """
+    Matches a value for a variable reference, returning a context with that variable, prefering shorter values, HTML
+    opening and closing brackets are not allowed (very useful for text between HTML tags)
     >>> t = var('name')
     >>> list(t('Ori'))
     [(True, {'name': ''}, 'Ori'), (True, {'name': 'O'}, 'ri'), (True, {'name': 'Or'}, 'i'), (True, {'name': 'Ori'}, '')]
@@ -94,6 +100,7 @@ def var(k):
 
 def seq(p, q):
     """
+    Matches p followed by q, combining the contexts they produce
     >>> t = seq(lit('<h2>'), seq(var('name'), lit('</h2>')))
     >>> [(m, v, y) for m, v, y in t('<h2>Ori</h2>') if m]
     [(True, {'name': 'Ori'}, '')]
@@ -103,6 +110,7 @@ def seq(p, q):
 
 def lst(k, l, p):
     """
+    Matches 0 or more repetitions of p, extracting values of l and assigning them to the list k
     >>> t = seq(lit('<body>'), seq(lst('names', 'name', seq(lit('<h2>'), seq(safe('name'), lit('</h2>')))), lit('</body>')))
     >>> [(m, v, y) for m, v, y in t('<body><h2>Ori</h2></body>') if m]
     [(True, {'names': ['Ori']}, '')]
@@ -117,25 +125,32 @@ def lst(k, l, p):
 
 def iff(k, w, p, q):
     """
-    >>> t = iff('card.playable', '', lit(''), seq(lit('Playable: '), seq(var('card.playable'), lit('<p>'))))
+    Matches either p or q, with a preference for p; if it matches p, it assigns default value w to k
+    >>> t = iff('card.playable', None, lit(''), seq(lit('Playable: '), seq(var('card.playable'), lit('<p>'))))
     >>> [(m, v, y) for m, v, y in t('Playable: Free-hold<p>Unique.') if m]
-    [(True, {'card': {'playable': ''}}, 'Playable: Free-hold<p>Unique.'), (True, {'card': {'playable': 'Free-hold'}}, 'Unique.')]
+    [(True, {'card': {'playable': None}}, 'Playable: Free-hold<p>Unique.'), (True, {'card': {'playable': 'Free-hold'}}, 'Unique.')]
     >>> [(m, v, y) for m, v, y in t('Unique.') if m]
-    [(True, {'card': {'playable': ''}}, 'Unique.')]
+    [(True, {'card': {'playable': None}}, 'Unique.')]
     """
     return parsing.alt(parsing.red(lambda v: cmb(ctx(k, w), v), p), q)
 
 
 def parser(p):
     """
+    Tries to match p to the entire input string; returns True and the resulting context if this succeeds, returns False
+    and a useful error message when this fails.
+
+    :param p: a parser like the one returned from the parsing combinators in this module
+    :return: success, result
+
     >>> t = var('name')
     >>> p = parser(t)
     >>> p('Ori')
-    {'name': 'Ori'}
+    (True, {'name': 'Ori'})
     >>> t = lit('Dori')
     >>> p = parser(t)
     >>> p('Ori')
-    (['Dori'], 'Ori')
+    (False, "Expected 'Dori' at 1:0")
     """
     def q(x):
         failures = []

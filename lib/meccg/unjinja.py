@@ -101,6 +101,7 @@ class UntemplateVisitor(NodeVisitor):
 
 def load_template(template_string, name=None, filename=None):
     """
+    Takes a jinja2 template string and turns it into a parser function
     >>> t = load_template('<html>')
     >>> t('<html>')
     (True, {})
