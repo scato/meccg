@@ -1,0 +1,4 @@
+/.idea
+/venv
+/var/html/*.html
+/var/jsonl/*.jsonl

@@ -1,0 +1,28 @@
+# characters
+- html: http://meccg.net/netherlands/meccg/spoilers/wizards.html
+  jsonl: wiz
+- html: http://meccg.net/netherlands/meccg/spoilers/wizcharacters.html
+  jsonl: wiz
+- html: http://meccg.net/netherlands/meccg/spoilers/dracharacters.html
+  jsonl: wiz
+- html: http://meccg.net/netherlands/meccg/spoilers/dmcharacters.html
+  jsonl: dm
+- html: http://meccg.net/netherlands/meccg/spoilers/dmminions.html
+  jsonl: dm
+- html: http://meccg.net/netherlands/meccg/spoilers/leringwraith.html
+  jsonl: le
+- html: http://meccg.net/netherlands/meccg/spoilers/leminions.html
+  jsonl: le
+- html: http://meccg.net/netherlands/meccg/spoilers/atsminions.html
+  jsonl: ats
+- html: http://meccg.net/netherlands/meccg/spoilers/whwiz.html
+  jsonl: wh
+- html: http://meccg.net/netherlands/meccg/spoilers/whchar.html
+  jsonl: wh
+- html: http://meccg.net/netherlands/meccg/spoilers/balcharacters.html
+  jsonl: wiz
+# resources
+- html: http://meccg.net/netherlands/meccg/spoilers/wizresources.html
+  jsonl: wiz
+- html: http://meccg.net/netherlands/meccg/spoilers/draresevents.html
+  jsonl: wiz

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+<H1>Middle Earth: {{ set }}, {{ category }}</H1>
+
+<table>
+<tr align="left">
+<th>Name</th>{% for attribute_name in attribute_names %}<th>{{ attribute_name }}</th>{% endfor %}
+</tr>
+{% for card in cards %}
+    <tr{% if _align == 'left' %} align="left"{% endif %}>
+    {% if _anchor == True %}
+        <td><b>{{ card.name }}</b></a></td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
+    {% elif _bold == True %}
+        <td><b>{{ card.name }}</b></td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
+    {% else %}
+        <td>{{ card.name }}</td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
+    {% endif %}
+    </tr>
+    <tr>
+    <td colspan={{ card._colspan }}>
+    {% if card.type == 'site' %}
+        {{ card.site_path }}<br>
+        {% if card.alignment == 'hero' %}
+            Nearest Haven: {{ card.nearest_haven }}<br>
+        {% elif card.alignment == 'minion' %}
+            Nearest Darkhaven: {{ card.nearest_haven }}<br>
+        {% endif %}
+        Playable: {{ card.playable }}<br>
+        {% if card.special is not none %}
+            Automatic-attacks{{ _num_auto_attacks }}: {{ card.auto_attacks }}<br>
+            Special: {{ card.special }}
+        {% else %}
+            Automatic-attacks{{ _num_auto_attacks }}: {{ card.auto_attacks }}
+        {% endif %}
+    {% else %}
+        {% if card.playable is not none %}
+            Playable: {{ card.playable }}
+            <p>
+        {% endif %}
+        {% if card.errata == 'yes' %}
+            [The following text reflects official errata]<br>
+        {% elif card.errata == 'yes.' %}
+            [The following text reflects official errata.]<br>
+        {% endif %}
+        {% if card.home_site is not none %}
+            {{ card.text }}<br>
+            Home Site: {{ card.home_site }}
+        {% else %}
+            {{ card.text }}
+        {% endif %}
+    {% endif %}
+    </td>
+    </tr>
+{% endfor %}
+
+</table>
+</body>
+
+</html>
