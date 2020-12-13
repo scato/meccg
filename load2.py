@@ -12,27 +12,21 @@ if __name__ == '__main__':
     for file in index['files']:
         file_name = file["name"]
         base_name = file_name.replace('.html', '')
+        template_name = file_name[0:3] + '.jinja'
+        template_file = f'var/templates/{template_name}'
 
-        if file_name == 'atscreatnew.html':
+        if file_name == 'atscreatnew.html' or template_name != 'bal.jinja':
             print(f'Skipping {file_name}')
             continue
 
-        print(f'loading {file_name}')
+        if file_name == 'balhazcreatures.html':
+            template_name = 'bal2.jinja'
+            template_file = f'var/templates/{template_name}'
+
+        print(f'loading {file_name} using {template_name}')
 
         load_html(f'http://meccg.net/netherlands/meccg/spoilers/{file_name}')
-        spoiler = None
-        for template_file in glob('var/templates/*.jinja'):
-            try:
-                spoiler = untemplate(template_file, f'var/html/{file_name}')
-            except Exception as e:
-                print(e)
-
-            if spoiler is not None:
-                print(f'Parsed using {template_file}')
-                break
-
-        if spoiler is None:
-            raise Exception(f'Could not parse {file_name}')
+        spoiler = untemplate(template_file, f'var/html/{file_name}')
 
         cards = [
             {
@@ -41,18 +35,9 @@ if __name__ == '__main__':
             }
             for card in spoiler['cards']
         ]
+
+        if cards[0]['set'] == 'The Balrgo':
+            for card in cards:
+                card['set'] = 'The Balrog'
+
         dump_jsonl(f'var/jsonl/{base_name}.jsonl', cards)
-
-    exit(0)
-
-    with open('var/templates/wizcharacters.jinja') as fp:
-        p = load_template(''.join(fp))
-
-    with open('var/html/wizcharacters.html') as fp:
-    # with open('var/html/wizards.html') as fp:
-        m = p(
-            ''.join(fp)
-        )
-
-    for c in m['characters']:
-        print(c)

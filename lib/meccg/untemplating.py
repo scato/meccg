@@ -35,6 +35,27 @@ def cmb(v, w):
         return v
 
 
+def cmp(v, w):
+    """
+    Checks if two contexts are compatible
+    >>> cmp({}, {'name': 'Ori'})
+    True
+    >>> cmp({'name': 'Ori'}, {'name': 'Dori'})
+    False
+    >>> cmp({'character': {'name': 'Ori'}}, {'character': {'MP': '1'}})
+    True
+    >>> cmp({'character': {'name': 'Ori'}}, {'character': {'name': 'Dori'}})
+    False
+    """
+    if isinstance(v, dict) and isinstance(w, dict):
+        return all(
+            cmp(v.get(k), w.get(k))
+            for k in v.keys() & w.keys()
+        )
+    else:
+        return v == w
+
+
 def lit(s):
     """
     Matches a literal string, ignoring whitespace and casing (very useful for HTML fragments)
@@ -104,8 +125,11 @@ def seq(p, q):
     >>> t = seq(lit('<h2>'), seq(var('name'), lit('</h2>')))
     >>> [(m, v, y) for m, v, y in t('<h2>Ori</h2>') if m]
     [(True, {'name': 'Ori'}, '')]
+    >>> t = seq(lit('<a href="'), seq(var('name'), seq(lit('">'), seq(var('name'), lit('</a>')))))
+    >>> [(m, v, y) for m, v, y in t('<a href="atscreat.html">atsminions.html</a>') if y == '']
+    [(False, '(predicate)', '')]
     """
-    return parsing.red(lambda v: cmb(*v), parsing.seq(p, q))
+    return parsing.red(lambda v: cmb(*v), parsing.grd(lambda v: cmp(*v), parsing.seq(p, q)))
 
 
 def lst(k, l, p):
@@ -132,7 +156,13 @@ def iff(k, w, p, q):
     >>> [(m, v, y) for m, v, y in t('Unique.') if m]
     [(True, {'card': {'playable': None}}, 'Unique.')]
     """
-    return parsing.alt(parsing.red(lambda v: cmb(ctx(k, w), v), p), q)
+    # return parsing.alt(parsing.red(lambda v: cmb(ctx(k, w), v), p), q)
+    # TODO: goed over nadenken en tests aanpassen
+    # het idee is dat je juist de voorkeur hebt aan de branch waar geen default aan zit:
+    #   - voor x == 'a' betekent dat lazy, en dat is niet erg want het is vaak een uniek fragment, of een soort switch
+    #   - voor x is not none betekent dat eager, en dat helpt bij "CORRUPTION: {{ card.corruption }}<BR>"
+    # misschien moet ik lst ook eager maken
+    return parsing.alt(q, parsing.red(lambda v: cmb(ctx(k, w), v), p))
 
 
 def parser(p):
@@ -150,32 +180,34 @@ def parser(p):
     >>> t = lit('Dori')
     >>> p = parser(t)
     >>> p('Ori')
-    (False, "Expected 'Dori' at 1:0")
+    (False, "Expected 'Dori' at 1:1")
     """
     def q(x):
         failures = []
+        min_fail_length = 0
         for m, v, y in p(x):
             if m and y == '':
                 return True, v
 
             if not m:
-                failures.append((v, y))
+                fail_length = len(x) - len(y)
 
-        min_fail_length = min(len(y) for v, y in failures)
-        first_failures = [(v, y) for v, y in failures if len(y) == min_fail_length]
-        expected = ', '.join(set(repr(v) for v, y in first_failures))
-        recognized_string = x[0:-len(first_failures[0][1])]
+                if fail_length > min_fail_length:
+                    failures.clear()
+                    min_fail_length = fail_length
+
+                if fail_length == min_fail_length:
+                    failures.append(v)
+
+        expected = ', '.join(set(repr(v) for v in failures))
+        recognized_string = x[0:min_fail_length]
         lines = recognized_string.split('\n')
         line = len(lines)
-        char = len(lines[-1])
+        char = len(lines[-1]) + 1
 
         return False, f'Expected {expected} at {line}:{char}'
 
-        return [v for v, y in first_failures], next(y for v, y in first_failures)
-
     return q
-    return lambda x: \
-        next((v for m, v, y in p(x) if y == ''), None)
 
 
 if __name__ == '__main__':

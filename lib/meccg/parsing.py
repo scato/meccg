@@ -121,6 +121,24 @@ def red(f, p):
     )
 
 
+def grd(f, p):
+    """
+    Matches p, but only if the predicate f holds
+    >>> p = grd(lambda v: v.upper() == v, dot())
+    >>> list(p(''))
+    [(False, '(any character)', '')]
+    >>> list(p('Alatar'))
+    [(True, 'A', 'latar')]
+    >>> list(p('alatar'))
+    [(False, '(predicate)', 'latar')]
+    """
+    return lambda x: (
+        (m and f(v), '(predicate)' if m and not f(v) else v, y)
+        for m, v, y in p(x)
+        # if not m or f(v)
+    )
+
+
 def ref(f):
     """
     Matches the parser returned by f, can be used for recursion

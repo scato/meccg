@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+<H1>Middle Earth: {{ set }}, {{ category }}</H1>
+
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+
+    <b>Type:</b> {{ card.class }}<br>
+    <b>MP:</b> {{ card.mp }}<br>
+    {% if card.playable is not none %}
+        <b>Playable:</b> {{ card.playable }}<br>
+    {% endif %}
+    <b>P/B:</b> {{ card.prowess }}/{{ card.body }}<br>
+    <b>Text: {{ card.subclass }}</b> {{ card.text }}
+{% endfor %}
+
+</BODY>
+</HTML>
+

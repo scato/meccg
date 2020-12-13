@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Timco Visser">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+<H1>Middle Earth: {{ set }}, {{ category }}</H1>
+
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+    TYPE: {{ card.type }}<BR>
+    {% if card.type == 'Character' %}
+        RACE: {{ card.race }}<BR>
+        SKILLS: {{ card.skills }}<BR>
+        HOME_SITE: {{ card.home_site }}<BR>
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.influence }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        {% if card.corrupt is not none %}
+            CORRUPT: {{ card.corrupt }}<BR>
+        {% else %}
+            CORRUPTION: {{ card.corruption }}<BR>
+        {% endif %}
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% elif card.type == 'Hazard' %}
+        CLASS: {{ card.class }}<BR>
+        {% if card.subclass is not none %}
+            SUBCLASS: {{ card.subclass }}<BR>
+            MP: {{ card.mp }}<BR>
+            PLAYABLE: {{ card.playable }}<BR>
+            STRIKES: {{ card.strikes }}<BR>
+            PROWESS: {{ card.prowess }}<BR>
+            BODY: {{ card.body }}<BR>
+        {% endif %}
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% elif card.type == 'Resource' %}
+        CLASS: {{ card.class }}<BR>
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<BR>
+        {% endif %}
+        {% if card.influence is not none %}
+            INFLUENCE: {{ card.influence }}<BR>
+        {% endif %}
+        {% if card.prowess is not none %}
+            PROWESS: {{ card.prowess }}<BR>
+        {% endif %}
+        {% if card.corrupt is not none %}
+            CORRUPT: {{ card.corrupt }}<BR>
+        {% endif %}
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% else %}
+        REGION: {{ card.region }}<BR>
+        SITE TYPE: {{ card.site_type }}<BR>
+        {% if card.adjacent is not none %}
+            ADJACENT: {{ card.adjacent }}<BR>
+        {% endif %}
+        {% if card.site_path is not none %}
+            SITE_PATH: {{ card.site_path }}<BR>
+        {% endif %}
+        DRAW: {{ card.you_draw }}/{{ card.opp_draw }}<BR>
+        PLAYABLE: {{ card.playable }}<BR>
+        AUTO_ATTACK: {{ card.auto_attack }}{% if _auto_attack_br == 'yes' %}<BR>{% endif %}
+        SPECIAL: {{ card.special }}{% if _special_br == 'yes' %}<BR>{% endif %}
+    {% endif %}
+{% endfor %}
+
+</BODY>
+</html>
