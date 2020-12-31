@@ -14,16 +14,13 @@
 
 {% for card in cards %}
     <h2>{{ card.name }}</h2>
-
-    <b>Type:</b> {{ card.class }}<br>
-    <b>MP:</b> {{ card.mp }}<br>
-    {% if card.playable is not none %}
-        <b>Playable:</b> {{ card.playable }}<br>
+    {% for line in card.text %}
+        {{ line }}<BR>
+    {% endfor %}
+    {% if card._has_hr %}
+        <HR>
     {% endif %}
-    <b>P/B:</b> {{ card.prowess }}/{{ card.body }}<br>
-    <b>Text: {{ card.subclass }}</b> {{ card.text }}
 {% endfor %}
 
 </BODY>
-</HTML>
-
+</html>

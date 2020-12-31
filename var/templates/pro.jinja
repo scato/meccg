@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+<body>
+
+<H1>MECCG {{ category }}</H1>
+
+{% for set in sets %}
+    <h2>From ME:{{ set.set }}</h2>
+
+    {% for card in set.cards %}
+        <h3>{{ card.name }}</h3>
+
+        {% if card._missing_colon %}
+            <b>Type</b>{{ card.type }}
+        {% else %}
+            <b>Type:</b>{{ card.type }}
+        {% endif %}
+        {% if card.mp is not none %}
+            <br><b>MP:</b> {{ card.mp }}
+        {% endif %}
+        {% if card.playable is not none %}
+            <br><b>Keyable to:</b> {{ card.playable }}
+        {% endif %}
+        {% if card.mind is not none %}
+            <br><b>Mind:</b> {{ card.mind }}
+        {% endif %}
+        {% if card.influence is not none %}
+            <br><b>DI:</b> {{ card.influence }}
+        {% endif %}
+        {% if card.race is not none %}
+            <br><b>Race:</b> {{ card.skills }}{{ ' ' }}{{ card.race }}
+        {% endif %}
+        {% if card.prowess is not none %}
+            <br><b>P/B:</b> {{ card.prowess }}/{{ card.body }}
+        {% endif %}
+        <br><b>Text:{{ card.text|safe }}
+        {% if card.cp is not none %}
+            <br><b>CP:</b> {{ card.cp }}
+        {% endif %}
+        {% if card.home_site is not none %}
+            <br><b>Home Site:</b> {{ card.home_site }}
+        {% endif %}
+        {% if card._trailing_br %}
+            <br>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+</BODY>
+</html>

@@ -1,0 +1,148 @@
+{% if _opening_html %}
+    <HTML>
+{% endif %}
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+{% if category == 'Characters' or category == 'Fallen Wizards' %}
+    {% if set == 'The White Hand' %}
+        <H1>Middle Earth: the White Hand, {{ category }}</h1>
+    {% endif %}
+{% else %}
+    <H1>Middle Earth: {{ set }}, {{ category }}</h1>
+{% endif %}
+
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+
+    {% if category == 'Characters' %}
+        Rarity: {{ card.rarity }}<br>
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<br>
+        {% endif %}
+        Mind: {{ card.mind }}<br>
+        DI: {{ card.di }}<br>
+        Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
+        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.text }}
+        Home Site: {{ card.home_site }}
+    {% elif category == 'Hazard Creatures' %}
+        Rarity: {{ card.rarity }}
+        MP: {{ card.mp }}<br>
+        Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
+        {{ card.class }}<br>
+        Playable: {{ card.playable }}<br>
+        {{ card.text }}
+    {% elif category == 'Hazard Events' %}
+        Rarity: {{ card.rarity }}<br>
+        {% if card.cp is not none %}
+            CP: {{ card.cp }}<br>
+        {% endif %}
+        {% if card.sp is not none %}
+            SP: {{ card.sp }}<br>
+        {% endif %}
+        {{ card.class }}<br>
+        {{ card.text }}
+    {% elif category == 'Hero Resources' %}
+        Rarity: {{ card.rarity }}<br>
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<br>
+        {% endif %}
+        {% if card.mind is not none %}
+            Mind: {{ card.mind }}<br>
+        {% endif %}
+        {% if card.di is not none %}
+            DI: {{ card.di }}<br>
+        {% endif %}
+        {% if card.prowess is not none %}
+            Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
+        {% endif %}
+        {% if card.cp is not none %}
+            CP: {{ card.cp }}<br>
+        {% endif %}
+        {{ card.class }}<br>
+        {{ card.text }}
+    {% elif category == 'Minion Resources' %}
+        Rarity: {{ card.rarity }}<br>
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<br>
+        {% endif %}
+        {% if card.cp is not none %}
+            {% if card.name == 'Piercing All Shadows' %}
+                {{ card.cp }}<br>
+            {% else %}
+                CP: {{ card.cp }}<br>
+            {% endif %}
+        {% endif %}
+        {{ card.class }}<br>
+        {{ card.text }}
+    {% elif category == 'Sites' %}
+        Rarity: {{ card.rarity }}<br>
+        {{ card.site_type }}<br>
+        OD: {{ card.opp_draws }}<br>
+        YD: {{ card.you_draw }}<br>
+        {% if card.sp is not none %}
+            SP: {{ card.sp }}<br>
+        {% endif %}
+        {{ card.region }}<br>
+        {{ card.text }}
+    {% elif category == 'Stage Resources: General' %}
+        Rarity: {{ card.rarity }}<br>
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<br>
+        {% endif %}
+        {% if card.di is not none %}
+            DI: {{ card.di }}<br>
+        {% endif %}
+        {% if card.sp is not none %}
+            SP: {{ card.sp }}<br>
+        {% endif %}
+        {{ card.class }}<br>
+        {{ card.text }}
+    {% elif category == 'Stage Resources: Wizard Specific' %}
+        {% if card._rarity_spelling_error %}
+            Rairty: {{ card.rarity }}<br>
+        {% else %}
+            Rarity: {{ card.rarity }}<br>
+        {% endif %}
+        {% if card.mp is not none %}
+            MP: {{ card.mp }}<br>
+        {% endif %}
+        {% if card.mind is not none %}
+            Mind: {{ card.mind }}<br>
+        {% endif %}
+        {% if card.di is not none %}
+            DI: {{ card.di }}<br>
+        {% endif %}
+        {% if card.gi is not none %}
+            GI: {{ card.gi }}<br>
+        {% endif %}
+        {% if card.prowess is not none %}
+            Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
+        {% endif %}
+        {% if card.sp is not none %}
+            SP: {{ card.sp }}<br>
+        {% endif %}
+        {{ card.class }}<br>
+        {{ card.text }}
+    {% elif category == 'Fallen Wizards' %}
+        Rarity: {{ card.rarity }}<br>
+        GI: {{ card.gi }}<br>
+        DI: {{ card.di }}<br>
+        Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
+        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.text }}
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>
+

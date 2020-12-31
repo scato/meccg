@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+<H1>Middle Earth: {{ set }}, {{ category }}</H1>
+
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+    TYPE: {{ card.type }}<BR>
+    RARITY: {{ card.rarity }}<BR>
+    {% if card.type == 'Resource' %}
+        CLASS: {{ card.class }}<BR>
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.influence }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPT: {{ card.corrupt }}<BR>
+    {% elif card.type == 'Character' %}
+        RACE: {{ card.race }}<BR>
+        SKILLS: {{ card.skills }}<BR>
+        HOME_SITE: {{ card.home_site }}<BR>
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.influence }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPTION: {{ card.corruption }}<BR>
+    {% elif card.type == 'Hazard' %}
+        CLASS: {{ card.class }}<BR>
+        SUBCLASS: {{ card.subclass }}<BR>
+        MP: {{ card.mp }}<BR>
+        PLAYABLE: {{ card.playable }}<BR>
+        STRIKES: {{ card.strikes }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPTION: {{ card.corruption }}<BR>
+    {% else %}
+        REGION: {{ card.region }}<BR>
+        SITE TYPE: {{ card.site_type }}<BR>
+        SITE_PATH: {{ card.site_path }}<BR>
+        HAVEN: {{ card.have }}<BR>
+        DRAW: {{ card.you_draw }}/{{ card.opp_draws }}<BR>
+        PLAYABLE: {{ card.playable }}<BR>
+        AUTO_ATTACK: {{ card.auto_attack }}<BR>
+        {% if card.special is not none %}
+            SPECIAL: {{ card.special }}<BR>
+        {% endif %}
+        {% if card.special_extra is not none %}
+            Special: {{ card.special_extra }}<BR>
+        {% endif %}
+    {% endif %}
+    ARTIST: {{ card.artist }}<BR>
+    {% if card.random_number is not none %}
+        RANDOM#: {{ card.random_number }}<BR>
+    {% endif %}
+    {% for line in card.text %}
+        {{ line }}<BR>
+    {% endfor %}
+{% endfor %}
+
+{% if _hr %}
+    <HR><BR>
+{% endif %}
+
+</BODY>
+</HTML>

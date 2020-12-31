@@ -1,0 +1,92 @@
+MECCG: The Hobby Project
+========================
+
+Welcome to my goofy Middle Earth CCG hobby project!
+
+Being a data engineer, I figured I could do better than search spoilers using my browser. If only there was a way to
+parse HTML pages... Of course! I can not use a HTML parser, but write some weird reverse templating engine!
+
+This is what I did.
+
+How it works
+------------
+
+The idea behind reverse templating is that you use a regular templating syntax (in my case, Jinja2) and turn the
+template into a parser. The rules for parsing become a bit different. For example, we want to be very tolerant with
+white space. A browser doesn't care if you put extra white space at the end of a line. In fact, any white space before
+or after an element is totally ignored (unless you use the CSS white-space property, but that's not relevant for the
+spoilers we want to parse).
+
+Let's look at some examples.
+
+First, we'll import the load_template function:
+>>> from meccg.unjinja import load_template
+
+This function turns a template string into a function that tries to parse an HTML string:
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ title }}</h1>
+...     </body>
+... ''')
+
+This parse function returns a tuple with two values. The first one is whether we succeeded, and the second one is the
+result:
+>>> template('<body><h1>Middle Earth: The Wizards</h1></body>')
+(True, {'title': 'Middle Earth: The Wizards'})
+
+If it can't parse the string, it will try to parse as much as possible, and tell you where it failed:
+>>> template('<body><h1>Middle Earth: The Wizards</h1></html>')
+(False, "Expected '</h1>\\n    </body>' at 1:36")
+
+Note that it the parser didn't mind the lack of indentation or line breaks. It also doesn't care what case the tag names
+are in:
+>>> template('<BODY><H1>Middle Earth: The Wizards</H1></BODY>')
+(True, {'title': 'Middle Earth: The Wizards'})
+
+This is very useful, since my editor automatically removes white space at the end of a line in my template, but some
+spoilers still have white space at the end of lines. Also, this means I can format my templates any way I like.
+
+Reverse Autoescaping
+--------------------
+
+There's another smart thing the parser does. Jinja2 has a feature called autoescaping. This means that any special HTML
+characters in the output are automatically turned into HTML entities. In the reverse case, this means that template
+variables should never match HTML tags. This makes parsing a lot easier.
+
+I will attempt to explain using Jinja2's "safe" filter, which turns off autoescaping.
+
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ title }}</h1>
+...         {{ main|safe }}<br>
+...         {{ last_line|safe }}
+...     </body>
+... ''')
+
+Now, this template looks like it will match the last line separately, but if a there's also a <br> in the main section,
+something weird happens:
+>>> template('<body><h1>hi</h1>line1<br>line2<br>last_line</body>')
+(True, {'last_line': 'line2<br>last_line', 'main': 'line1', 'title': 'hi'})
+
+There are multiple ways of parsing this string. The parser tries to match as little as possible, which means that
+variable that appear later in the template get more text that those that come sooner in the template.
+
+If we assume that the template was written with autoescaping in mind, then we can also assume that we don't have to
+match HTML elements for any input that doesn't have a safe filter. If this holds for our previous example, then our
+template would look like this:
+
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ title }}</h1>
+...         {{ main|safe }}<br>
+...         {{ last_line }}
+...     </body>
+... ''')
+
+Now, the last_line variable only matches the last line:
+>>> template('<body><h1>hi</h1>line1<br>line2<br>last_line</body>')
+(True, {'last_line': 'last_line', 'main': 'line1<br>line2', 'title': 'hi'})
+
+On top of that, this presumed autoescaping is also reversed:
+>>> template('<body><h1>&lt;hi&gt;</h1>line1<br>line2<br>&copy; last_line</body>')
+(True, {'last_line': '© last_line', 'main': 'line1<br>line2', 'title': '<hi>'})

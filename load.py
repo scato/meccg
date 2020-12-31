@@ -1,6 +1,6 @@
 import yaml
 
-from lib.meccg.html import load_html
+from lib.meccg.scraping import load_html
 from lib.meccg.jsonl import load_wizcharacters, load_dmcharacters, load_lecharacters, load_atscharacters, \
     load_whcharacters
 

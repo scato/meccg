@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+<H1>Middle Earth: {{ set }}, {{ category }}</H1>
+
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+
+    {{ card.type }}<br>
+    {% if category == 'Non-minion Agents' %}
+        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        [
+            {{ card.prowess }}/{{ card.body }};
+            {{ card.mp }} kill MP;
+            {{ card.mind }} mind;
+            {{ card.influence }} direct influence;
+            {{ card.corruption }} corruption mod;
+            Home Site: {{ card.home_site }}
+        ]
+    {% elif category == 'Allies' %}
+        {{ card.skills }} Ally<br>
+        [
+            {{ card.prowess }}/{{ card.body }};
+            {{ card.mp }} ally MP;
+            {{ card.mind }} mind
+            {{ _extra_space }}
+        ]
+    {% elif category == 'Characters' %}
+        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        [
+            {{ card.prowess }}/{{ card.body }};
+            {{ card.mp }} character MP;
+            {{ card.mind }} mind;
+            {{ card.influence }} direct influence;
+            {{ card.corruption }} corruption mod;
+            Home Site: {{ card.home_site }}
+        ]
+    {% elif category == 'Hazard Creatures' %}
+        {{ card.class }}<br>
+        [
+            {{ card.prowess }}/{{ card.body }};
+            {% if card.playable is none %}
+                {{ card.mp }} kill MP
+            {% else %}
+                {{ card.mp }} kill MP;
+                keyable to {{ card.playable }}
+            {% endif %}
+        ]
+    {% elif category == 'Hazard Events' %}
+        {{ card.event_type }}-event
+    {% elif category == 'Items' %}
+        {{ card.event_type }} Item
+    {% elif category == 'Minion Agents' %}
+        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        [
+            {{ card.prowess }}/{{ card.body }};
+            {{ card.mp }} character/kill MP;
+            {{ card.mind }} mind;
+            {{ card.influence }} direct influence;
+            Home Site: {{ card.home_site }}
+        ]
+    {% elif category == 'Sites' %}
+        {{ card.region }}<br>
+        [
+            {{ card.site_type }}{% if _site_type_semi_colon == 'yes' %};{% endif %}
+            {% if card.site_path is not none %}
+                site path {{ card.site_path }}{% if _site_path_comma == 'yes' %},{% else %};{% endif %}
+            {% endif %}
+            opponent draws: {{ card.opp_draws }},
+            you draw:{% if _sudden_br == 'yes' %}<br>{% endif %} {{ card.you_draw }}
+        ]
+    {% endif %}
+    {% for line in card.text %}
+        <BR>{{ line }}
+    {% endfor %}
+{% endfor %}
+
+{% if _has_junk == 'yes' %}
+    </ul>
+    </TABLE>
+    </H3>
+{% endif %}
+{% if _has_body_close == 'yes' %}
+    </BODY>
+{% endif %}
+</HTML>

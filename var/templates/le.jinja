@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="Author" CONTENT="Rob Rutten">
+
+	<TITLE>The Council of the Isles of the Dead that Live -- Spoilers</TITLE>	
+	<LINK REL="STYLESHEET" TYPE="text/css" 
+	      HREF="../styles/spoilers.css" TITLE="spoilers">
+</HEAD>
+
+<body>
+
+{% if set == 'The Lidless Eye' %}
+    <H1>Middle Earth: Lidless Eye, {{ category }}</H1>
+{% endif %}
+
+{% if category == 'Sites' %}
+    <table BORDER="0" CELLSPACING="2" CELLPADDING="0" WIDTH=100%>
+    <tr valign="top">
+    <th>Name</th>
+    <th>Rarity</th>
+    <th>Site type</th>
+    <th>Site path</th>
+    <th>Oppon. draw</th>
+    <th>You draw</th>
+    <th>Region</th>
+    <th>Comments</th>
+    </tr>
+    {% for card in cards %}
+        <tr valign="top">
+        <td>{{ card.name }}</td>
+        <td>{{ card.rarity }}</td>
+        <td>{{ card.site_type }}</td>
+        {% if card.site_path is not none %}
+            <td nowrap>{{ card.site_path }}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+        <td>{{ card.opp_draws }}</td>
+        <td>{{ card.you_draw }}</td>
+        <td>{{ card.region }}</td>
+        <td>
+            {% if card.site_type == 'h' %}
+                Site Path From {{ card.adjacent_haven1 }}: {{ card.site_path1 }}
+                {% if card.adjacent_haven2 is not none %}
+                    <br>Site Path From {{ card.adjacent_haven2 }}: {{ card.site_path2 }}
+                {% endif %}
+            {% else %}
+                Nearest Darkhaven: {{ card.nearest_haven }}
+            {% endif %}
+            {% if card.playable is not none %}
+                <br>Playable: {{ card.playable }}
+            {% endif %}
+            {% if _has_auto_attack %}
+                <br>Automatic-attacks: {{ card.auto_attack }}
+            {% endif %}
+            {% if _has_two_auto_attacks %}
+                <br>Automatic-attacks (2): {{ card.auto_attack }}
+            {% endif %}
+            {% if card.special is not none %}
+                <br>Special: {{ card.special }}
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <TABLE BORDER="0" CELLSPACING="2" CELLPADDING="0" WIDTH=100%>
+    <TR>
+    {% if category == 'Allies' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MIND</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">P/B</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">TYPE</TH>
+    {% elif category == 'Hazard Creatures' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">P/B</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">Playable Region/Sites</TH>
+    {% elif category == 'factions' %}
+        <TH ALIGN="LEFT" WIDTH="25%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="25%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="25%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="25%">TYPE</TH>
+    {% elif category == 'Hazard Events' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">CP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">TYPE</TH>
+    {% elif category == 'Items' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">CP's</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">P/B</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">TYPE</TH>
+    {% elif category == 'Minion Resource Events' %}
+        <TH ALIGN="LEFT" WIDTH="50%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="25%">TYPE</TH>
+    {% elif category == 'Minions' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MP'S</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">MIND</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">DI</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">P/B</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">SKILLS&RACE</TH>
+    {% elif category == 'Ringwraiths' %}
+        <TH ALIGN="LEFT" WIDTH="10%">NAME</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">RARITY</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">DI</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">P/B</TH>
+        <TH ALIGN="LEFT" WIDTH="10%">SKILLS&RACE</TH>
+    {% endif %}
+    </TR>
+    {% for card in cards %}
+        <TR>
+        <TD><B>{{ card.name }}</B></TD>
+        <TD>{{ card.rarity }}</TD>
+        {% if category == 'Allies' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.mind }}</TD>
+            <TD>{{ card.prowess }}/{{ card.body }}</TD>
+            <TD>{{ card.type }}</TD>
+        {% elif category == 'Hazard Creatures' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.prowess }}/{{ card.body }}</TD>
+            {% if card.playable is not none %}
+                <TD>{{ card.playable }}</TD>
+                {% if _junk_td %}
+                    <TD></TD>
+                {% endif %}
+            {% endif %}
+        {% elif category == 'factions' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.type }}</TD>
+        {% elif category == 'Items' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.cp }}</TD>
+            {% if card.prowess is not none %}
+                <TD>{{ card.prowess }}/{{ card.body }}</TD>
+            {% else %}
+                <TD>{{ card.prowess_body }}</TD>
+            {% endif %}
+            <TD>{{ card.type }}</TD>
+        {% elif category == 'Minions' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.mind }}</TD>
+            <TD>{{ card.influence }}</TD>
+            <TD>{{ card.prowess }}/{{ card.body }}</TD>
+            <TD>{{ card.skills }}{{ ' ' }}{{ card.race }}</TD>
+        {% elif category == 'Sites' %}
+        {% endif %}
+        </TR>
+        <TR>
+        <TD COLSPAN="{{ _colspan }}">
+        {{ card.text }}
+        {% if _closing_p %}
+            <P>
+        {% endif %}
+        {% if _usual_closing %}
+            </TD>
+            </TR>
+            <P>
+        {% endif %}
+    {% endfor %}
+    </TD></TR></TABLE>
+{% endif %}
+
+</body>
+</html>
