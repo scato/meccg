@@ -1,5 +1,5 @@
-MECCG: The Hobby Project
-========================
+MECCG: The Hobby Project (Basic Usage)
+======================================
 
 Welcome to my goofy Middle Earth CCG hobby project!
 

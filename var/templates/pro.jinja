@@ -15,7 +15,11 @@
     <h2>From ME:{{ set.set }}</h2>
 
     {% for card in set.cards %}
-        <h3>{{ card.name }}</h3>
+        {% if card.name == 'Angmar Arises' %}
+            <h3>Title: Angmar Arises</h3>
+        {% else %}
+            <h3>{{ card.name }}</h3>
+        {% endif %}
 
         {% if card._missing_colon %}
             <b>Type</b>{{ card.type }}

@@ -1,0 +1,87 @@
+Advanced Matching
+=================
+
+Under "Basic Usage" you can read how template variables are matched against the input string. The "safe" filter can be
+used to match text containing HTML tags. Without the "safe" filter, entities in the matching string are unescaped.
+
+Below are even more ways to match input.
+
+Dictionaries
+------------
+
+In a Jinja2 template, you can use dot notation to fetch object attributes and/or dictionary entries. When reversing a
+template, the parser has no idea which objects to create, but it can create dictionaries.
+
+Let's turn our simple template into one with a variable with dot-notation:
+
+>>> from meccg.unjinja import load_template
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ doc.title }}</h1>
+...     </body>
+... ''')
+
+Now, if we match an input string, the parser will create a dictionary:
+>>> template('<body><h1>Middle Earth: The Wizards</h1></body>')
+(True, {'doc': {'title': 'Middle Earth: The Wizards'}})
+
+And if we refer to different entries of the same dictionary, the entries will be combined:
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ doc.title }}</h1>
+...         <p>{{ doc.intro }}</p>
+...     </body>
+... ''')
+>>> template('<body><h1>Middle Earth: The Wizards</h1><p>Hello, world!</p></body>')
+(True, {'doc': {'intro': 'Hello, world!', 'title': 'Middle Earth: The Wizards'}})
+
+If a template refers to the same entry twice, the matched string must be equal.
+
+>>> template = load_template('''
+...     <body>
+...         <h1>{{ doc.title }}</h1>
+...         <p>This is {{ doc.title }}.</p>
+...     </body>
+... ''')
+>>> template('<body><h1>Middle Earth: The Wizards</h1><p>This is Middle Earth: The Wizards.</p></body>')
+(True, {'doc': {'title': 'Middle Earth: The Wizards'}})
+
+Otherwise, you get an error:
+>>> template('<body><h1>Middle Earth: The Wizards</h1><p>This is The Wizards.</p></body>')
+(False, "Expected '(predicate)' at 1:64")
+
+Literal String
+--------------
+
+Because of the tolerance for white space, it can be hard to match two words divided by a space, like skills and race
+for characters:
+
+>>> template = load_template('''
+...     <h2>{{ card.name }}</h2>
+...     {{ card.skills }} {{ card.race }}
+... ''')
+>>> template('<h2>Oin</h2>\nWarrior Dwarf')
+(True, {'card': {'name': 'Oin', 'race': 'Warrior Dwarf', 'skills': ''}})
+
+Jinja2 allows you to output a constant instead of a variable name. We can use this to match a space without any of the
+magical white space rules:
+>>> template = load_template('''
+...     <h2>{{ card.name }}</h2>
+...     {{ card.skills }}{{ ' ' }}{{ card.race }}
+... ''')
+>>> template('<h2>Oin</h2>\nWarrior Dwarf')
+(True, {'card': {'name': 'Oin', 'race': 'Dwarf', 'skills': 'Warrior'}})
+
+Replacing Input
+---------------
+
+When parsing the Dwarven Ring cards for The Wizards, we something unfortunate. De word "Dwarven" is abbreviated to
+"Dw.". Can we reverse that? Why not? Jinja2 has a "replace" filter, so as long as we assume that "Dw." is not normally
+found in card names, we'll be good.
+
+>>> template = load_template('''
+...     <h2>{{ card.name|replace('Dwarven', 'Dw.') }}</h2>
+...     {{ card.class }}
+... ''')
+>>> template("<h2>Dw. Ring of Barin's Tribe</h2>\nSpecial Item")
+(True, {'card': {'class': 'Special Item', 'name': "Dwarven Ring of Barin's Tribe"}})

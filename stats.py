@@ -84,6 +84,7 @@ def show_stats():
       - Region cards (52)
       - Resource cards (87)
       - Site cards (69)
+    Total (1677)
     """
     cards = {}
     for file in glob('var/jsonl/*.jsonl'):
@@ -95,10 +96,14 @@ def show_stats():
                     cards[card['set']][card['category']] = []
                 cards[card['set']][card['category']].append(card)
 
+    total = 0
     for set, cards_in_set in cards.items():
         print(f'{set}:')
         for category, cards_in_category in cards_in_set.items():
+            total += len(cards_in_category)
             print(f'  - {category} ({len(cards_in_category)})')
+
+    print(f'Total ({total})')
 
 
 show_stats()

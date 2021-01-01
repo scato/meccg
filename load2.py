@@ -3,6 +3,7 @@ from lib.meccg.jsonl import dump_jsonl
 from lib.meccg.unjinja import untemplate
 
 if __name__ == '__main__':
+    # template_whitelist = None
     template_whitelist = ('wiz.jinja',)
     file_blacklist = ('atscreatnew.html', 'empty.html', 'german.html')
     two_letter_template_names = ('dm', 'le', 'wh')
@@ -12,6 +13,7 @@ if __name__ == '__main__':
     dump_jsonl('var/jsonl/index.jsonl', index['files'])
 
     for file in index['files']:
+        encoding = None
         file_name = file["name"]
         base_name = file_name.replace('.html', '')
         if file_name[0:2] in two_letter_template_names:
@@ -27,10 +29,18 @@ if __name__ == '__main__':
             print(f'Skipping {file_name}')
             continue
 
+        if file_name in ('lefactions.html', 'leitems.html', 'lemevents.html', 'leminions.html'):
+            encoding = 'mac_latin2'
+
         print(f'loading {file_name} using {template_name}')
 
         load_html(f'http://meccg.net/netherlands/meccg/spoilers/{file_name}')
-        spoiler = untemplate(f'var/templates/{template_name}', f'var/html/{file_name}', max_tries=100_000)
+        spoiler = untemplate(
+            f'var/templates/{template_name}',
+            f'var/html/{file_name}',
+            encoding=encoding,
+            max_tries=100_000
+        )
 
         if 'cards' in spoiler:
             # TODO: check op callable weghalen, template moet eenduidig zijn!

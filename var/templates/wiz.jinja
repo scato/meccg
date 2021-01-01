@@ -13,7 +13,8 @@
 <H1>Middle Earth: {{ set }}, {{ category }}</H1>
 
 {% for card in cards %}
-    <h2>{{ card.name }}</h2>
+    <h2>{{ card.name|replace('Dwarven', 'Dw.') }}</h2>
+
     {% for line in card.text %}
         {{ line }}<BR>
     {% endfor %}

@@ -79,6 +79,10 @@ def var(k):
     >>> list(t('&lt;'))  # doctest: +ELLIPSIS
     [(True, {'mp': ''}, '&lt;'), (True, {'mp': '&'}, 'lt;'), ..., (True, {'mp': '<'}, '')]
     """
+    return flt(unescape, k)
+
+
+def flt(f, k):
     def p(x):
         v = ''
         while len(x) > 0 and x[0] not in '<>':
@@ -89,7 +93,7 @@ def var(k):
         if not v.endswith(' '):
             yield True, v, x
 
-    return parsing.red(lambda v: sat.ctx(k, ''.join(unescape(v))), p)
+    return parsing.red(lambda v: sat.ctx(k, f(v)), p)
 
 
 def seq(p, q):

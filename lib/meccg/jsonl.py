@@ -1,5 +1,7 @@
 import json
+import os
 from collections import Callable
+from glob import glob
 
 from bs4 import BeautifulSoup, NavigableString
 
@@ -160,6 +162,13 @@ def read_jsonl(filename):
     with open(filename) as fp:
         for line in fp:
             yield json.loads(line)
+
+
+def read_all_jsonl():
+    for file in glob('var/jsonl/*.jsonl'):
+        if os.path.basename(file) != 'index.jsonl':
+            for card in read_jsonl(file):
+                yield card
 
 
 def dump_jsonl(filename, records):

@@ -1,11 +1,13 @@
 from functools import reduce
+from html import unescape
 
 from jinja2 import Environment
 from jinja2.nodes import Name, Getattr, Not, Test, If, Compare, Const, Or, And
 from jinja2.visitor import NodeVisitor
 
-from lib.meccg import untemplating
-from lib.meccg import sat
+import lib.meccg.parsing as parsing
+import lib.meccg.sat as sat
+import lib.meccg.untemplating as untemplating
 
 
 class UntemplateVisitor(NodeVisitor):
@@ -44,6 +46,14 @@ class UntemplateVisitor(NodeVisitor):
     def visit_Filter(self, node):
         if node.name == 'safe':
             return untemplating.safe(self._node_to_identifier(node.node))
+        elif node.name == 'replace':
+            if isinstance(node.args[0], Const) and isinstance(node.args[1], Const):
+                return untemplating.flt(
+                    lambda x: unescape(x).replace(node.args[1].value, node.args[0].value),
+                    self._node_to_identifier(node.node)
+                )
+            else:
+                raise Exception(f'Replace with arguments {type(node.args[0])} and {type(node.args[1])} not supported')
         else:
             raise Exception(f'Filter {node.name} not supported')
 
@@ -164,11 +174,11 @@ def load_template(template_string, name=None, filename=None, max_tries=None):
     return parser
 
 
-def untemplate(template_filename, source_filename, max_tries=None):
+def untemplate(template_filename, source_filename, encoding=None, max_tries=None):
     with open(template_filename) as fp:
         p = load_template(''.join(fp), filename=template_filename, max_tries=max_tries)
 
-    with open(source_filename) as fp:
+    with open(source_filename, encoding=encoding) as fp:
         success, result = p(''.join(fp))
 
         if success:
