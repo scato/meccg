@@ -28,7 +28,11 @@
     </tr>
     {% for card in cards %}
         <tr valign="top">
-        <td>{{ card.name }}</td>
+        {% if card.name == 'Gobel Mírlond' %}
+            <td>Gobel M’rlond</td>
+        {% else %}
+            <td>{{ card.name }}</td>
+        {% endif %}
         <td>{{ card.rarity }}</td>
         <td>{{ card.site_type }}</td>
         {% if card.site_path is not none %}
@@ -38,7 +42,11 @@
         {% endif %}
         <td>{{ card.opp_draws }}</td>
         <td>{{ card.you_draw }}</td>
-        <td>{{ card.region }}</td>
+        {% if card.region == 'Anórien' %}
+            <td>An—rien</td>
+        {% else %}
+            <td>{{ card.region }}</td>
+        {% endif %}
         <td>
             {% if card.site_type == 'h' %}
                 Site Path From {{ card.adjacent_haven1 }}: {{ card.site_path1 }}
@@ -51,10 +59,10 @@
             {% if card.playable is not none %}
                 <br>Playable: {{ card.playable }}
             {% endif %}
-            {% if _has_auto_attack %}
+            {% if card._has_auto_attack %}
                 <br>Automatic-attacks: {{ card.auto_attack }}
             {% endif %}
-            {% if _has_two_auto_attacks %}
+            {% if card._has_two_auto_attacks %}
                 <br>Automatic-attacks (2): {{ card.auto_attack }}
             {% endif %}
             {% if card.special is not none %}
@@ -120,25 +128,38 @@
     </TR>
     {% for card in cards %}
         <TR>
-        <TD><B>{{ card.name }}</B></TD>
+        {% if card.name == 'Blackbole' %}
+            <TD><B>BlackHole</B></TD>
+        {% elif card.name == 'Palantír of Amon Sûl' %}
+            <TD><B>Palantír of Amon SUl</B></TD>
+        {% else %}
+            <TD><B>{{ card.name }}</B></TD>
+        {% endif %}
         <TD>{{ card.rarity }}</TD>
         {% if category == 'Allies' %}
             <TD>{{ card.mp }}</TD>
             <TD>{{ card.mind }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
-            <TD>{{ card.type }}</TD>
+            {% if card.skills is not none %}
+                <TD>{{ card.skills|join('/') }}{{ ' ' }}{{ card.class }}</TD>
+            {% else %}
+                <TD>{{ card.class }}</TD>
+            {% endif %}
         {% elif category == 'Hazard Creatures' %}
             <TD>{{ card.mp }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
             {% if card.playable is not none %}
                 <TD>{{ card.playable }}</TD>
-                {% if _junk_td %}
+                {% if card._junk_td %}
                     <TD></TD>
                 {% endif %}
             {% endif %}
         {% elif category == 'factions' %}
             <TD>{{ card.mp }}</TD>
-            <TD>{{ card.type }}</TD>
+            <TD>{{ card.race }}{{ ' ' }}{{ card.class }}</TD>
+        {% elif category == 'Hazard Events' %}
+            <TD>{{ card.mp }}</TD>
+            <TD>{{ card.class }}</TD>
         {% elif category == 'Items' %}
             <TD>{{ card.mp }}</TD>
             <TD>{{ card.cp }}</TD>
@@ -147,23 +168,31 @@
             {% else %}
                 <TD>{{ card.prowess_body }}</TD>
             {% endif %}
-            <TD>{{ card.type }}</TD>
-        {% elif category == 'Minions' %}
+            <TD>{{ card.class }}</TD>
+        {% elif category == 'Minion Resource Events' %}
             <TD>{{ card.mp }}</TD>
+            <TD>{{ card.class }}</TD>
+        {% elif category == 'Minions' %}
+            {% if card.mp is not none %}
+                <TD>{{ card.mp }}</TD>
+            {% endif %}
             <TD>{{ card.mind }}</TD>
             <TD>{{ card.influence }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
-            <TD>{{ card.skills }}{{ ' ' }}{{ card.race }}</TD>
-        {% elif category == 'Sites' %}
+            <TD>{{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}</TD>
+        {% elif category == 'Ringwraiths' %}
+            <TD>{{ card.influence }}</TD>
+            <TD>{{ card.prowess }}/{{ card.body }}</TD>
+            <TD>{{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}</TD>
         {% endif %}
         </TR>
         <TR>
-        <TD COLSPAN="{{ _colspan }}">
+        <TD COLSPAN="{{ card._colspan }}">
         {{ card.text }}
-        {% if _closing_p %}
+        {% if card._closing_p %}
             <P>
         {% endif %}
-        {% if _usual_closing %}
+        {% if card._usual_closing %}
             </TD>
             </TR>
             <P>

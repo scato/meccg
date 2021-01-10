@@ -17,7 +17,13 @@
     TYPE: {{ card.type }}<BR>
     RARITY: {{ card.rarity }}<BR>
     {% if card.type == 'Resource' %}
-        CLASS: {{ card.class }}<BR>
+        {% if card.class == 'Faction' %}
+            CLASS: {{ card.race }} Faction<BR>
+        {% elif card.name == 'Elf-path' %}
+            CLASS: {{ card.class|replace('-e', '-r') }}<BR>
+        {% else %}
+            CLASS: {{ card.class|replace(' or ', '/') }}<BR>
+        {% endif %}
         MP: {{ card.mp }}<BR>
         MIND: {{ card.mind }}<BR>
         INFLUENCE: {{ card.influence }}<BR>
@@ -26,7 +32,7 @@
         CORRUPT: {{ card.corrupt }}<BR>
     {% elif card.type == 'Character' %}
         RACE: {{ card.race }}<BR>
-        SKILLS: {{ card.skills }}<BR>
+        SKILLS: {{ card.skills|join('/') }}<BR>
         HOME_SITE: {{ card.home_site }}<BR>
         MP: {{ card.mp }}<BR>
         MIND: {{ card.mind }}<BR>
@@ -35,7 +41,7 @@
         BODY: {{ card.body }}<BR>
         CORRUPTION: {{ card.corruption }}<BR>
     {% elif card.type == 'Hazard' %}
-        CLASS: {{ card.class }}<BR>
+        CLASS: {{ card.class|replace(' or ', '/') }}<BR>
         SUBCLASS: {{ card.subclass }}<BR>
         MP: {{ card.mp }}<BR>
         PLAYABLE: {{ card.playable }}<BR>

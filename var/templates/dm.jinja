@@ -15,9 +15,21 @@
 {% for card in cards %}
     <h2>{{ card.name }}</h2>
 
-    {{ card.type }}<br>
+    {% if card.type == 'Hazard' %}
+        hazard<br>
+    {% elif card.type == 'Resource' %}
+        resource<br>
+    {% elif card.type == 'Character' %}
+        {% if card.alignment == 'Hero' %}
+            character<br>
+        {% elif card.alignment == 'Minion' %}
+            minion<br>
+        {% endif %}
+    {% elif card.type == 'Site' %}
+        site<br>
+    {% endif %}
     {% if category == 'Non-minion Agents' %}
-        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         [
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} kill MP;
@@ -27,7 +39,11 @@
             Home Site: {{ card.home_site }}
         ]
     {% elif category == 'Allies' %}
-        {{ card.skills }} Ally<br>
+        {% if card.skills is not none %}
+            {{ card.skills|join('/') }}{{ ' ' }}{{ card.class }}{{ ' <br>' }}
+        {% else %}
+            {{ card.class }}{{ ' <br>' }}
+        {% endif %}
         [
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} ally MP;
@@ -35,7 +51,7 @@
             {{ _extra_space }}
         ]
     {% elif category == 'Characters' %}
-        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         [
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} character MP;
@@ -56,11 +72,15 @@
             {% endif %}
         ]
     {% elif category == 'Hazard Events' %}
-        {{ card.event_type }}-event
+        {% if card.name == "The Black Enemy's Wrath" %}
+            {{ card.class|replace('-', '--') }}
+        {% else %}
+            {{ card.class }}
+        {% endif %}
     {% elif category == 'Items' %}
-        {{ card.event_type }} Item
+        {{ card.class }}
     {% elif category == 'Minion Agents' %}
-        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         [
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} character/kill MP;
@@ -68,15 +88,17 @@
             {{ card.influence }} direct influence;
             Home Site: {{ card.home_site }}
         ]
+    {% elif category == 'Resource Events' %}
+        {{ card.class }}
     {% elif category == 'Sites' %}
         {{ card.region }}<br>
         [
-            {{ card.site_type }}{% if _site_type_semi_colon == 'yes' %};{% endif %}
+            {{ card.site_type }}{% if card._site_type_semi_colon %};{% endif %}
             {% if card.site_path is not none %}
-                site path {{ card.site_path }}{% if _site_path_comma == 'yes' %},{% else %};{% endif %}
+                site path {{ card.site_path }}{% if card._site_path_comma %},{% else %};{% endif %}
             {% endif %}
             opponent draws: {{ card.opp_draws }},
-            you draw:{% if _sudden_br == 'yes' %}<br>{% endif %} {{ card.you_draw }}
+            you draw:{% if card._sudden_br %}<br>{% endif %} {{ card.you_draw }}
         ]
     {% endif %}
     {% for line in card.text %}

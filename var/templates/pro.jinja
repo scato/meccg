@@ -21,10 +21,33 @@
             <h3>{{ card.name }}</h3>
         {% endif %}
 
-        {% if card._missing_colon %}
-            <b>Type</b>{{ card.type }}
-        {% else %}
-            <b>Type:</b>{{ card.type }}
+        {% if card.type == 'Hazard' and card.alignment is none %}
+            {# make two explicit cases because of upper case E in "Event" #}
+            {% if card.class == 'Short-event' %}
+                <b>Type:</b> Hazard Short-event
+            {% elif card.class == 'Permanent-event' %}
+                <b>Type:</b> Hazard Permanent-event
+            {% else %}
+                <b>Type:</b> Hazard {{ card.class }}
+            {% endif %}
+        {% elif card.type == 'Character' and card.alignment == 'Hero' %}
+            <b>Type:</b> Hero Character
+        {% elif card.type == 'Resource' and card.alignment == 'Hero' %}
+            {# make explicit case because of upper case E in "Event" #}
+            {% if card.class == 'Permanent-event' %}
+                <b>Type:</b> Resource Permanent-event
+            {% else %}
+                <b>Type:</b> {{ card.class }} (hero)
+            {% endif %}
+        {% elif card.type == 'Character' and card.alignment == 'Minion' %}
+            <b>Type:</b> Minion agent
+        {% elif card.type == 'Resource' and card.alignment == 'Minion' %}
+            {# make explicit case because of missing colon after "Type" #}
+            {% if card.class == 'Greater Item' %}
+                <b>Type</b> Greater Item (minion)
+            {% else %}
+                <b>Type:</b> {{ card.class }} (minion)
+            {% endif %}
         {% endif %}
         {% if card.mp is not none %}
             <br><b>MP:</b> {{ card.mp }}
@@ -39,7 +62,7 @@
             <br><b>DI:</b> {{ card.influence }}
         {% endif %}
         {% if card.race is not none %}
-            <br><b>Race:</b> {{ card.skills }}{{ ' ' }}{{ card.race }}
+            <br><b>Race:</b> {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}
         {% endif %}
         {% if card.prowess is not none %}
             <br><b>P/B:</b> {{ card.prowess }}/{{ card.body }}

@@ -31,7 +31,7 @@
         Mind: {{ card.mind }}<br>
         DI: {{ card.di }}<br>
         Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
-        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         {{ card.text }}
         Home Site: {{ card.home_site }}
     {% elif category == 'Hazard Creatures' %}
@@ -68,12 +68,19 @@
         {% if card.cp is not none %}
             CP: {{ card.cp }}<br>
         {% endif %}
-        {{ card.class }}<br>
+        {% if card.class == 'Faction' %}
+            {{ card.race }} Faction<br>
+        {% else %}
+            {{ card.class }}<br>
+        {% endif %}
         {{ card.text }}
     {% elif category == 'Minion Resources' %}
         Rarity: {{ card.rarity }}<br>
         {% if card.mp is not none %}
             MP: {{ card.mp }}<br>
+        {% endif %}
+        {% if card.prowess is not none %}
+            Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {% endif %}
         {% if card.cp is not none %}
             {% if card.name == 'Piercing All Shadows' %}
@@ -105,7 +112,11 @@
         {% if card.sp is not none %}
             SP: {{ card.sp }}<br>
         {% endif %}
-        {{ card.class }}<br>
+        {% if card.class == 'Faction' %}
+            {{ card.race }} Faction<br>
+        {% else %}
+            {{ card.class }}<br>
+        {% endif %}
         {{ card.text }}
     {% elif category == 'Stage Resources: Wizard Specific' %}
         {% if card._rarity_spelling_error %}
@@ -131,14 +142,18 @@
         {% if card.sp is not none %}
             SP: {{ card.sp }}<br>
         {% endif %}
-        {{ card.class }}<br>
+        {% if card.class == 'Ally' %}
+            {{ card.skills|join('/') }} Ally<br>
+        {% else %}
+            {{ card.class }}<br>
+        {% endif %}
         {{ card.text }}
     {% elif category == 'Fallen Wizards' %}
         Rarity: {{ card.rarity }}<br>
         GI: {{ card.gi }}<br>
         DI: {{ card.di }}<br>
         Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
-        {{ card.skills }}{{ ' ' }}{{ card.race }}<br>
+        {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         {{ card.text }}
     {% endif %}
 {% endfor %}

@@ -1,3 +1,6 @@
+from itertools import product
+
+
 def ctx(k, v):
     """
     Creates a context based on a variable reference and a value
@@ -7,6 +10,48 @@ def ctx(k, v):
     {'character': {'name': 'Ori'}}
     """
     return ctx(k.split('.')[0], ctx(k.split('.')[1], v)) if '.' in k else {k: v}
+
+
+def get(k, c):
+    """
+    Retrieves a values from a context based on a variable reference
+    >>> get('name', {'name': 'Ori'})
+    'Ori'
+    >>> get('character.name', {'character': {'name': 'Ori'}})
+    'Ori'
+    """
+    if '.' in k:
+        return get('.'.join(k.split('.')[1:]), c[k.split('.')[0]])
+    else:
+        return c[k]
+
+
+def rem(k, c):
+    """
+    Removes a values from a context based on a variable reference
+    >>> rem('name', {'name': 'Ori', 'text': 'Unique.'})
+    {'text': 'Unique.'}
+    >>> rem('character.name', {'character': {'name': 'Ori', 'text': 'Unique.'}})
+    {'character': {'text': 'Unique.'}}
+    """
+    if '.' in k:
+        return {l: rem('.'.join(k.split('.')[1:]), d) if l == k.split('.')[0] else d for l, d in c.items()}
+    else:
+        return {l: d for l, d in c.items() if l != k}
+
+
+def upd(k, f, c):
+    """
+    Updates a values from a context based on a variable reference
+    >>> upd('name', lambda v: v.upper(), {'name': 'Ori', 'text': 'Unique.'})
+    {'name': 'ORI', 'text': 'Unique.'}
+    >>> upd('character.name', lambda v: v.upper(), {'character': {'name': 'Ori', 'text': 'Unique.'}})
+    {'character': {'name': 'ORI', 'text': 'Unique.'}}
+    """
+    if '.' in k:
+        return {l: upd('.'.join(k.split('.')[1:]), f, d) if l == k.split('.')[0] else d for l, d in c.items()}
+    else:
+        return {l: f(v) if l == k else v for l, v in c.items()}
 
 
 def cmb(v, w):
@@ -30,15 +75,11 @@ def cmb(v, w):
     """
     if isinstance(v, dict) and isinstance(w, dict):
         return {
-            k: cmb(v.get(k), w.get(k))
+            k: v[k] if k not in w else w[k] if k not in v else cmb(v.get(k), w.get(k))
             for k in sorted(v.keys() | w.keys())
         }
     elif callable(v) and callable(w):
         return lambda x: v(x) and w(x)
-    elif v is None:
-        return w
-    elif w is None:
-        return v
     elif callable(v):
         return w
     elif callable(w):
@@ -62,8 +103,12 @@ def cmp(v, w):
     True
     >>> cmp({'character': {'name': 'Ori'}}, {'character': {'name': 'Dori'}})
     False
+    >>> cmp({'name': lambda x: x == 'Dori'}, {'name': lambda x: x != 'Ori'})
+    True
     """
-    if callable(v):
+    if callable(v) and callable(w):
+        return True
+    elif callable(v):
         return v(w)
     elif callable(w):
         return w(v)
@@ -118,6 +163,12 @@ def con(p, q):
     [{'x': True, 'y': False}, {'x': False, 'y': True}, {'x': False, 'y': False}]
     >>> list(con(var('x'), var('x'))(False))
     [{'x': False}]
+    >>> list(con(con(var('x'), var('y')), var('z'))(True))
+    [{'x': True, 'y': True, 'z': True}]
+    >>> list(con(con(var('x'), var('y')), var('z'))(False))  # doctest: +ELLIPSIS
+    [{'x': True, 'y': True, 'z': False}, ..., {'x': False, 'y': False, 'z': False}]
+    >>> len(list(con(con(var('x'), var('y')), var('z'))(False)))
+    7
     """
     return lambda s: (
         cmb(v, w)
@@ -127,7 +178,7 @@ def con(p, q):
             for u in [True, False]
             if (t and u) == s
         ]
-        for v, w in zip(p(t), q(u))
+        for v, w in product(p(t), q(u))
         if cmp(v, w)
     )
 
@@ -141,6 +192,12 @@ def dis(p, q):
     [{'x': False, 'y': False}]
     >>> list(dis(var('x'), var('x'))(True))
     [{'x': True}]
+    >>> list(dis(dis(var('x'), var('y')), var('z'))(True))  # doctest: +ELLIPSIS
+    [{'x': True, 'y': True, 'z': True}, ..., {'x': False, 'y': False, 'z': True}]
+    >>> len(list(dis(dis(var('x'), var('y')), var('z'))(True)))
+    7
+    >>> list(dis(dis(var('x'), var('y')), var('z'))(False))
+    [{'x': False, 'y': False, 'z': False}]
     """
     return lambda s: (
         cmb(v, w)
@@ -150,6 +207,6 @@ def dis(p, q):
             for u in [True, False]
             if (t or u) == s
         ]
-        for v, w in zip(p(t), q(u))
+        for v, w in product(p(t), q(u))
         if cmp(v, w)
     )

@@ -1,0 +1,8 @@
+F|Free-hold
+B|Border-hold
+R|r|Ruins & Lairs
+S|Shadow-hold
+D|Dark-hold
+H|h
+Wizardhaven
+DH

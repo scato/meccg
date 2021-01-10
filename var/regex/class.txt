@@ -1,0 +1,16 @@
+Agent
+Ally
+Creature
+Creature or Permanent-event
+Creature or Short-event
+Faction
+Gold Ring Item
+Greater Item
+Long-event
+Major Item
+Minor Item
+Permanent-event
+Permanent-event or Creature
+Permanent-event or Short-event
+Short-event
+Special Item

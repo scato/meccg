@@ -15,6 +15,40 @@
 {% for card in cards %}
     <h2>{{ card.name|replace('Dwarven', 'Dw.') }}</h2>
 
+    TYPE: {{ card.type }}<BR>
+    RARITY: {{ card.rarity }}<BR>
+    {% if card.type == 'Character' or card.type == 'Resource' or card.type == 'Hazard' %}
+        {% if card.class is not none %}
+            {% if card.class == 'Ally' %}
+                {% if card.skills == [] %}
+                    CLASS: Ally<BR>
+                {% else %}
+                    CLASS: {{ card.skills|join('/') }} Ally<BR>
+                {% endif %}
+            {% elif card.class == 'Faction' %}
+                CLASS: {{ card.race }} Faction<BR>
+            {% else %}
+                CLASS: {{ card.class|replace(' or ', '/') }}<BR>
+            {% endif %}
+        {% endif %}
+        {% if card.class != 'Faction' and card.race is not none %}
+            RACE: {{ card.race }}<BR>
+        {% endif %}
+        {% if card.class != 'Ally' and card.skills is not none %}
+            SKILLS: {{ card.skills|join('/') }}<BR>
+        {% endif %}
+    {% elif card.type == 'Region' %}
+        REGION TYPE: {{ card.region_type }}<BR>
+    {% elif card.type == 'Site' %}
+        {% if card.region == 'The Shire' %}
+            REGION: Shire<BR>
+        {% elif card.region == 'Woodland Realm' %}
+            REGION: Woodland Realms<BR>
+        {% else %}
+            REGION: {{ card.region }}<BR>
+        {% endif %}
+        SITE TYPE: {{ card.site_type }}<BR>
+    {% endif %}
     {% for line in card.text %}
         {{ line }}<BR>
     {% endfor %}

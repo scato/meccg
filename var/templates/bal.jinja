@@ -40,7 +40,7 @@
         TYPE: {{ card.type }}<BR>
         {% if card.type == 'Character' %}
             RACE: {{ card.race }}<BR>
-            SKILLS: {{ card.skills }}<BR>
+            SKILLS: {{ card.skills|join('/') }}<BR>
             HOME_SITE: {{ card.home_site }}<BR>
             MP: {{ card.mp }}<BR>
             MIND: {{ card.mind }}<BR>
@@ -71,9 +71,23 @@
             {% endfor %}
             {{ card.line_without_br }}
         {% elif card.type == 'Resource' %}
-            CLASS: {{ card.class }}<BR>
+            {% if card.class == 'Ally' %}
+                {% if card.skills == [] %}
+                    CLASS: Ally<BR>
+                {% else %}
+                    CLASS: {{ card.skills|join('/') }} Ally<BR>
+                {% endif %}
+            {% elif card.class == 'Faction' %}
+                CLASS: {{ card.race }} Faction<BR>
+            {% else %}
+                CLASS: {{ card.class }}<BR>
+            {% endif %}
             {% if card.mp is not none %}
-                MP: {{ card.mp }}<BR>
+                {% if card._mp_type is not none %}
+                    MP: {{ card.mp }}{{ ' ' }}{{ card._mp_type }}<BR>
+                {% else %}
+                    MP: {{ card.mp }}<BR>
+                {% endif %}
             {% endif %}
             {% if card.influence is not none %}
                 INFLUENCE: {{ card.influence }}<BR>
@@ -88,7 +102,7 @@
                 {{ line }}<BR>
             {% endfor %}
             {{ card.line_without_br }}
-        {% else %}
+        {% elif card.type == 'Site' %}
             REGION: {{ card.region }}<BR>
             SITE TYPE: {{ card.site_type }}<BR>
             {% if card.adjacent is not none %}
@@ -99,8 +113,8 @@
             {% endif %}
             DRAW: {{ card.you_draw }}/{{ card.opp_draw }}<BR>
             PLAYABLE: {{ card.playable }}<BR>
-            AUTO_ATTACK: {{ card.auto_attack }}{% if _auto_attack_br == 'yes' %}<BR>{% endif %}
-            SPECIAL: {{ card.special }}{% if _special_br == 'yes' %}<BR>{% endif %}
+            AUTO_ATTACK: {{ card.auto_attack }}{% if card._auto_attack_br == 'yes' %}<BR>{% endif %}
+            SPECIAL: {{ card.special }}{% if card._special_br == 'yes' %}<BR>{% endif %}
         {% endif %}
     {% endfor %}
 {% endif %}

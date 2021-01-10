@@ -1,0 +1,127 @@
+Branching
+=========
+
+This last part of the documentation is about branching: if-blocks!
+
+In its most basic form, you can use it to optionally match some text or HTML:
+
+>>> from meccg.unjinja import load_template
+>>> template = load_template('''
+...     <h2>{{ card.name }}</h2>
+...     {{ card.text }}
+...     {% if card._has_closing_br %}<br>{% endif %}
+... ''')
+>>> template('<h2>Ori</h2>Unique.')
+(True, {'card': {'_has_closing_br': False, 'name': 'Ori', 'text': 'Unique.'}})
+>>> template('<h2>Nori</h2>Unique.<br>')
+(True, {'card': {'_has_closing_br': True, 'name': 'Nori', 'text': 'Unique.'}})
+
+You can also use it to perform branching, like a real template:
+
+>>> template = load_template('''
+...     <h2>{{ card.name }}</h2>
+...     TYPE: {{ card.type }}<br>
+...     {% if card.type == 'Region' %}
+...         REGION TYPE: {{ card.region_type }}<br>
+...     {% else %}
+...         {{ card.text }}<br>
+...     {% endif %}
+... ''')
+>>> template('<h2>Anorien</h2>\nTYPE: Region<br>\nREGION TYPE: f<br>')
+(True, {'card': {'name': 'Anorien', 'region_type': 'f', 'type': 'Region'}})
+>>> template('<h2>Oin</h2>\nTYPE: Character<br>\nREGION TYPE: f<br>')
+(True, {'card': {'name': 'Oin', 'text': 'REGION TYPE: f', 'type': 'Character'}})
+
+In the first case, we set a value depending on which branch succeeds to parse the input. In the second case, we
+determine which branch to use for parsing depending on an existing value.
+
+Constraints
+-----------
+
+The parsing engine actually contains a tiny constraints engine as well. This works in the following way:
+
+ 1. Before trying to parse the first branch, the expression is used to generate a number of sets of constraints that
+    make the expression evaluate to True.
+ 2. For each of these sets of constraints, the parser first checks if this set is compatible with the current context
+    (the collection of template variables and their values - or constraints - produced by the parser so far).
+ 3. For each set of constraint that is compatible, the parser adds that set to the context and tries to continue
+    parsing the first branch. Note that the parser is lazy. It will not use a new set until the parse for the current
+    set fails and the parser needs to backtrack.
+
+The same is done for the second (else) branch, but instead making the expression evaluate to True, sets of constraints
+are generated that make the expression evaluate to False. If there is no else-branch, an else-branch is created that
+parses an empty string. If there are one or more elif-branches, then the if-block is rewritten so that it contains only
+if-branches and else-branches (i.e. elif-branches and else-branches are moved into a new else-branch, until the deepest
+else-branch does not contain any if-blocks anymore).
+
+Let's take a closer look at each of the steps. We'll use the following template:
+
+>>> template = load_template('''
+...     <h2>{{ card.name }}</h2>
+...     TYPE: {{ card.type }}<br>
+...     {% if card.type == 'Character' or card.type == 'Resource' or card.type == 'Hazard' %}
+...         {% if card.class is not none %}
+...             CLASS: {{ card.class }}<BR>
+...         {% endif %}
+...         {% if card.race is not none %}
+...             RACE: {{ card.race }}<BR>
+...         {% endif %}
+...         {% if card.skills is not none %}
+...             SKILLS: {{ card.skills }}<BR>
+...         {% endif %}
+...         {{ card.text }}<br>
+...     {% elif card.type == 'Region' %}
+...         REGION TYPE: {{ card.region_type }}<br>
+...     {% endif %}
+... ''')
+
+First, the expression is turned into the following sets of constraints:
+>>> from meccg import sat
+>>> expression = sat.dis(
+...     sat.dis(
+...         sat.eq('card.type', 'Character'),
+...         sat.eq('card.type', 'Resource')
+...     ),
+...     sat.eq('card.type', 'Hazard')
+... )
+>>> list(expression(True))
+[{'card': {'type': 'Character'}}, {'card': {'type': 'Resource'}}, {'card': {'type': 'Hazard'}}]
+
+In the following case, the first set matches the input:
+>>> template('<h2>Oin</h2>\nTYPE: Character<br>\nRACE: Dwarf<br>\nSKILLS: Warrior<br>\nUnique.<br>')
+(True, {'card': {'class': None, 'name': 'Oin', 'race': 'Dwarf', 'skills': 'Warrior', 'text': 'Unique.', 'type': 'Character'}})
+
+In another case, the second set will match the input:
+>>> template('<h2>Shadowfax</h2>\nTYPE: Resource<br>\nCLASS: Ally<br>\nUnique.<br>')
+(True, {'card': {'class': 'Ally', 'name': 'Shadowfax', 'race': None, 'skills': None, 'text': 'Unique.', 'type': 'Resource'}})
+
+When the input does not match any of the cases, constraints are generated for the negative case:
+>>> constraints = list(expression(False))
+>>> constraints  # doctest: +ELLIPSIS
+[{'card': {'type': <function ...>}}]
+
+Here, we have an example of a constraint that does not match a single value, but excludes certain values:
+>>> constraints[0]['card']['type']('Character')
+False
+>>> constraints[0]['card']['type']('Resource')
+False
+>>> constraints[0]['card']['type']('Hazard')
+False
+>>> constraints[0]['card']['type']('Region')
+True
+
+The elif-branch produces another set of constraints:
+>>> expression2 = sat.eq('card.type', 'Region')
+>>> constraints2 = list(expression2(True))
+>>> constraints2
+[{'card': {'type': 'Region'}}]
+
+These two sets of constraints are compatible, and result in the following new set:
+>>> sat.cmp(constraints[0], constraints2[0])
+True
+>>> sat.cmb(constraints[0], constraints2[0])
+{'card': {'type': 'Region'}}
+
+This means it will match the following input:
+>>> template('<h2>Anorien</h2>\nTYPE: Region<br>\nREGION TYPE: f<br>')
+(True, {'card': {'name': 'Anorien', 'region_type': 'f', 'type': 'Region'}})

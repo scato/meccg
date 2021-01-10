@@ -14,42 +14,146 @@
 
 <table>
 <tr align="left">
-<th>Name</th>{% for attribute_name in attribute_names %}<th>{{ attribute_name }}</th>{% endfor %}
+<th>Name</th>
+<th>Rarity</th>
+{% if category == 'Hazard Creatures' %}
+    <th>MPs</th>
+    <th>P/B</th>
+    <th>Card Type</th>
+{% elif category == 'Hazard Events' %}
+    <th>MPs</th>
+    <th>Event Type</th>
+{% elif category == 'Hero Resources' %}
+    <th>MPs</th>
+    <th>CPs</th>
+    <th>Card Type</th>
+{% elif category == 'Hero sites' %}
+    <th>Site Type</th>
+    <th>Opp. Draws</th>
+    <th>You Draw</th>
+    <th>Region</th>
+{% elif category == 'Minion Allies' %}
+    <th>MPs</th>
+    <th>P/B</th>
+    <th>Mind</th>
+    <th>Ally Type</th>
+{% elif category == 'Minion Resource Events' %}
+    <th>MPs</th>
+    <th>Event Type</th>
+{% elif category == 'Minion Factions' %}
+    <th>MPs</th>
+    <th>Faction Type</th>
+{% elif category == 'Minion Items' %}
+    <th>MPs</th>
+    <th>CPs</th>
+    <th>Item Type</th>
+{% elif category == 'Minions' %}
+    <th>MPs</th>
+    <th>Mind</th>
+    <th>DI</th>
+    <th>P/B</th>
+    <th>Skills & Race</th>
+{% elif category == 'Minion Sites' %}
+    <th>Site Type</th>
+    <th>Opp. Draws</th>
+    <th>You Draw</th>
+    <th>Region</th>
+{% endif %}
 </tr>
 {% for card in cards %}
-    <tr{% if _align == 'left' %} align="left"{% endif %}>
-    {% if _anchor == True %}
-        <td><b>{{ card.name }}</b></a></td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
-    {% elif _bold == True %}
-        <td><b>{{ card.name }}</b></td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
+    <tr{% if card._align_left %} align="left"{% endif %}>
+    {% if card._anchor %}
+        {% if card._bold %}
+            <td><b>{{ card.name }}</b></a></td>
+        {% else %}
+            <td><b>{{ card.name }}</b></td>
+        {% endif %}
     {% else %}
-        <td>{{ card.name }}</td>{% for attribute in card.attributes %}<td>{{ attribute }}</td>{% endfor %}
+        <td>{{ card.name }}</td>
+    {% endif %}
+    <td>{{ card.rarity }}</td>
+    {% if category == 'Hazard Creatures' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.prowess }}/{{ card.body }}</td>
+        <td>{{ card.class }}</td>
+    {% elif category == 'Hazard Events' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.class }}</td>
+    {% elif category == 'Hero Resources' %}
+        <td>{{ card.mp }}</td>
+        {% if card.cp is not none %}
+            <td>{{ card.cp }}</td>
+        {% endif %}
+        {% if card.class == 'Faction' %}
+            <td>{{ card.race }} Faction</td>
+        {% else %}
+            <td>{{ card.class }}</td>
+        {% endif %}
+    {% elif category == 'Hero sites' %}
+        <td>{{ card.site_type }}</td>
+        <td>{{ card.opp_draws }}</td>
+        <td>{{ card.you_draw }}</td>
+        <td>{{ card.region }}</td>
+    {% elif category == 'Minion Allies' %}
+        <td>{{ card.mp }}</td>
+        {% if card.prowess is not none and card.body is not none %}
+            <td>{{ card.prowess }}/{{ card.body }}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+        <td>{{ card.mind }}</td>
+        {% if card.skills is not none %}
+            <td>{{ card.skills|join('/') }}{{ ' ' }}{{ card.class }}</td>
+        {% else %}
+            <td>{{ card.class }}</td>
+        {% endif %}
+    {% elif category == 'Minion Resource Events' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.class }}</td>
+    {% elif category == 'Minion Factions' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.race }}{{ ' ' }}{{ card.class }}</td>
+    {% elif category == 'Minion Items' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.cp }}</td>
+        <td>{{ card.class }}</td>
+    {% elif category == 'Minions' %}
+        <td>{{ card.mp }}</td>
+        <td>{{ card.mind }}</td>
+        <td>{{ card.di }}</td>
+        <td>{{ card.prowess }}/{{ card.body }}</td>
+        <td>{{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}</td>
+    {% elif category == 'Minion Sites' %}
+        <td>{{ card.site_type }}</td>
+        <td>{{ card.opp_draws }}</td>
+        <td>{{ card.you_draw }}</td>
+        <td>{{ card.region }}</td>
     {% endif %}
     </tr>
     <tr>
     <td colspan={{ card._colspan }}>
-    {% if card.type == 'site' %}
+    {% if category == 'Hero sites' or category == 'Minion Sites' %}
         {{ card.site_path }}<br>
-        {% if card.alignment == 'hero' %}
+        {% if card.alignment == 'Hero' %}
             Nearest Haven: {{ card.nearest_haven }}<br>
-        {% elif card.alignment == 'minion' %}
+        {% elif card.alignment == 'Minion' %}
             Nearest Darkhaven: {{ card.nearest_haven }}<br>
         {% endif %}
         Playable: {{ card.playable }}<br>
         {% if card.special is not none %}
-            Automatic-attacks{{ _num_auto_attacks }}: {{ card.auto_attacks }}<br>
+            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}<br>
             Special: {{ card.special }}
         {% else %}
-            Automatic-attacks{{ _num_auto_attacks }}: {{ card.auto_attacks }}
+            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}
         {% endif %}
     {% else %}
         {% if card.playable is not none %}
             Playable: {{ card.playable }}
             <p>
         {% endif %}
-        {% if card.errata == 'yes' %}
+        {% if card.errata %}
             [The following text reflects official errata]<br>
-        {% elif card.errata == 'yes.' %}
+        {% elif card.errata_with_period %}
             [The following text reflects official errata.]<br>
         {% endif %}
         {% if card.home_site is not none %}

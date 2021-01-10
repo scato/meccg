@@ -1,0 +1,7 @@
+[A-ZÔÛ][\-a-záâäéëíîóôúû]*('s|'|'ll|,|!)?(( |-)[A-Za-zÔÛ][\-a-záâäéëíîóôúû]*('s|'ve|'t|’s|,|!|\?)?)*( II)?
+[\-A-Z\-a-zÔÛáâäéëíîóôúû]+ \([\-A-Z\-a-zÔÛáâäéëíîóôúû]+\)
+"Two-headed" Troll
+Webs of Fear & Treachery
+Wold & Foothills
+FEAR! FIRE! FOES!
+Kill All But NOT the Halflings

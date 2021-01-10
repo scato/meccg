@@ -1,3 +1,5 @@
+import yaml
+
 from lib.meccg.scraping import load_html
 from lib.meccg.jsonl import dump_jsonl
 from lib.meccg.unjinja import untemplate
@@ -7,6 +9,9 @@ if __name__ == '__main__':
     template_whitelist = ('wiz.jinja',)
     file_blacklist = ('atscreatnew.html', 'empty.html', 'german.html')
     two_letter_template_names = ('dm', 'le', 'wh')
+
+    with open('sets.yaml') as fp:
+        sets = yaml.load(fp, Loader=yaml.SafeLoader)
 
     load_html('http://meccg.net/netherlands/meccg/spoilers/')
     index = untemplate('var/templates/index.jinja', 'var/html/index.html')
@@ -39,14 +44,20 @@ if __name__ == '__main__':
             f'var/templates/{template_name}',
             f'var/html/{file_name}',
             encoding=encoding,
-            max_tries=100_000
+            # max_tries=1_000_000
         )
 
         if 'cards' in spoiler:
+            def extra(card):
+                if 'race' in card and card['race'] in sets[spoiler['set']][spoiler['category']]:
+                    return sets[spoiler['set']][spoiler['category']][card['race']]
+                else:
+                    return sets[spoiler['set']][spoiler['category']]
             # TODO: check op callable weghalen, template moet eenduidig zijn!
             cards = [
                 {
                     **{k: v for k, v in spoiler.items() if k != 'cards' and not callable(v)},
+                    **{k: v for k, v in extra(card).items()},
                     **{k: v for k, v in card.items() if not k.startswith('_') and not callable(v)},
                 }
                 for card in spoiler['cards']
@@ -56,6 +67,7 @@ if __name__ == '__main__':
                 {
                     **{k: v for k, v in spoiler.items() if k != 'sets' and not callable(v)},
                     **{k: v for k, v in set.items() if k != 'cards' and not callable(v)},
+                    **{k: v for k, v in sets[set['set']][spoiler['category']].items()},
                     **{k: v for k, v in card.items() if not k.startswith('_') and not callable(v)},
                 }
                 for set in spoiler['sets']

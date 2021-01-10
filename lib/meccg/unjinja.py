@@ -1,11 +1,9 @@
 from functools import reduce
-from html import unescape
 
 from jinja2 import Environment
 from jinja2.nodes import Name, Getattr, Not, Test, If, Compare, Const, Or, And
 from jinja2.visitor import NodeVisitor
 
-import lib.meccg.parsing as parsing
 import lib.meccg.sat as sat
 import lib.meccg.untemplating as untemplating
 
@@ -24,10 +22,10 @@ class UntemplateVisitor(NodeVisitor):
         return self.visit(node.nodes)
 
     def visit_TemplateData(self, node):
-        return untemplating.lit(node.data)
+        return untemplating.html(node.data)
 
     def visit_Const(self, node):
-        return untemplating.vrb(node.value)
+        return untemplating.lit(node.value)
 
     def _node_to_identifier(self, node):
         if isinstance(node, Name):
@@ -38,22 +36,24 @@ class UntemplateVisitor(NodeVisitor):
             raise Exception(f'Node of type {type(node)} not supported')
 
     def visit_Name(self, node):
-        return untemplating.var(self._node_to_identifier(node))
+        return untemplating.esc(self._node_to_identifier(node))
 
     def visit_Getattr(self, node):
-        return untemplating.var(self._node_to_identifier(node))
+        return untemplating.esc(self._node_to_identifier(node))
 
     def visit_Filter(self, node):
         if node.name == 'safe':
             return untemplating.safe(self._node_to_identifier(node.node))
         elif node.name == 'replace':
-            if isinstance(node.args[0], Const) and isinstance(node.args[1], Const):
-                return untemplating.flt(
-                    lambda x: unescape(x).replace(node.args[1].value, node.args[0].value),
-                    self._node_to_identifier(node.node)
-                )
-            else:
-                raise Exception(f'Replace with arguments {type(node.args[0])} and {type(node.args[1])} not supported')
+            return untemplating.flt(
+                lambda x: x.replace(node.args[1].as_const(), node.args[0].as_const()),
+                self._node_to_identifier(node.node)
+            )
+        elif node.name == 'join':
+            return untemplating.flt(
+                lambda x: x.split(node.args[0].as_const()),
+                self._node_to_identifier(node.node)
+            )
         else:
             raise Exception(f'Filter {node.name} not supported')
 
@@ -91,10 +91,12 @@ class UntemplateVisitor(NodeVisitor):
             else:
                 raise Exception(f'Test {node.name} not supported')
         elif isinstance(node, Compare):
-            if node.ops[0].op == 'eq' and isinstance(node.ops[0].expr, Const):
-                return sat.eq(self._node_to_identifier(node.expr), node.ops[0].expr.value)
+            if node.ops[0].op == 'eq':
+                return sat.eq(self._node_to_identifier(node.expr), node.ops[0].expr.as_const())
+            elif node.ops[0].op == 'ne':
+                return sat.neg(sat.eq(self._node_to_identifier(node.expr), node.ops[0].expr.as_const()))
             else:
-                raise Exception(f'Compare {node.ops[0].op} with {type(node.ops[0].expr)} not supported')
+                raise Exception(f'Compare {node.ops[0].op}')
         elif isinstance(node, Name):
             return sat.var(self._node_to_identifier(node))
         elif isinstance(node, Getattr):
@@ -175,7 +177,7 @@ def load_template(template_string, name=None, filename=None, max_tries=None):
 
 
 def untemplate(template_filename, source_filename, encoding=None, max_tries=None):
-    with open(template_filename) as fp:
+    with open(template_filename, encoding='UTF-8') as fp:
         p = load_template(''.join(fp), filename=template_filename, max_tries=max_tries)
 
     with open(source_filename, encoding=encoding) as fp:

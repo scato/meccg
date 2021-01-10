@@ -1,0 +1,7 @@
+Balrog
+Fallen-wizard
+Hero
+Minion
+Ringwraith
+Stage
+Wizard

@@ -1,0 +1,172 @@
+Against the Shadow:
+  Hazard Creatures:
+    type: Hazard
+    alignment: ~
+  Hazard Events:
+    type: Hazard
+    alignment: ~
+  Hero Resources:
+    type: Resource
+    alignment: Hero
+  Hero sites:
+    type: Site
+    alignment: Hero
+  Minion Allies:
+    type: Resource
+    alignment: Minion
+  Minion Resource Events:
+    type: Resource
+    alignment: Minion
+  Minion Factions:
+    type: Resource
+    alignment: Minion
+  Minion Items:
+    type: Resource
+    alignment: Minion
+  Minions:
+    type: Character
+    alignment: Minion
+  Minion Sites:
+    type: Site
+    alignment: Minion
+The Balrog:
+  Character cards:
+    Balrog:
+      alignment: Balrog
+    Orc:
+      alignment: Minion
+    Troll:
+      alignment: Minion
+  Hazard cards:
+    alignment: ~
+  Heroes:
+    type: Hazard
+    alignment: ~
+  Hero Resource cards:
+    alignment: Hero
+  Minion Resource cards:
+    alignment: Minion
+  Balrog specific Resource cards:
+    alignment: Minion
+  Site cards:
+    alignment: Balrog
+Dark Minions:
+  Non-minion Agents:
+    class: Agent
+    alignment: ~
+  Allies:
+    alignment: Hero
+  Characters: {}
+  Hazard Creatures:
+    alignment: ~
+  Hazard Events:
+    alignment: ~
+  Items:
+    alignment: Hero
+  Minion Agents: {}
+  Resource Events:
+    alignment: Hero
+  Sites:
+    alignment: Hero
+  Promo Cards: {}
+The Dragons:
+  Ally cards:
+    alignment: Hero
+  Character cards:
+    alignment: Hero
+  Faction cards:
+    alignment: Hero
+  Hazard Creature cards:
+    alignment: ~
+  Hazard Event cards:
+    alignment: ~
+  Item cards:
+    alignment: Hero
+  Resource Event cards:
+    alignment: Hero
+  Site cards:
+    alignment: Hero
+  Promo Cards: {}
+The Lidless Eye:
+  Allies:
+    type: Resource
+    alignment: Minion
+  Hazard Creatures:
+    type: Hazard
+    alignment: ~
+    class: Creature
+  factions:
+    type: Resource
+    alignment: Minion
+  Hazard Events:
+    type: Hazard
+    alignment: ~
+  Items:
+    type: Resource
+    alignment: Minion
+  Minion Resource Events:
+    type: Resource
+    alignment: Minion
+  Minions:
+    type: Character
+    alignment: Minion
+  Ringwraiths:
+    type: Character
+    alignment: Ringwraith
+  Sites:
+    type: Site
+    alignment: Minion
+  Promo Cards: {}
+The Wizards (Limited):
+  Promo Cards: {}
+The Wizards (Unlimited):
+  Promo Cards: {}
+The White Hand:
+  Characters:
+    type: Character
+    alignment: Minion
+  Hazard Creatures:
+    type: Hazard
+    alignment: ~
+  Hazard Events:
+    type: Hazard
+    alignment: ~
+  Hero Resources:
+    type: Resource
+    alignment: Hero
+  Minion Resources:
+    type: Resource
+    alignment: Minion
+  Sites:
+    type: Site
+    alignment: Fallen-wizard
+  "Stage Resources: General":
+    type: Resource
+    alignment: Stage
+  "Stage Resources: Wizard Specific":
+    type: Resource
+    alignment: Stage
+  Fallen Wizards:
+    type: Character
+    alignment: Fallen-wizard
+The Wizards:
+  Ally cards:
+    alignment: Hero
+  Wizard cards:
+    alignment: Wizard
+  Character cards:
+    alignment: Hero
+  Faction cards:
+    alignment: Hero
+  Hazard Creature cards:
+    alignment: ~
+  Hazard Events cards:
+    alignment: ~
+  Item cards:
+    alignment: Hero
+  Region cards:
+    alignment: ~
+  Resource cards:
+    alignment: Hero
+  Site cards:
+    alignment: Hero

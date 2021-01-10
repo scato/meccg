@@ -1,0 +1,106 @@
+Lists
+=====
+
+Next up are lists. Jinja2 has for-loops, which we can use to match lists of cards. The parser matches zero or more
+iterations of the body of the loop, and returns all the matches in a list.
+
+>>> from meccg.unjinja import load_template
+>>> template = load_template('''
+...     {% for card in cards %}
+...         <h2>{{ card.name }}</h2>
+...         {{ card.text }}<br>
+...     {% endfor %}
+... ''')
+>>> template('<h2>Ori</h2>Unique.<br><h2>Nori</h2>Unique.<br>')
+(True, {'cards': [{'name': 'Ori', 'text': 'Unique.'}, {'name': 'Nori', 'text': 'Unique.'}]})
+
+Consistency
+-----------
+
+Variables used inside the loop have to be consist with variables outside of the loop.
+
+For example, if we are parsing tables with a colspan in both the header and the body, and we match them to a variable,
+this will only work if the colspan is equal everywhere:
+>>> template = load_template('''
+...     <table>
+...         <tr>
+...             <th>Name</th>
+...             <th>Skills & Race</th>
+...         </tr>
+...         <tr colspan="{{ colspan }}">
+...             <th>Text</th>
+...         </tr>
+...         {% for card in cards %}
+...             <tr>
+...                 <th>{{ card.name }}</th>
+...                 <th>{{ card.skills }}{{ ' ' }}{{ card.race }}</th>
+...             </tr>
+...             <tr colspan="{{ colspan }}">
+...                 <th>{{ card.text }}</th>
+...             </tr>
+...         {% endfor %}
+...     </table>
+... ''')
+>>> template('''
+...     <table>
+...         <tr><th>Name</th><th>Skills & Race</th></tr>
+...         <tr colspan="2"><th>Text</th></tr>
+...         <tr><th>Ori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="2"><th>Unique.</th></tr>
+...     </table>
+... ''')
+(True, {'cards': [{'name': 'Ori', 'race': 'Dwarf', 'skills': 'Warrior', 'text': 'Unique.'}], 'colspan': '2'})
+
+Otherwise, you get an error:
+>>> template('''
+...     <table>
+...         <tr><th>Name</th><th>Skills & Race</th></tr>
+...         <tr colspan="2"><th>Text</th></tr>
+...         <tr><th>Ori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="3"><th>Unique.</th></tr>
+...     </table>
+... ''')
+(False, "Expected '2' at 6:22")
+
+This also holds for variables that are used only inside the loop.
+
+If the same value is used, it's fine:
+>>> template = load_template('''
+...     <table>
+...         <tr>
+...             <th>Name</th>
+...             <th>Skills & Race</th>
+...         </tr>
+...         {% for card in cards %}
+...             <tr>
+...                 <th>{{ card.name }}</th>
+...                 <th>{{ card.skills }}{{ ' ' }}{{ card.race }}</th>
+...             </tr>
+...             <tr colspan="{{ colspan }}">
+...                 <th>{{ card.text }}</th>
+...             </tr>
+...         {% endfor %}
+...     </table>
+... ''')
+>>> template('''
+...     <table>
+...         <tr><th>Name</th><th>Skills & Race</th></tr>
+...         <tr><th>Ori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="2"><th>Unique.</th></tr>
+...         <tr><th>Nori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="2"><th>Unique.</th></tr>
+...     </table>
+... ''')
+(True, {'cards': [{'name': 'Ori', 'race': 'Dwarf', 'skills': 'Warrior', 'text': 'Unique.'}, {'name': 'Nori', 'race': 'Dwarf', 'skills': 'Warrior', 'text': 'Unique.'}], 'colspan': '2'})
+
+If two different values are used, it fails:
+>>> template('''
+...     <table>
+...         <tr><th>Name</th><th>Skills & Race</th></tr>
+...         <tr><th>Ori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="2"><th>Unique.</th></tr>
+...         <tr><th>Nori</th><th>Warrior Dwarf</th></tr>
+...         <tr colspan="3"><th>Unique.</th></tr>
+...     </table>
+... ''')
+(False, "Expected '2' at 7:22")

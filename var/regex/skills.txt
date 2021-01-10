@@ -1,0 +1,5 @@
+Warrior
+Scout
+Ranger
+Sage
+Diplomat
