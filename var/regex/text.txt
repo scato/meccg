@@ -1,0 +1,50 @@
+Unique\.
+Balrog specific\.
+Uruk-hai\.
+Olog-hai\.
+Half-troll\.
+Leader\.
+Agent\.
+Manifestation of ".+\."
+Manifestation of .+\.
+Can use .+\.
+May tap to use a Palantír he bears\.
+Healing cards affect all characters in her company\.
+May not be included with a starting company\.
+He may not be one of the starting characters\.
+He may only be brought into play at his home site\.
+Unless he is one of the starting characters, he may only be brought into play at his home site\.
+May be played on the same turn .+ and/or .+ is played\.
+May not move to any site other than .+\.
+May take an extra agent action \(not counting against the hazard limit\) each time he normally takes an agent action\.
+Discard on a body check result of [0-9]( or [0-9])?\.
+Discard all other manifestations of .+ when this card comes into play\.
+You may discard .+ at a Haven to play any Hobbit from your hand with his company\.
+\+[1-9] prowess against .+\.
+[+-][1-9] prowess in .+ mode\.
+\+[1-9] direct (influence|inlfuence) against .+\.
+Additionally, \+[1-9] direct (influence|inlfuence) against .+\.
+[+-][1-9] direct influence in .+ mode\.
+\+[1-9] to the roll for his company to move between adjacent Under-deeps sites\.
+The Balrog's prowess is only modified by -1 when not tapping to face a strike\.
+All of his corruption checks are modified by \+[1-9]\.
+\-[1-9] to all corruption checks\.
+\-[1-9] to the body of any .+ character targeted by a strike from .+.
+Tap .+ to untap .+ if at the same site\.
+If .+ is in his company, .+'s mind is reduced by one\.
+He may not have any followers and may not use region or starter movement\.
+If he attacks successfully against a company with a ring, he and a ring \(attacker's choice\) are discarded.
+If .+ attacks and fails but is not defeated, the defender may tap a character in the target company to play .+ \(.+ is discarded\)\.
+Any player whose character eliminates .+ receives \-[0-9] kill MPs\.
+May tap at the end of his company's movement/hazard phase to allow it to move to an additional site on the same turn\.
+Another site card may be played and another movement/hazard phase immediately follows for his company\.
+The new site path must contain at least one Wilderness\.
+May tap to cancel a detainment attack against his company\.
+When he is at .+, you may keep one more card than normal in your hand\.
+Tap during your organization phase to move one resource or character from your discard pile to your play deck and reshuffle\.
+Return .+ to your hand when .+ is played; you may automatically transfer one item he bears to a character in the same company \(discard the rest\)\.
+He may join another Ringwraith's company during your organization phase and requires no influence to control\.
+Agent only: .+\.
+As your Ringwraith, .+\.
+You may bring this follower into play during your organization phase\.
+You may bring these followers into play during separate organization phases\.

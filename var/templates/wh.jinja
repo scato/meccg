@@ -33,7 +33,7 @@
         Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         {{ card.text }}
-        Home Site: {{ card.home_site }}
+        Home Site: {{ card.home_site|join(', ') }}
     {% elif category == 'Hazard Creatures' %}
         Rarity: {{ card.rarity }}
         MP: {{ card.mp }}<br>
@@ -155,6 +155,7 @@
         Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         {{ card.text }}
+        Home Site: {{ card.home_site|join(', ') }}
     {% endif %}
 {% endfor %}
 

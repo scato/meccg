@@ -41,16 +41,16 @@
         {% if card.type == 'Character' %}
             RACE: {{ card.race }}<BR>
             SKILLS: {{ card.skills|join('/') }}<BR>
-            HOME_SITE: {{ card.home_site }}<BR>
+            HOME_SITE: {{ card.home_site|join(', ') }}{% if card._period_after_home_site %}.{% endif %}<BR>
             MP: {{ card.mp }}<BR>
             MIND: {{ card.mind }}<BR>
-            INFLUENCE: {{ card.influence }}<BR>
+            INFLUENCE: {{ card.di }}<BR>
             PROWESS: {{ card.prowess }}<BR>
             BODY: {{ card.body }}<BR>
-            {% if card.corrupt is not none %}
-                CORRUPT: {{ card.corrupt }}<BR>
+            {% if category == 'Hero Resource cards' %}
+                CORRUPT: {{ card.cp }}<BR>
             {% else %}
-                CORRUPTION: {{ card.corruption }}<BR>
+                CORRUPTION: {{ card.cp }}<BR>
             {% endif %}
             {% for line in card.text %}
                 {{ line }}<BR>
@@ -89,14 +89,14 @@
                     MP: {{ card.mp }}<BR>
                 {% endif %}
             {% endif %}
-            {% if card.influence is not none %}
-                INFLUENCE: {{ card.influence }}<BR>
+            {% if card.di is not none %}
+                INFLUENCE: {{ card.di }}<BR>
             {% endif %}
             {% if card.prowess is not none %}
                 PROWESS: {{ card.prowess }}<BR>
             {% endif %}
-            {% if card.corrupt is not none %}
-                CORRUPT: {{ card.corrupt }}<BR>
+            {% if card.cp is not none %}
+                CORRUPT: {{ card.cp }}<BR>
             {% endif %}
             {% for line in card.text %}
                 {{ line }}<BR>

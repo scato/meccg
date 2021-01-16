@@ -17,7 +17,17 @@
 
     TYPE: {{ card.type }}<BR>
     RARITY: {{ card.rarity }}<BR>
-    {% if card.type == 'Character' or card.type == 'Resource' or card.type == 'Hazard' %}
+    {% if card.type == 'Character' %}
+        RACE: {{ card.race }}<BR>
+        SKILLS: {{ card.skills|join('/') }}<BR>
+        HOME_SITE: {{ card.home_site|join(', ') }}<BR>
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.di }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPTION: {{ card.cp }}<BR>
+    {% elif card.type == 'Resource' or card.type == 'Hazard' %}
         {% if card.class is not none %}
             {% if card.class == 'Ally' %}
                 {% if card.skills == [] %}
@@ -30,12 +40,6 @@
             {% else %}
                 CLASS: {{ card.class|replace(' or ', '/') }}<BR>
             {% endif %}
-        {% endif %}
-        {% if card.class != 'Faction' and card.race is not none %}
-            RACE: {{ card.race }}<BR>
-        {% endif %}
-        {% if card.class != 'Ally' and card.skills is not none %}
-            SKILLS: {{ card.skills|join('/') }}<BR>
         {% endif %}
     {% elif card.type == 'Region' %}
         REGION TYPE: {{ card.region_type }}<BR>

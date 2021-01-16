@@ -26,20 +26,20 @@
         {% endif %}
         MP: {{ card.mp }}<BR>
         MIND: {{ card.mind }}<BR>
-        INFLUENCE: {{ card.influence }}<BR>
+        INFLUENCE: {{ card.di }}<BR>
         PROWESS: {{ card.prowess }}<BR>
         BODY: {{ card.body }}<BR>
-        CORRUPT: {{ card.corrupt }}<BR>
+        CORRUPT: {{ card.cp }}<BR>
     {% elif card.type == 'Character' %}
         RACE: {{ card.race }}<BR>
         SKILLS: {{ card.skills|join('/') }}<BR>
-        HOME_SITE: {{ card.home_site }}<BR>
+        HOME_SITE: {{ card.home_site|join(', ') }}<BR>
         MP: {{ card.mp }}<BR>
         MIND: {{ card.mind }}<BR>
-        INFLUENCE: {{ card.influence }}<BR>
+        INFLUENCE: {{ card.di }}<BR>
         PROWESS: {{ card.prowess }}<BR>
         BODY: {{ card.body }}<BR>
-        CORRUPTION: {{ card.corruption }}<BR>
+        CORRUPTION: {{ card.cp }}<BR>
     {% elif card.type == 'Hazard' %}
         CLASS: {{ card.class|replace(' or ', '/') }}<BR>
         SUBCLASS: {{ card.subclass }}<BR>
@@ -48,8 +48,8 @@
         STRIKES: {{ card.strikes }}<BR>
         PROWESS: {{ card.prowess }}<BR>
         BODY: {{ card.body }}<BR>
-        CORRUPTION: {{ card.corruption }}<BR>
-    {% else %}
+        CORRUPTION: {{ card.cp }}<BR>
+    {% elif card.type == 'Site' %}
         REGION: {{ card.region }}<BR>
         SITE TYPE: {{ card.site_type }}<BR>
         SITE_PATH: {{ card.site_path }}<BR>

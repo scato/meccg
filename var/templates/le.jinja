@@ -177,11 +177,11 @@
                 <TD>{{ card.mp }}</TD>
             {% endif %}
             <TD>{{ card.mind }}</TD>
-            <TD>{{ card.influence }}</TD>
+            <TD>{{ card.di }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
             <TD>{{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}</TD>
         {% elif category == 'Ringwraiths' %}
-            <TD>{{ card.influence }}</TD>
+            <TD>{{ card.di }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
             <TD>{{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}</TD>
         {% endif %}
@@ -189,6 +189,9 @@
         <TR>
         <TD COLSPAN="{{ card._colspan }}">
         {{ card.text }}
+        {% if card.type == 'Character' %}
+            Home Site: {{ card.home_site|join(', ') }}
+        {% endif %}
         {% if card._closing_p %}
             <P>
         {% endif %}

@@ -34,8 +34,8 @@
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} kill MP;
             {{ card.mind }} mind;
-            {{ card.influence }} direct influence;
-            {{ card.corruption }} corruption mod;
+            {{ card.di }} direct influence;
+            {{ card.cp }} corruption mod;
             Home Site: {{ card.home_site }}
         ]
     {% elif category == 'Allies' %}
@@ -56,8 +56,8 @@
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} character MP;
             {{ card.mind }} mind;
-            {{ card.influence }} direct influence;
-            {{ card.corruption }} corruption mod;
+            {{ card.di }} direct influence;
+            {{ card.cp }} corruption mod;
             Home Site: {{ card.home_site }}
         ]
     {% elif category == 'Hazard Creatures' %}
@@ -85,7 +85,7 @@
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} character/kill MP;
             {{ card.mind }} mind;
-            {{ card.influence }} direct influence;
+            {{ card.di }} direct influence;
             Home Site: {{ card.home_site }}
         ]
     {% elif category == 'Resource Events' %}

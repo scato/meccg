@@ -58,8 +58,8 @@
         {% if card.mind is not none %}
             <br><b>Mind:</b> {{ card.mind }}
         {% endif %}
-        {% if card.influence is not none %}
-            <br><b>DI:</b> {{ card.influence }}
+        {% if card.di is not none %}
+            <br><b>DI:</b> {{ card.di }}
         {% endif %}
         {% if card.race is not none %}
             <br><b>Race:</b> {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}
@@ -72,7 +72,7 @@
             <br><b>CP:</b> {{ card.cp }}
         {% endif %}
         {% if card.home_site is not none %}
-            <br><b>Home Site:</b> {{ card.home_site }}
+            <br><b>Home Site:</b> {{ card.home_site|join(', ') }}
         {% endif %}
         {% if card._trailing_br %}
             <br>

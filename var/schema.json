@@ -1,0 +1,108 @@
+{
+  "$ref": "#/definitions/card",
+  "definitions": {
+    "card": {
+      "anyOf": [
+        { "$ref": "#/definitions/character"},
+        { "$ref": "#/definitions/resource"},
+        { "$ref": "#/definitions/hazard"},
+        { "$ref": "#/definitions/site"},
+        { "$ref": "#/definitions/region"}
+      ]
+    },
+    "base": {
+      "type": "object",
+      "properties": {
+        "set": {"type": "string"},
+        "type": {"enum": ["Character", "Resource", "Hazard", "Site", "Region"]},
+        "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Stage", "Fallen-wizard", "Wizard", null]},
+        "name": {"type": "string", "minLength": 1}
+      },
+      "required": ["set", "type", "alignment", "name"]
+    },
+    "character": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Character"},
+            "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Fallen-wizard", "Wizard"]},
+            "mp": {"type": "string"},
+            "mind": {"type": ["string", "null"], "minLength": 1},
+            "gi": {"type": ["string", "null"], "minLength": 1},
+            "di": {"type": "string", "minLength": 1},
+            "skills": {
+              "type": "array",
+              "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]},
+              "minItems": 1
+            },
+            "race": {"type": "string", "minLength": 1},
+            "prowess": {"type": "string", "minLength": 1},
+            "body": {"type": "string", "minLength": 1},
+            "home_site": {
+              "type": "array",
+              "items": {"type": "string", "minLength": 1},
+              "minItems": 1
+            },
+            "cp": {"type": ["string", "null"], "minLength": 1},
+            "text": {
+              "type": "array",
+              "items": {"type": "string", "minLength": 1},
+              "minItems": 1
+            }
+          },
+          "required": ["mp", "mind", "gi", "di", "skills", "race", "prowess", "body", "home_site", "cp", "text"]
+        }
+      ]
+    },
+    "resource": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Resource"},
+            "alignment": {"enum": ["Hero", "Minion", "Stage"]}
+          }
+        }
+      ]
+    },
+    "hazard": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Hazard"},
+            "alignment": {"const": null}
+          }
+        }
+      ]
+    },
+    "site": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Site"},
+            "alignment": {"enum": ["Hero", "Minion", "Balrog", "Fallen-wizard"]}
+          }
+        }
+      ]
+    },
+    "region": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Region"},
+            "alignment": {"const": null}
+          }
+        }
+      ]
+    }
+  }
+}
