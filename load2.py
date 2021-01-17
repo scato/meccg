@@ -1,6 +1,7 @@
 import re
 
 import yaml
+from bs4 import BeautifulSoup
 
 from lib.meccg.scraping import load_html
 from lib.meccg.jsonl import dump_jsonl
@@ -36,7 +37,7 @@ def dump_all(template_whitelist=None):
             continue
 
         if file_name in ('lecreatures.html', 'lefactions.html', 'leitems.html', 'lemevents.html', 'leminions.html',
-                         'leringwraith.html'):
+                         'leringwraith.html', 'whwiz.html'):
             encoding = 'mac_roman'
 
         print(f'loading {file_name} using {template_name}')
@@ -94,6 +95,25 @@ def dump_all(template_whitelist=None):
             if card['name'] == 'The White Hand':
                 card['body'] = '-'
 
+            if card['category'] == 'Promo Cards':
+                card['text'] = BeautifulSoup(card['text'], "html.parser").get_text()
+
+            if card['set'] == 'The Balrog':
+                if 'line_without_br' in card and card['line_without_br'] != '':
+                    card['text'] += [card['line_without_br']]
+
+            if 'text' in card:
+                if isinstance(card['text'], list):
+                    card['text'] = ''.join(card['text'])
+                card['text'] = card['text'].replace('\n', ' ')
+                card['text'] = card['text'].replace('  ', ' ')
+                card['text'] = re.sub(r'(\."?) *', r'\1\n', card['text'])
+                card['text'] = card['text'].split('\n')
+                if card['text'][-1] == '':
+                    card['text'] = card['text'][:-1]
+                else:
+                    card['text'][-1] += '.'
+
             if card['type'] == 'Character' or card['type'] == 'Hazard' and card['class'] == 'Agent':
                 if 'mp' not in card or card['mp'] is None or card['mp'] == '0':
                     card['mp'] = ''
@@ -113,16 +133,6 @@ def dump_all(template_whitelist=None):
                     ]
                 if 'cp' not in card or card['cp'] == '' or card['cp'] == '0':
                     card['cp'] = None
-                if isinstance(card['text'], list):
-                    card['text'] = ''.join(card['text'])
-                card['text'] = card['text'].replace('\n', ' ')
-                card['text'] = card['text'].replace('  ', ' ')
-                card['text'] = re.sub(r'(\."?) *', r'\1\n', card['text'])
-                card['text'] = card['text'].split('\n')
-                if card['text'][-1] == '':
-                    card['text'] = card['text'][:-1]
-                else:
-                    card['text'][-1] += '.'
             else:
                 if 'mind' in card and card['mind'] in ('', '0'):
                     card['mind'] = None
@@ -136,4 +146,4 @@ def dump_all(template_whitelist=None):
 
 
 dump_all()
-# dump_all(('bal.jinja',))
+# dump_all(('wiz.jinja',))

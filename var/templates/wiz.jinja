@@ -27,6 +27,8 @@
         PROWESS: {{ card.prowess }}<BR>
         BODY: {{ card.body }}<BR>
         CORRUPTION: {{ card.cp }}<BR>
+        ARTIST: {{ card.artist }}<BR>
+        RANDOM#: {{ card.random }}<BR>
     {% elif card.type == 'Resource' or card.type == 'Hazard' %}
         {% if card.class is not none %}
             {% if card.class == 'Ally' %}

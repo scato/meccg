@@ -1,50 +1,89 @@
+# Keywords
 Unique\.
-Balrog specific\.
 Uruk-hai\.
 Olog-hai\.
 Half-troll\.
+Half-orc\.
 Leader\.
 Agent\.
+# Special abilities
+Balrog specific\.
 Manifestation of ".+\."
 Manifestation of .+\.
 Can use .+\.
 May tap to use a Palantír he bears\.
 Healing cards affect all characters in her company\.
+# Bringing into play
 May not be included with a starting company\.
 He may not be one of the starting characters\.
 He may only be brought into play at his home site\.
 Unless he is one of the starting characters, he may only be brought into play at his home site\.
 May be played on the same turn .+ and/or .+ is played\.
-May not move to any site other than .+\.
-May take an extra agent action \(not counting against the hazard limit\) each time he normally takes an agent action\.
+You may bring .+ into play with .+\.
+# Discarding
 Discard on a body check result of [0-9]( or [0-9])?\.
 Discard all other manifestations of .+ when this card comes into play\.
-You may discard .+ at a Haven to play any Hobbit from your hand with his company\.
-\+[1-9] prowess against .+\.
-[+-][1-9] prowess in .+ mode\.
-\+[1-9] direct (influence|inlfuence) against .+\.
-Additionally, \+[1-9] direct (influence|inlfuence) against .+\.
-[+-][1-9] direct influence in .+ mode\.
-\+[1-9] to the roll for his company to move between adjacent Under-deeps sites\.
-The Balrog's prowess is only modified by -1 when not tapping to face a strike\.
-All of his corruption checks are modified by \+[1-9]\.
-\-[1-9] to all corruption checks\.
-\-[1-9] to the body of any .+ character targeted by a strike from .+.
-Tap .+ to untap .+ if at the same site\.
+# Modifiers
+\-[1-9] marshalling points if eliminated\.
 If .+ is in his company, .+'s mind is reduced by one\.
-He may not have any followers and may not use region or starter movement\.
-If he attacks successfully against a company with a ring, he and a ring \(attacker's choice\) are discarded.
-If .+ attacks and fails but is not defeated, the defender may tap a character in the target company to play .+ \(.+ is discarded\)\.
-Any player whose character eliminates .+ receives \-[0-9] kill MPs\.
-May tap at the end of his company's movement/hazard phase to allow it to move to an additional site on the same turn\.
+[+-][1-9] direct (influence|inlfuence) .+\.
+Additionally, \+[1-9] direct influence .+\.
+\-[1-9] to influence checks .+\.
+[+-][1-9] prowess .+\.
+.+ prowess is only modified by -1 when not tapping to face a strike\.
+\-[1-9] to the body of .+.
+[+-][1-9] to all corruption checks\.
+[+-][1-9] to all of his corruption checks\.
+All of his corruption checks are modified by \+[1-9]\.
+\+[1-9] to the roll for his company to move between adjacent Under-deeps sites\.
+Against Nazgul, .+\.
+# Tapping abilities
+Tap .+ to .+\.
+May tap to .+\.
+He can tap to .+\.
+May tap at the end of his company's movement/hazard phase to .+\.
 Another site card may be played and another movement/hazard phase immediately follows for his company\.
 The new site path must contain at least one Wilderness\.
-May tap to cancel a detainment attack against his company\.
-When he is at .+, you may keep one more card than normal in your hand\.
-Tap during your organization phase to move one resource or character from your discard pile to your play deck and reshuffle\.
-Return .+ to your hand when .+ is played; you may automatically transfer one item he bears to a character in the same company \(discard the rest\)\.
-He may join another Ringwraith's company during your organization phase and requires no influence to control\.
-Agent only: .+\.
+Tap during your organization phase to .+\.
+# Discarding abilities
+You may discard .+ at a Haven to .+\.
+# Extra cards in hand
+When .+ is at .+, .+ may keep one more card than normal in .+ hand\.
+# Balrog, Ringwraiths, and The Mouth
+He may not have any followers and may not use region or starter movement\.
 As your Ringwraith, .+\.
 You may bring this follower into play during your organization phase\.
 You may bring these followers into play during separate organization phases\.
+Return .+ to your hand when .+ is played; you may automatically transfer one item he bears to a character in the same company \(discard the rest\)\.
+He may join another Ringwraith's company during your organization phase and requires no influence to control\.
+# Fallen-wizards and Wizards
+Hazards your companies defeat \(even with \*\) are worth full kill marshalling points\.
+If you have more than 7 stage points, all detainment attacks against your companies attack normally instead\.
+If at one of his Wizardhavens when a hazard creature attacks one of your companies, he may immediately join that company\.
+Alatar must face a strike from the creature \(in all cases\)\.
+Following all of the creature's attacks, Alatar must tap \(if untapped\) and make a corruption check\.
+May untap at the end of your organization phase\.
+Your characters and hero allies are each worth full marshalling points\.
+Gandalf may tap to "test" a ring in his company\.
+Your Man, Dwarf, Elf, Dúnadan, Hobbit, Orc, and Troll factions are each worth 2 marshalling points\.
+You may keep one more card than normal in your hand\.
+Your unique factions that are neither Man, Dwarf, Dúnadan, Hobbit, Orc, nor Troll are each worth 2 marshalling points\.
+Your hero allies each are worth full marshalling points\.
+Hero allies Radagast controls have no movement restrictions\.
+When Radagast's new site is revealed, he may draw one additional card for each Wilderness in his company's site path\.
+Your non-weapon/ non-armor/non-shield/non-helmet items are each worth full marshalling points\.
+At the beginning of your end-of-turn phase, you may tap Saruman to take one spell or sorcery card from your discard pile to your hand\.
+During the movement/hazard phase, the number of cards that opponent draws based on Alatar's company's movement is reduced by one\.
+If in a Haven when a hazard creature is played on another company, he may join tha company and face one of the hazard creature's strikes; he must tap and make a corruption check immediately following the attack\.
+Can tap to "test" a gold ring\.
+His controlling player may keep one more card than normal in his hand\.
+Opponent must discard his cards face-up\.
+If his company moves to a new site during the movement/hazard phase, he may draw 1 additional card for each Wilderness \[w\] region in his company's site path\.
+At the beginning of each of his end-of-turn phases, he may tap to take one "spell" card from his discard pile and return it to his hand\.
+# Agents
+Agent only: .+\.
+May not move to any site other than .+\.
+May take an extra agent action \(not counting against the hazard limit\) each time he normally takes an agent action\.
+If he attacks successfully against a company with a ring, he and a ring \(attacker's choice\) are discarded.
+If .+ attacks and fails but is not defeated, the defender may tap a character in the target company to play .+ \(.+ is discarded\)\.
+Any player whose character eliminates .+ receives \-[1-9] kill MPs\.

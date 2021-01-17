@@ -15,7 +15,8 @@ def check_all(attributes):
         patterns = []
         with open(f'var/regex/{attribute}.txt', encoding='UTF-8') as fp:
             for pattern in fp:
-                patterns.append(f'^{pattern.strip()}$')
+                if not pattern.startswith('#'):
+                    patterns.append(f'^{pattern.strip()}$')
 
         passed = 0
         total = 0
@@ -180,6 +181,12 @@ RULES = [
         for card in cards
         if card['type'] == 'Character' and card['race'] in ('Fallen-wizard', 'Wizard')
     ),
+    lambda cards: all(
+        'Unique.' in card['text']
+        for card in cards
+        if card['type'] == 'Character'
+        and not (card['alignment'] == 'Minion' and card['race'] in ('Man', 'Orc', 'Troll'))
+    ),
 ]
 
 ATTRIBUTES = [
@@ -195,5 +202,5 @@ ATTRIBUTES = [
 # system("python.exe load2.py")
 # check_schema('var/schema.json')
 # print_all('text')
-check_all(ATTRIBUTES)
-# check_rules(RULES)
+# check_all(ATTRIBUTES)
+check_rules(RULES)
