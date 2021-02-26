@@ -22,102 +22,88 @@
     <H1>Middle Earth: {{ set }}, {{ category }}</H1>
 {% endif %}
 
-{% if category == 'Heroes' %}
-    {% for card in cards %}
-        <h2>{{ card.name }}</h2>
-
-        <b>Type:</b> {{ card.class }}<br>
-        <b>MP:</b> {{ card.mp }}<br>
-        {% if card.playable is not none %}
-            <b>Playable:</b> {{ card.playable }}<br>
+{% for card in cards %}
+    <h2>{{ card.name }}</h2>
+    TYPE: {{ card.type }}<BR>
+    {% if card.type == 'Character' %}
+        RACE: {{ card.race }}<BR>
+        SKILLS: {{ card.skills|join('/') }}<BR>
+        HOME_SITE: {{ card.home_site|join(', ') }}{% if card._period_after_home_site %}.{% endif %}<BR>
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.di }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        {% if category == 'Hero Resource cards' %}
+            CORRUPT: {{ card.cp }}<BR>
+        {% else %}
+            CORRUPTION: {{ card.cp }}<BR>
         {% endif %}
-        <b>P/B:</b> {{ card.prowess }}/{{ card.body }}<br>
-        <b>Text: {{ card.subclass }}</b> {{ card.text }}
-    {% endfor %}
-{% else %}
-    {% for card in cards %}
-        <h2>{{ card.name }}</h2>
-        TYPE: {{ card.type }}<BR>
-        {% if card.type == 'Character' %}
-            RACE: {{ card.race }}<BR>
-            SKILLS: {{ card.skills|join('/') }}<BR>
-            HOME_SITE: {{ card.home_site|join(', ') }}{% if card._period_after_home_site %}.{% endif %}<BR>
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% elif card.type == 'Hazard' %}
+        CLASS: {{ card.class }}<BR>
+        {% if card.subclass is not none %}
+            SUBCLASS: {{ card.subclass }}<BR>
             MP: {{ card.mp }}<BR>
-            MIND: {{ card.mind }}<BR>
-            INFLUENCE: {{ card.di }}<BR>
+            PLAYABLE: {{ card.keyed_to }}<BR>
+            STRIKES: {{ card.strikes }}<BR>
             PROWESS: {{ card.prowess }}<BR>
             BODY: {{ card.body }}<BR>
-            {% if category == 'Hero Resource cards' %}
-                CORRUPT: {{ card.cp }}<BR>
-            {% else %}
-                CORRUPTION: {{ card.cp }}<BR>
-            {% endif %}
-            {% for line in card.text %}
-                {{ line }}<BR>
-            {% endfor %}
-            {{ card.line_without_br }}
-        {% elif card.type == 'Hazard' %}
-            CLASS: {{ card.class }}<BR>
-            {% if card.subclass is not none %}
-                SUBCLASS: {{ card.subclass }}<BR>
-                MP: {{ card.mp }}<BR>
-                PLAYABLE: {{ card.playable }}<BR>
-                STRIKES: {{ card.strikes }}<BR>
-                PROWESS: {{ card.prowess }}<BR>
-                BODY: {{ card.body }}<BR>
-            {% endif %}
-            {% for line in card.text %}
-                {{ line }}<BR>
-            {% endfor %}
-            {{ card.line_without_br }}
-        {% elif card.type == 'Resource' %}
-            {% if card.class == 'Ally' %}
-                {% if card.skills == [] %}
-                    CLASS: Ally<BR>
-                {% else %}
-                    CLASS: {{ card.skills|join('/') }} Ally<BR>
-                {% endif %}
-            {% elif card.class == 'Faction' %}
-                CLASS: {{ card.race }} Faction<BR>
-            {% else %}
-                CLASS: {{ card.class }}<BR>
-            {% endif %}
-            {% if card.mp is not none %}
-                {% if card._mp_type is not none %}
-                    MP: {{ card.mp }}{{ ' ' }}{{ card._mp_type }}<BR>
-                {% else %}
-                    MP: {{ card.mp }}<BR>
-                {% endif %}
-            {% endif %}
-            {% if card.di is not none %}
-                INFLUENCE: {{ card.di }}<BR>
-            {% endif %}
-            {% if card.prowess is not none %}
-                PROWESS: {{ card.prowess }}<BR>
-            {% endif %}
-            {% if card.cp is not none %}
-                CORRUPT: {{ card.cp }}<BR>
-            {% endif %}
-            {% for line in card.text %}
-                {{ line }}<BR>
-            {% endfor %}
-            {{ card.line_without_br }}
-        {% elif card.type == 'Site' %}
-            REGION: {{ card.region }}<BR>
-            SITE TYPE: {{ card.site_type }}<BR>
-            {% if card.adjacent is not none %}
-                ADJACENT: {{ card.adjacent }}<BR>
-            {% endif %}
-            {% if card.site_path is not none %}
-                SITE_PATH: {{ card.site_path }}<BR>
-            {% endif %}
-            DRAW: {{ card.you_draw }}/{{ card.opp_draw }}<BR>
-            PLAYABLE: {{ card.playable }}<BR>
-            AUTO_ATTACK: {{ card.auto_attack }}{% if card._auto_attack_br == 'yes' %}<BR>{% endif %}
-            SPECIAL: {{ card.special }}{% if card._special_br == 'yes' %}<BR>{% endif %}
         {% endif %}
-    {% endfor %}
-{% endif %}
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% elif card.type == 'Resource' %}
+        {% if card.class == 'Ally' %}
+            {% if card.skills == [] %}
+                CLASS: Ally<BR>
+            {% else %}
+                CLASS: {{ card.skills|join('/') }} Ally<BR>
+            {% endif %}
+        {% elif card.class == 'Faction' %}
+            CLASS: {{ card.race }} Faction<BR>
+        {% else %}
+            CLASS: {{ card.class }}<BR>
+        {% endif %}
+        {% if card.mp is not none %}
+            {% if card._mp_type is not none %}
+                MP: {{ card.mp }}{{ ' ' }}{{ card._mp_type }}<BR>
+            {% else %}
+                MP: {{ card.mp }}<BR>
+            {% endif %}
+        {% endif %}
+        {% if card.di is not none %}
+            INFLUENCE: {{ card.di }}<BR>
+        {% endif %}
+        {% if card.prowess is not none %}
+            PROWESS: {{ card.prowess }}<BR>
+        {% endif %}
+        {% if card.cp is not none %}
+            CORRUPT: {{ card.cp }}<BR>
+        {% endif %}
+        {% for line in card.text %}
+            {{ line }}<BR>
+        {% endfor %}
+        {{ card.line_without_br }}
+    {% elif card.type == 'Site' %}
+        REGION: {{ card.region }}<BR>
+        SITE TYPE: {{ card.site_type }}<BR>
+        {% if card.adjacent is not none %}
+            ADJACENT: {{ card.adjacent }}<BR>
+        {% endif %}
+        {% if card.site_path is not none %}
+            SITE_PATH: {{ card.site_path }}<BR>
+        {% endif %}
+        DRAW: {{ card.you_draw }}/{{ card.opp_draw }}<BR>
+        PLAYABLE: {{ card.playable }}<BR>
+        AUTO_ATTACK: {{ card.auto_attack }}{% if card._auto_attack_br %}<BR>{% endif %}
+        SPECIAL: {{ card.special }}{% if card._special_br %}<BR>{% endif %}
+    {% endif %}
+{% endfor %}
 
 </BODY>
 </html>

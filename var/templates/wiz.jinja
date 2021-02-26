@@ -28,8 +28,8 @@
         BODY: {{ card.body }}<BR>
         CORRUPTION: {{ card.cp }}<BR>
         ARTIST: {{ card.artist }}<BR>
-        RANDOM#: {{ card.random }}<BR>
-    {% elif card.type == 'Resource' or card.type == 'Hazard' %}
+        RANDOM#: {{ card.random_number }}<BR>
+    {% elif card.type == 'Resource' %}
         {% if card.class is not none %}
             {% if card.class == 'Ally' %}
                 {% if card.skills == [] %}
@@ -43,8 +43,29 @@
                 CLASS: {{ card.class|replace(' or ', '/') }}<BR>
             {% endif %}
         {% endif %}
+        MP: {{ card.mp }}<BR>
+        MIND: {{ card.mind }}<BR>
+        INFLUENCE: {{ card.di }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPT: {{ card.cp }}<BR>
+        ARTIST: {{ card.artist }}<BR>
+        RANDOM#: {{ card.random_number }}<BR>
+    {% elif card.type == 'Hazard' %}
+        CLASS: {{ card.class|replace(' or ', '/') }}<BR>
+        SUBCLASS: {{ card.subclass }}<BR>
+        MP: {{ card.mp }}<BR>
+        PLAYABLE: {{ card.keyed_to }}<BR>
+        STRIKES: {{ card.strikes }}<BR>
+        PROWESS: {{ card.prowess }}<BR>
+        BODY: {{ card.body }}<BR>
+        CORRUPTION: {{ card.cp }}<BR>
+        ARTIST: {{ card.artist }}<BR>
+        RANDOM#: {{ card.random_number }}<BR>
     {% elif card.type == 'Region' %}
         REGION TYPE: {{ card.region_type }}<BR>
+        MOVE TO: {{ card.ajacent_regions|join(', ') }}<BR>
+        ARTIST: {{ card.artist }}<BR>
     {% elif card.type == 'Site' %}
         {% if card.region == 'The Shire' %}
             REGION: Shire<BR>
@@ -54,6 +75,23 @@
             REGION: {{ card.region }}<BR>
         {% endif %}
         SITE TYPE: {{ card.site_type }}<BR>
+        {% if card.site_type == 'H' %}
+            HAVEN1: {{ card.nearest_haven1 }} - {{ card.site_path1 }}<BR>
+            HAVEN2: {{ card.nearest_haven2 }} - {{ card.site_path2 }}<BR>
+        {% else %}
+            SITE_PATH: {{ card.site_path }}<BR>
+            HAVEN: {{ card.nearest_haven }}<BR>
+        {% endif %}
+        DRAW: {{ card.opp_draws }}/{{ card.you_draw }}<BR>
+        PLAYABLE: {{ card.playable|join('/') }}<BR>
+        AUTO_ATTACK: {{ card.auto_attack }}<BR>
+        {% if card.special is not none %}
+            SPECIAL:
+            {% for line in card.special %}
+                {{ line }}<BR>
+            {% endfor %}
+        {% endif %}
+        ARTIST: {{ card.artist }}<BR>
     {% endif %}
     {% for line in card.text %}
         {{ line }}<BR>

@@ -1,0 +1,9 @@
+Unique\.
+Manifestation of .+\.
+Agent\.
+\+[1-9] direct influence .+\.
+May not move to any site other than .+\.
+May take an extra agent action \(not counting against the hazard limit\) each time he normally takes an agent action\.
+If he attacks successfully against a company with a ring, he and a ring \(attacker's choice\) are discarded.
+If .+ attacks and fails but is not defeated, the defender may tap a character in the target company to play .+ \(.+ is discarded\)\.
+Any player whose character eliminates .+ receives \-[1-9] kill MPs\.

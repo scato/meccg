@@ -148,8 +148,8 @@
         {% elif category == 'Hazard Creatures' %}
             <TD>{{ card.mp }}</TD>
             <TD>{{ card.prowess }}/{{ card.body }}</TD>
-            {% if card.playable is not none %}
-                <TD>{{ card.playable }}</TD>
+            {% if card.keyed_to is not none %}
+                <TD>{{ card.keyed_to }}</TD>
                 {% if card._junk_td %}
                     <TD></TD>
                 {% endif %}
@@ -189,7 +189,7 @@
         <TR>
         <TD COLSPAN="{{ card._colspan }}">
         {{ card.text }}
-        {% if card.type == 'Character' %}
+        {% if category == 'Minions' or category == 'Ringwraiths' %}
             Home Site: {{ card.home_site|join(', ') }}
         {% endif %}
         {% if card._closing_p %}

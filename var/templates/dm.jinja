@@ -64,11 +64,11 @@
         {{ card.class }}<br>
         [
             {{ card.prowess }}/{{ card.body }};
-            {% if card.playable is none %}
+            {% if card.keyed_to is none %}
                 {{ card.mp }} kill MP
             {% else %}
                 {{ card.mp }} kill MP;
-                keyable to {{ card.playable }}
+                keyable to {{ card.keyed_to }}
             {% endif %}
         ]
     {% elif category == 'Hazard Events' %}
@@ -106,12 +106,12 @@
     {% endfor %}
 {% endfor %}
 
-{% if _has_junk == 'yes' %}
+{% if _has_junk %}
     </ul>
     </TABLE>
     </H3>
 {% endif %}
-{% if _has_body_close == 'yes' %}
+{% if _has_body_close %}
     </BODY>
 {% endif %}
 </HTML>

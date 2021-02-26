@@ -96,7 +96,7 @@
         <td>{{ card.region }}</td>
     {% elif category == 'Minion Allies' %}
         <td>{{ card.mp }}</td>
-        {% if card.prowess is not none and card.body is not none %}
+        {% if card.prowess is not none or card.body is not none %}
             <td>{{ card.prowess }}/{{ card.body }}</td>
         {% else %}
             <td></td>
@@ -134,10 +134,12 @@
     <td colspan={{ card._colspan }}>
     {% if category == 'Hero sites' or category == 'Minion Sites' %}
         {{ card.site_path }}<br>
-        {% if card.alignment == 'Hero' %}
-            Nearest Haven: {{ card.nearest_haven }}<br>
-        {% elif card.alignment == 'Minion' %}
-            Nearest Darkhaven: {{ card.nearest_haven }}<br>
+        {% if card.nearest_haven is not none %}
+            {% if category == 'Hero sites' %}
+                Nearest Haven: {{ card.nearest_haven }}<br>
+            {% elif category == 'Minion Sites' %}
+                Nearest Darkhaven: {{ card.nearest_haven }}<br>
+            {% endif %}
         {% endif %}
         Playable: {{ card.playable }}<br>
         {% if card.special is not none %}
@@ -147,13 +149,17 @@
             Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}
         {% endif %}
     {% else %}
-        {% if card.playable is not none %}
-            Playable: {{ card.playable }}
+        {% if card.keyed_to is not none %}
+            {% if card.keyed_to == [] %}
+                Playable:
+            {% else %}
+                Playable: {{ card.keyed_to|join(' ') }}
+            {% endif %}
             <p>
         {% endif %}
-        {% if card.errata %}
+        {% if card._errata %}
             [The following text reflects official errata]<br>
-        {% elif card.errata_with_period %}
+        {% elif card._errata_with_period %}
             [The following text reflects official errata.]<br>
         {% endif %}
         {% if card.home_site is not none %}

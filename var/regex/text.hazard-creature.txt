@@ -1,0 +1,27 @@
+# Keywords
+Unique\.
+# Attack properties
+Maia\.
+Dwarves\.
+Elves\.
+One strike\.
+Two strikes\.
+Three strikes\.
+Four strikes\.
+Five strikes\.
+Attacker chooses defending characters\.
+Detainment and -[1-9] prowess against hero companies\.
+Detainment against hero and covert companies\.
+# Special abilities
+Manifestation of .+\.
+Discard this card if .+ comes into play\.
+Maia hazard creatures may be keyed to Border-holds or Ruins & Lairs against any company that has faced Dwarven Travelers this turn\.
+Each character wounded by this attack must discard all items he bears\.
+# Keyed to
+As a creature, may also be played keyed to .+\.
+May also be played keyed to .+\.
+Playable keyed to .+\.
+# wizards and lords
+As a permanent-event, all Maia attacks: receive \+1 prowess and \+1 strike and attacker chooses defending characters\.
+Discard when any play deck is exhausted\.
+As a permanent-event, the hazard limit against all overt minion companies is increased by one\.

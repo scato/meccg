@@ -1,8 +1,9 @@
 import inspect
 import json
 import re
+import subprocess
 import textwrap
-from os import system
+from functools import lru_cache
 
 from jsonschema import validate, ValidationError
 import yaml
@@ -10,18 +11,46 @@ import yaml
 from meccg.jsonl import read_all_jsonl
 
 
+@lru_cache
+def get_patterns(card_type, card_class, attribute):
+    patterns = []
+
+    if attribute == 'text':
+        if card_type == 'Character':
+            patterns_filename = f'var/regex/{attribute}.character.txt'
+        elif card_type == 'Hazard':
+            if card_class == 'Agent':
+                patterns_filename = f'var/regex/{attribute}.hazard-agent.txt'
+            elif 'Creature' in card_class:
+                patterns_filename = f'var/regex/{attribute}.hazard-creature.txt'
+            else:
+                patterns_filename = f'var/regex/{attribute}.hazard-event.txt'
+        elif card_type == 'Resource':
+            patterns_filename = f'var/regex/{attribute}.resource.txt'
+        elif card_type == 'Site':
+            return ['.*']
+        elif card_type == 'Region':
+            return ['.*']
+    else:
+        patterns_filename = f'var/regex/{attribute}.txt'
+
+    with open(patterns_filename, encoding='UTF-8') as fp:
+        for pattern in fp:
+            if not pattern.startswith('#'):
+                patterns.append(f'^{pattern.strip()}$')
+
+    return patterns
+
+
 def check_all(attributes):
     for attribute in attributes:
-        patterns = []
-        with open(f'var/regex/{attribute}.txt', encoding='UTF-8') as fp:
-            for pattern in fp:
-                if not pattern.startswith('#'):
-                    patterns.append(f'^{pattern.strip()}$')
-
         passed = 0
         total = 0
         example = None
+
         for card in read_all_jsonl():
+            patterns = get_patterns(card.get('type'), card.get('class'), attribute)
+
             if attribute not in card or card[attribute] is None:
                 continue
             elif attribute in ('skills', 'home_site', 'text'):
@@ -38,15 +67,15 @@ def check_all(attributes):
                             for value in card[attribute]
                             if not any(re.match(pattern, value) for pattern in patterns)
                         )
-                        example = f'{card[attribute]} contains invalid item {first_mismatch} ({card["set"]}, {card["category"]})'
+                        example = f'{card[attribute]} contains invalid item {first_mismatch} ({card["set"]} - {card["name"]})'
                 elif example is None:
-                    example = f'{card[attribute]} is not a list ({card["set"]}, {card["category"]})'
+                    example = f'{card[attribute]} is not a list ({card["set"]} - {card["name"]})'
             else:
                 total += 1
                 if any(re.match(pattern, card[attribute]) for pattern in patterns):
                     passed += 1
                 elif example is None:
-                    example = f'{card[attribute]} ({card["set"]}, {card["category"]})'
+                    example = f'{card[attribute]} ({card["set"]} - {card["name"]})'
 
         print(f'{attribute} {passed}/{total}')
 
@@ -73,7 +102,15 @@ def check_schema(filename):
 
     for card in read_all_jsonl():
         try:
-            validate(instance=card, schema=schema)
+            if card['type'] == 'Character':
+                validate(instance=card, schema=schema['definitions']['common'])
+                validate(instance=card, schema=schema['definitions']['character']['allOf'][1])
+            elif card['type'] == 'Hazard' and card['class'] == 'Agent':
+                validate(instance=card, schema=schema['definitions']['common'])
+                validate(instance=card, schema=schema['definitions']['hazard-agent']['allOf'][1])
+            elif card['type'] == 'Hazard' and 'Creature' in card['class']:
+                validate(instance=card, schema=schema['definitions']['common'])
+                validate(instance=card, schema=schema['definitions']['hazard-creature']['allOf'][1])
         except ValidationError as error:
             print(yaml.dump(card, Dumper=yaml.Dumper, allow_unicode=True))
             print(error)
@@ -190,17 +227,16 @@ RULES = [
 ]
 
 ATTRIBUTES = [
-    'set', 'category',
-    'type', 'alignment',
+    'set', 'type', 'alignment',
     'mp', 'site_type', 'region_type', 'name',
     'mind', 'gi', 'di',
     'skills', 'race', 'class', 'region',
     'prowess', 'body', 'home_site', 'cp',
-    'text',
+    # 'text',
 ]
 
-# system("python.exe load2.py")
-# check_schema('var/schema.json')
+# subprocess.run("python.exe load2.py", shell=True, check=True)
+check_schema('var/schema.json')
 # print_all('text')
 # check_all(ATTRIBUTES)
-check_rules(RULES)
+# check_rules(RULES)

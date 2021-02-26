@@ -1,0 +1,15 @@
+Querying
+========
+
+And because I would rather go down another rabbit hole than finish this project, I decided to introduce a query
+language.
+
+>>> from meccg.medea import Session
+>>> session = Session()
+>>> session.query('LOAD JSONL FROM "var/jsonl/atscreat.jsonl" AS card CREATE card')
+>>> session.query('MATCH {name: "Durin\'s Folk"} AS card')
+[{'card': {'set': 'Against the Shadow', 'type': 'Hazard', 'alignment': None, 'body': '-', 'class': 'Creature', 'keyed_to': ['Wilderness', 'Border-land'], 'mp': '2*', 'name': "Durin's Folk", 'prowess': '8', 'text': ['Dwarves.', 'Five strikes.', 'Detainment and -2 prowess against hero companies.', 'May also be played keyed to The Shire.']}}]
+>>> session.query('MATCH {name: "Durin\'s Folk" AS name}')
+[{'name': "Durin's Folk"}]
+>>> session.query('MATCH {name: "Durin\'s Folk" AS name, type, class, mp}')
+[{'class': 'Creature', 'mp': '2*', 'name': "Durin's Folk", 'type': 'Hazard'}]

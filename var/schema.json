@@ -4,8 +4,10 @@
     "card": {
       "anyOf": [
         { "$ref": "#/definitions/character"},
+        { "$ref": "#/definitions/hazard-agent"},
+        { "$ref": "#/definitions/hazard-creature"},
+        { "$ref": "#/definitions/hazard-event"},
         { "$ref": "#/definitions/resource"},
-        { "$ref": "#/definitions/hazard"},
         { "$ref": "#/definitions/site"},
         { "$ref": "#/definitions/region"}
       ]
@@ -20,39 +22,124 @@
       },
       "required": ["set", "type", "alignment", "name"]
     },
+    "common": {
+      "type": "object",
+      "properties": {
+        "set": {"type": "string"},
+        "type": {"enum": ["Character", "Resource", "Hazard", "Site", "Region"]},
+        "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Stage", "Fallen-wizard", "Wizard", null]},
+        "name": {"type": "string", "minLength": 1},
+        "mp": {"type": "string"},
+        "mind": {"type": ["string", "null"], "minLength": 1},
+        "gi": {"type": ["string", "null"], "minLength": 1},
+        "di": {"type": ["string", "null"], "minLength": 1},
+        "sp": {"type": ["string", "null"], "minLength": 1},
+        "keyed_to": {
+          "type": "array",
+          "items": {"enum": ["F", "B", "R", "S", "D", "f", "b", "w", "s", "d", "c"]}
+        },
+        "skills": {
+          "type": "array",
+          "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]},
+          "minItems": 1
+        },
+        "race": {"type": "string", "minLength": 1},
+        "class": {"type": "string", "minLength": 1},
+        "prowess": {"type": ["string", "null"], "minLength": 1},
+        "body": {"type": ["string", "null"], "minLength": 1},
+        "home_site": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1
+        },
+        "cp": {"type": ["string", "null"], "minLength": 1},
+        "text": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1
+        }
+      }
+    },
     "character": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Character"},
             "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Fallen-wizard", "Wizard"]},
-            "mp": {"type": "string"},
-            "mind": {"type": ["string", "null"], "minLength": 1},
-            "gi": {"type": ["string", "null"], "minLength": 1},
-            "di": {"type": "string", "minLength": 1},
-            "skills": {
-              "type": "array",
-              "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]},
-              "minItems": 1
-            },
-            "race": {"type": "string", "minLength": 1},
-            "prowess": {"type": "string", "minLength": 1},
-            "body": {"type": "string", "minLength": 1},
-            "home_site": {
-              "type": "array",
-              "items": {"type": "string", "minLength": 1},
-              "minItems": 1
-            },
-            "cp": {"type": ["string", "null"], "minLength": 1},
-            "text": {
-              "type": "array",
-              "items": {"type": "string", "minLength": 1},
-              "minItems": 1
-            }
+            "di": {"type": "string"}
           },
-          "required": ["mp", "mind", "gi", "di", "skills", "race", "prowess", "body", "home_site", "cp", "text"]
+          "required": [
+            "set", "type", "alignment", "name", "text",
+            "mp", "mind", "gi", "di", "skills", "race", "prowess", "body", "home_site", "cp"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "name", "text",
+            "mp", "mind", "gi", "di", "skills", "race", "prowess", "body", "home_site", "cp"
+          ]}
+        }
+      ]
+    },
+    "hazard-agent": {
+      "allOf": [
+        {"$ref": "#/definitions/common"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Hazard"},
+            "alignment": {"const": null},
+            "class": {"const": "Agent"},
+            "di": {"type": "string"}
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "skills", "race", "prowess", "body", "home_site", "cp"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "skills", "race", "prowess", "body", "home_site", "cp"
+          ]}
+        }
+      ]
+    },
+    "hazard-creature": {
+      "allOf": [
+        {"$ref": "#/definitions/common"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Hazard"},
+            "alignment": {"const": null},
+            "class": {"enum": [
+              "Creature",
+              "Creature or Short-event", "Creature or Long-event", "Creature or Permanent-event",
+              "Short-event or Creature", "Long-event or Creature", "Permanent-event or Creature"
+            ]},
+            "prowess": {"type": "string"},
+            "body": {"type": "string"}
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "keyed_to", "prowess", "body"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "keyed_to", "prowess", "body"
+          ]}
+        }
+      ]
+    },
+    "hazard-event": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Hazard"},
+            "alignment": {"const": null},
+            "class": {"enum": ["Short-event", "Long-event", "Permanent-event", "Permanent-event or Short-event"]}
+          }
         }
       ]
     },
@@ -64,18 +151,6 @@
           "properties": {
             "type": {"const": "Resource"},
             "alignment": {"enum": ["Hero", "Minion", "Stage"]}
-          }
-        }
-      ]
-    },
-    "hazard": {
-      "allOf": [
-        {"$ref": "#/definitions/base"},
-        {
-          "type": "object",
-          "properties": {
-            "type": {"const": "Hazard"},
-            "alignment": {"const": null}
           }
         }
       ]
