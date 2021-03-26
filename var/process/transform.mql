@@ -1,0 +1,25 @@
+MERGE {keyed_to: ["w", "w"]} INTO {set: "The Wizards", name: "Tom (Tuma)"};
+
+--MATCH {text} AS card
+--SET text = text.replace("\n", " ")
+--SET text = text.replace("  ", " ")
+--SET text = text.replace(". ", ".\n")
+--SET text = text.replace(".\" ", ".\"\n")
+--SET text = text.split("\n")
+--MERGE {text} INTO card;
+
+MERGE {keyed_to: []} INTO {keyed_to: null};
+MERGE {keyed_to: []} INTO {keyed_to: [""]};
+
+MATCH {keyed_to} AS card
+WHERE keyed_to != []
+SET keyed_to = keyed_to.join(" ")
+--SET keyed_to = keyed_to.replace("Free-hold", "F")
+--SET keyed_to = keyed_to.replace("Border-hold", "B")
+--SET keyed_to = keyed_to.replace("Ruins & Lairs", "R")
+--SET keyed_to = keyed_to.replace("Free-domain", "f")
+--SET keyed_to = keyed_to.replace("Border-land", "b")
+--SET keyed_to = keyed_to.replace("Wilderness", "w")
+SET keyed_to = keyed_to.replace("2 c", "c c")
+SET keyed_to = keyed_to.split(" ")
+MERGE {keyed_to} INTO card;

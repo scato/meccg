@@ -1,0 +1,28 @@
+LOAD JSONL FROM `var/jsonl/${source}.jsonl` AS card
+CREATE card;
+
+CREATE INDEX card_set_name ON {set, name};
+
+LOAD JSON FROM "var/schema.json" AS schema
+SET @schema = schema;
+
+LOAD JSON FROM `var/json/${source}.json` AS spoiler
+WHERE source != "promos"
+WITH spoiler AS {cards: {name}[], set}
+WHERE NOT EXISTS (
+    MATCH {set, name}
+)
+
+UNION
+
+LOAD JSON FROM `var/json/promos.json` AS spoiler
+WITH spoiler AS {category: set, sets: {cards: {name}[]}[]}
+WHERE NOT EXISTS (
+    MATCH {set, name}
+)
+
+UNION
+
+MATCH card
+WHERE card IS NOT JSON(@schema)
+RETURN card;

@@ -14,7 +14,7 @@ def ctx(k, v):
 
 def get(k, c):
     """
-    Retrieves a values from a context based on a variable reference
+    Retrieves a value from a context based on a variable reference
     >>> get('name', {'name': 'Ori'})
     'Ori'
     >>> get('character.name', {'character': {'name': 'Ori'}})
@@ -24,6 +24,25 @@ def get(k, c):
         return get('.'.join(k.split('.')[1:]), c[k.split('.')[0]])
     else:
         return c[k]
+
+
+def has(k, c):
+    """
+    Checks if a context defines a value based on a variable reference
+    >>> has('name', {'name': 'Ori'})
+    True
+    >>> has('character.name', {'character': {'name': 'Ori'}})
+    True
+    >>> has('character.name', {'name': 'Ori'})
+    False
+    """
+    if '.' in k:
+        if k.split('.')[0] in c:
+            return has('.'.join(k.split('.')[1:]), c[k.split('.')[0]])
+        else:
+            return False
+    else:
+        return k in c
 
 
 def rem(k, c):
@@ -56,7 +75,8 @@ def upd(k, f, c):
 
 def cmb(v, w):
     """
-    Combines two contexts into one
+    Combines two contexts into one, merging dictionaries and constraints, choosing values over constraints,
+    and keeping the second argument if two values are given
     >>> cmb({}, {'name': 'Ori'})
     {'name': 'Ori'}
     >>> cmb({'name': lambda x: x != 'Dori'}, {'name': 'Ori'})
@@ -72,6 +92,8 @@ def cmb(v, w):
     False
     >>> c['name']('Oin')
     True
+    >>> cmb({'name': 'Dori'}, {'name': 'Ori'})
+    {'name': 'Ori'}
     """
     if isinstance(v, dict) and isinstance(w, dict):
         return {
@@ -85,7 +107,7 @@ def cmb(v, w):
     elif callable(w):
         return v
     else:
-        return v
+        return w
 
 
 def cmp(v, w):

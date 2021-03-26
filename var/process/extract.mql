@@ -1,0 +1,317 @@
+--SET card.text = card.text.join(" ")
+
+
+
+
+LOAD JSON FROM "var/json/atscreat.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atshazardeve.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsherores.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsherosites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Site", alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminionallies.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminionevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminionfac.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminionitems.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Character", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/atsminionsites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Site", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balcharacters.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balhazards.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balherores.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balminres.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balres.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/balsites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Balrog"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmagents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {class: "Agent", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmallies.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmcharacters.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmhazcreatures.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmhazevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmitems.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmminions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmresevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dmsites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/draallies.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/dracharacters.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/drafactions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/drahazcreat.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/drahazevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/draitems.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/draresevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/drasites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/leallies.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/lecreatures.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", class: "Creature", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/lefactions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/lehevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/leitems.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/lemevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/leminions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Character", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/leringwraith.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Character", alignment: "Ringwraith"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/lesites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Site", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/promos.json" AS spoiler
+WITH spoiler AS {sets: {cards: card[], ...set}[], ...spoiler}
+SET extra = {}
+WITH {...spoiler, ...set, ...card, ...extra} AS card
+SET card.set = card.category
+CREATE card;
+
+LOAD JSON FROM "var/json/whchar.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Character", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whhazcreat.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whhazevent.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Hazard", alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whherores.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whminres.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Minion"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whsites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Site", alignment: "Fallen-wizard"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whstagegen.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Stage"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whstagespe.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Resource", alignment: "Stage"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/whwiz.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {type: "Character", alignment: "Fallen-wizard"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizallies.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizards.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Wizard"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizcharacters.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizfactions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizhazardcreat.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET card.keyed_to = card.keyed_to.split("")
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizhazardevents.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizitems.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizregions.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: null}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizresources.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};
+
+LOAD JSON FROM "var/json/wizsites.json" AS spoiler
+WITH spoiler AS {cards: card[], ...spoiler}
+SET extra = {alignment: "Hero"}
+CREATE {...spoiler, ...card, ...extra};

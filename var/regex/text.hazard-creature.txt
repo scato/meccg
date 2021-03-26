@@ -4,24 +4,43 @@ Unique\.
 Maia\.
 Dwarves\.
 Elves\.
+Dúnedain\.
+Elf\.
+Man\.
+Men\.
+Trolls\.
 One strike\.
 Two strikes\.
 Three strikes\.
 Four strikes\.
 Five strikes\.
+Six strikes\.
 Attacker chooses defending characters\.
 Detainment and -[1-9] prowess against hero companies\.
+Detainment against hero companies\.
 Detainment against hero and covert companies\.
 # Special abilities
 Manifestation of .+\.
 Discard this card if .+ comes into play\.
 Maia hazard creatures may be keyed to Border-holds or Ruins & Lairs against any company that has faced Dwarven Travelers this turn\.
 Each character wounded by this attack must discard all items he bears\.
+Unless the attack is canceled, all untapped characters in defending company are tapped following this attack\.
 # Keyed to
+As a creature, may be played keyed to .+\.
 As a creature, may also be played keyed to .+\.
+May be played keyed to .+\.
 May also be played keyed to .+\.
 Playable keyed to .+\.
+Playable at .+\.
 # wizards and lords
-As a permanent-event, all Maia attacks: receive \+1 prowess and \+1 strike and attacker chooses defending characters\.
 Discard when any play deck is exhausted\.
+As a permanent-event, all Maia attacks: receive \+1 prowess and \+1 strike and attacker chooses defending characters\.
 As a permanent-event, the hazard limit against all overt minion companies is increased by one\.
+As a permanent-event, all effects are automatically canceled which allow a minion player to search through or look at any portion of his play deck or discard pile outside of the normal sequence of play\.
+As a permanent-event, all influence attempts against Man factions are modified by -2\.
+As a short-event, tap up to two target characters in one company at a site in, or moving through, a Coastal Sea region\.
+As a permanent-event, each player at the end of each turn may bring one Elf creature from his discard pile to his hand\.
+As a permanent-event, the next non-Ringwraith minion discarded from play is instead eliminated\.
+Discard when a minion is so eliminated\.
+As a permanent-event, all companies moving in Southern Mirkwood, Western Mirkwood, Woodland Realm, and/or Heart of Mirkwood have their hazard limit increased by one\.
+As a permanent-event, all ring items give one additional corruption point\.

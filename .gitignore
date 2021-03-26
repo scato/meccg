@@ -2,3 +2,4 @@
 /venv
 /var/html/*.html
 /var/jsonl/*.jsonl
+/var/json/*.json

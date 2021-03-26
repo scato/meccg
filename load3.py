@@ -7,4 +7,4 @@ def execute_mql(filename):
         session.query(''.join(fp.readlines()))
 
 
-execute_mql('var/mql/atscreat.mql')
+execute_mql('var/process/atscreat.mql')

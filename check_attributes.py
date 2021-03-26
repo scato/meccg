@@ -232,11 +232,12 @@ ATTRIBUTES = [
     'mind', 'gi', 'di',
     'skills', 'race', 'class', 'region',
     'prowess', 'body', 'home_site', 'cp',
-    # 'text',
+    'text',
 ]
 
 # subprocess.run("python.exe load2.py", shell=True, check=True)
+subprocess.run("python.exe load3.py", shell=True, check=True)
 check_schema('var/schema.json')
 # print_all('text')
-# check_all(ATTRIBUTES)
+check_all(ATTRIBUTES)
 # check_rules(RULES)

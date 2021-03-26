@@ -1,3 +1,5 @@
+import re
+
 from meccg import sat
 
 
@@ -85,6 +87,35 @@ def obj(p, r=None):
     return match
 
 
+def tup(es):
+    """
+    Destructure a Python list (like JS tuple destructuring)
+    >>> e = tup([var('a'), var('b')])
+    >>> e([1])
+    []
+    >>> e([1, 2])
+    [{'a': 1, 'b': 2}]
+    """
+    def match(x):
+        if isinstance(x, list):
+            result = [{}]
+            for i, e in enumerate(es):
+                if len(x) > i:
+                    result = [
+                        sat.cmb(c, d)
+                        for c in result
+                        for d in e(x[i])
+                        if sat.cmp(c, d)
+                    ]
+                else:
+                    return []
+            return result
+        else:
+            return []
+
+    return match
+
+
 def unw(e):
     """
     Unwind an array, matching each element using expression e
@@ -95,6 +126,35 @@ def unw(e):
     def match(x):
         if isinstance(x, list):
             return [z for y in x for z in e(y)]
+        else:
+            return []
+
+    return match
+
+
+def tpl(ps):
+    """
+    Match a string against a template
+    >>> e = tpl(['var/jsonl/', var('source'), '.jsonl'])
+    >>> e('var/json/atscreat.json')
+    []
+    >>> e('var/jsonl/atscreat.jsonl')
+    [{'source': 'atscreat'}]
+    """
+    pattern = ''.join(
+        re.escape(p) if isinstance(p, str) else '(.*)'
+        for p in ps
+    )
+
+    capture = tup([p for p in ps if not isinstance(p, str)])
+
+    def match(x):
+        if isinstance(x, str):
+            result = re.match(pattern, x)
+            if result is None:
+                return []
+            else:
+                return capture(list(result.groups()))
         else:
             return []
 

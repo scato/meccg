@@ -1,7 +1,0 @@
-LOAD JSON FROM "var/json/atscreat.json" AS spoiler
-WITH spoiler AS {cards: card[], ...spoiler}
---CREATE {...spoiler, ...card};
-CREATE card;
-
-MATCH card
-SAVE JSONL card TO "var/jsonl/atscreat2.jsonl";
