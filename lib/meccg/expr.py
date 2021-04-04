@@ -1,3 +1,6 @@
+import itertools
+
+
 def var(k):
     return lambda c: c[k]
 
@@ -32,3 +35,28 @@ def bin(f, l, r):
 
 def uni(f, o):
     return lambda c: f(o(c))
+
+
+def ret(e):
+    return lambda rs: (
+        e(r)
+        for r in rs
+    )
+
+
+def grp_key(i):
+    return lambda gc: gc['$keys'][i]
+
+
+def grp_arr(e):
+    return lambda gc: [
+        e(c)
+        for c in gc['$records']
+    ]
+
+
+def grp_ret(ke, ge):
+    return lambda rs: (
+        ge({'$keys': gk, '$records': list(grs)})
+        for gk, grs in itertools.groupby(rs, ke)
+    )

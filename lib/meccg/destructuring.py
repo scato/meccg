@@ -42,7 +42,7 @@ def als(e, k):
     ]
 
 
-def obj(p, r=None):
+def obj(p, q={}, r=None):
     """
     Destructure an Python dictionary (like a JS object)
     >>> e = obj({})
@@ -55,7 +55,12 @@ def obj(p, r=None):
     []
     >>> e({'type': 'Hazard'})
     []
-    >>> e = obj({'type': lit('Character')}, var('card'))
+    >>> e = obj({'type': var('type')}, q={'type': 'Region'})
+    >>> e({'type': 'Hazard'})
+    [{'type': 'Hazard'}]
+    >>> e({})
+    [{'type': 'Region'}]
+    >>> e = obj({'type': lit('Character')}, r=var('card'))
     >>> e({'type': 'Character', 'name': 'Beorn'})
     [{'card': {'name': 'Beorn'}}]
     """
@@ -68,6 +73,13 @@ def obj(p, r=None):
                         sat.cmb(c, d)
                         for c in result
                         for d in e(x[n])
+                        if sat.cmp(c, d)
+                    ]
+                elif n in q:
+                    result = [
+                        sat.cmb(c, d)
+                        for c in result
+                        for d in e(q[n])
                         if sat.cmp(c, d)
                     ]
                 else:
@@ -87,7 +99,7 @@ def obj(p, r=None):
     return match
 
 
-def tup(es):
+def tup(es, r=None):
     """
     Destructure a Python list (like JS tuple destructuring)
     >>> e = tup([var('a'), var('b')])
@@ -159,3 +171,13 @@ def tpl(ps):
             return []
 
     return match
+
+
+def nil():
+    """
+    Match a value but always return zero matches
+    >>> e = nil()
+    >>> e('foo')
+    []
+    """
+    return lambda x: []

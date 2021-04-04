@@ -1,4 +1,5 @@
 import glob
+import itertools
 import json
 import re
 
@@ -8,12 +9,15 @@ from lark import Lark, Tree, Token
 from meccg import destructuring, sat, expr
 
 parser = Lark(r"""
-    script: (statement ";")* [statement]
+    script: (statement ";")*
 
     ?statement: union_statement
               | create_index_statement
+              | drop_index_statement
     
     create_index_statement: "CREATE" "INDEX" CNAME "ON" target_expression
+
+    drop_index_statement: "DROP" "INDEX" CNAME
 
     ?union_statement: query_statement
                     | union_statement "UNION" query_statement -> union_statement
@@ -31,10 +35,15 @@ parser = Lark(r"""
 
     load_clause: "LOAD" FORMAT "FROM" target_expression "AS" target_expression
     match_clause: "MATCH" target_expression
-    with_clause: "WITH" source_expression "AS" target_expression
+    with_clause: "WITH" with_pair ("," with_pair)*
     set_clause: "SET" target_variable "=" source_expression
               | "SET" target_global "=" source_expression
     where_clause: "WHERE" source_expression
+
+    ?with_pair: with_shorthand_pair
+              | with_full_pair
+    with_shorthand_pair: source_variable | source_star
+    with_full_pair: source_expression "AS" target_expression
     
     ?write_clause: create_clause
                  | return_clause
@@ -56,6 +65,7 @@ parser = Lark(r"""
                       | target_template
                       | target_variable
                       | target_object
+                      | target_tuple
                       | target_alias
                       | target_unwind
 
@@ -64,8 +74,14 @@ parser = Lark(r"""
                  | "{" target_pair ("," target_pair)* ["," target_rest_expression] "}"
     ?target_pair: target_shorthand_pair
                 | target_full_pair
-    target_shorthand_pair: CNAME
-    target_full_pair: CNAME ":" target_expression
+    target_shorthand_pair: CNAME ["=" target_constant]
+    target_full_pair: CNAME ":" target_expression ["=" target_constant]
+    
+    target_tuple: "[" "]"
+                | "[" target_rest_expression "]"
+                | "[" target_element ("," target_element)* ["," target_rest_expression] "]"
+    target_element: target_expression
+    
     target_rest_expression: "..." target_expression
     
     target_variable: CNAME
@@ -91,11 +107,14 @@ parser = Lark(r"""
     ?or_expression: compare_expression
                   | or_expression "OR" compare_expression -> source_or
     
-    ?compare_expression: prefix_expression
+    ?compare_expression: add_expression
                        | compare_expression "==" prefix_expression -> source_eq
                        | compare_expression "!=" prefix_expression -> source_ne
                        | compare_expression "IS" FORMAT "(" source_expression ")" -> source_valid
                        | compare_expression "IS" "NOT" FORMAT "(" source_expression ")" -> source_invalid
+
+    ?add_expression: prefix_expression
+                   | add_expression "+" prefix_expression -> source_add
 
     ?prefix_expression: member_expression
                       | "NOT" prefix_expression -> source_not
@@ -104,6 +123,8 @@ parser = Lark(r"""
                       | "EXISTS" "(" subquery ")" -> source_exists
                       | member_expression "." CNAME source_method_arguments -> source_method_call
                       | member_expression "." CNAME -> source_property
+                      | member_expression "[" "]" -> source_aggregate
+                      | member_expression "[" source_expression "]" -> source_element
 
     source_method_arguments: "(" ")"
                            | "(" source_expression ("," source_expression)* ")"
@@ -146,7 +167,8 @@ parser = Lark(r"""
           | "JSON"
           | "TEXT"
 
-    COMMENT: /--.*/
+    INLINE_COMMENT: /--.*/
+    MULTILINE_COMMENT: "/*" /(.|\n|\r)*/ "*/"
 
     %import common.ESCAPED_STRING
     %import common.CNAME
@@ -154,20 +176,9 @@ parser = Lark(r"""
     %import common.DIGIT
     %import common.WS
     %ignore WS
-    %ignore COMMENT
+    %ignore INLINE_COMMENT
+    %ignore MULTILINE_COMMENT
 """, start='script', g_regex_flags=re.IGNORECASE)
-
-
-def pprint(node, indent='', last=True):
-    comma = ',' if not last else ''
-    if isinstance(node, Tree):
-        print(f'{indent}Tree({repr(node.data)}, [')
-        last_i = len(node.children) - 1
-        for i, child in enumerate(node.children):
-            pprint(child, indent=indent + ' ' * 2, last=(i == last_i))
-        print(f'{indent}]){comma}')
-    else:
-        print(f'{indent}{repr(node)}{comma}')
 
 
 class Session:
@@ -195,7 +206,7 @@ class Session:
             left, right = node.children
             left_result = self._eval(left, result)
             right_result = self._eval(right, result)
-            return left_result + right_result
+            return itertools.chain(left_result, right_result)
         elif node.data == 'subquery':
             # start with the context result and then apply each clause
             for child in node.children:
@@ -208,8 +219,7 @@ class Session:
             target_expression, = node.children
             return self._match(result, target_expression)
         elif node.data == 'with_clause':
-            source_expression, target_expression = node.children
-            return self._with(result, source_expression, target_expression)
+            return self._with(result, node)
         elif node.data == 'set_clause':
             target_expression, source_expression = node.children
             return self._set(result, target_expression, source_expression)
@@ -234,6 +244,9 @@ class Session:
         elif node.data == 'create_index_statement':
             name, target_expression = node.children
             return self._create_index(name, target_expression)
+        elif node.data == 'drop_index_statement':
+            name, = node.children
+            return self._drop_index(name)
         elif isinstance(node, Tree):
             raise Exception(f'Node of type {node.data} not supported')
         else:
@@ -253,33 +266,38 @@ class Session:
 
         compiled_path = self._compile_target(file_path)
         compiled_target = self._compile_target(target_expression)
-        output_result = []
 
         for context in input_result:
             for file in file_list:
                 for match in compiled_path(file.replace('\\', '/')):
                     if sat.cmp(context, match):
                         subcontext = sat.cmb(context, match)
-                        with open(file) as fp:
+                        with open(file, encoding='UTF-8') as fp:
                             if file_format == 'JSON':
                                 source_value = json.load(fp)
-                                output_result += [
+                                yield from (
                                     sat.cmb(subcontext, match)
                                     for match in compiled_target(source_value)
                                     if sat.cmp(subcontext, match)
-                                ]
+                                )
                             elif file_format == 'JSONL':
                                 for line in fp:
                                     source_value = json.loads(line)
-                                    output_result += [
+                                    yield from (
                                         sat.cmb(subcontext, match)
                                         for match in compiled_target(source_value)
                                         if sat.cmp(subcontext, match)
-                                    ]
+                                    )
+                            elif file_format == 'TEXT':
+                                for line in fp:
+                                    source_value = line[:-1] if line.endswith('\n') else line
+                                    yield from (
+                                        sat.cmb(subcontext, match)
+                                        for match in compiled_target(source_value)
+                                        if sat.cmp(subcontext, match)
+                                    )
                             else:
                                 raise Exception(f'File format {file_format} not supported')
-
-        return output_result
 
     def _create(self, input_result, source_expression):
         compiled_source = self._compile_source(source_expression)
@@ -292,32 +310,31 @@ class Session:
 
     def _return(self, input_result, source_expression):
         compiled_source = self._compile_source(source_expression)
-        output_result = []
 
         for context in input_result:
-            output_result.append(compiled_source(context))
-
-        return output_result
+            yield compiled_source(context)
 
     def _merge(self, input_result, source_expression, target_expression):
         compiled_source = self._compile_source(source_expression)
         compiled_target = self._compile_target(target_expression)
 
+        # TODO: first generate changeset so that changes are isolated from reading query???
+
         for context in input_result:
             patch = compiled_source(context)
-            for i, record in enumerate(self._records):
+            for i, record in self._candidate_records(target_expression, context):
                 if any(sat.cmp(context, match) for match in compiled_target(record)):
                     self._records[i] = sat.cmb(record, patch)
 
         self._update_indexes()
-        return input_result
+        return None
 
     def _delete(self, input_result, target_expression):
         compiled_target = self._compile_target(target_expression)
         delete_set = set()
 
         for context in input_result:
-            for i, record in enumerate(self._records):
+            for i, record in self._candidate_records(target_expression, context):
                 if any(sat.cmp(context, match) for match in compiled_target(record)):
                     delete_set |= {i}
 
@@ -328,54 +345,48 @@ class Session:
         ]
 
         self._update_indexes()
-        return input_result
+        return None
+
+    def _candidate_records(self, target_expression, context):
+        simplified_target = self._simplify_target(target_expression, context)
+
+        index_name = None
+        lookup_key = None
+        for name, key_expression in self._index_keys.items():
+            lookup_key = self._calc_lookup_key(simplified_target, key_expression)
+            if lookup_key is not None:
+                index_name = name
+                break
+
+        if lookup_key is not None:
+            record_key = json.dumps(lookup_key)
+            return (
+                (i, self._records[i])
+                for i in self._index_records[index_name].get(record_key, set())
+            )
+        else:
+            return enumerate(self._records)
 
     def _match(self, input_result, target_expression):
         compiled_target = self._compile_target(target_expression)
-        output_result = []
 
         for context in input_result:
-            simplified_target = self._simplify_target(target_expression, context)
-            index_name = None
-            lookup_key = None
-            for name, key_expression in self._index_keys.items():
-                lookup_key = self._calc_lookup_key(simplified_target, key_expression)
-                if lookup_key is not None:
-                    index_name = name
-                    break
-
-            if lookup_key is not None:
-                record_key = json.dumps(lookup_key)
-                candidate_records = (
-                    self._records[i]
-                    for i in self._index_records[index_name][record_key]
-                )
-            else:
-                candidate_records = self._records
-
-            output_result += [
+            yield from (
                 sat.cmb(context, match)
-                for record in candidate_records
+                for i, record in self._candidate_records(target_expression, context)
                 for match in compiled_target(record)
                 if sat.cmp(context, match)
-            ]
+            )
 
-        return output_result
+    def _with(self, input_result, with_clause):
+        compiled_projection = self._compile_projection(with_clause)
+        compiled_target = self._compile_target(with_clause)
 
-    def _with(self, input_result, source_expression, target_expression):
-        compiled_source = self._compile_source(source_expression)
-        compiled_target = self._compile_target(target_expression)
-        output_result = []
-
-        for context in input_result:
-            # NOTE: no check compatibility and no combine
-            # matches from WITH should hide input variables, so we throw away all the input variables
-            output_result += [
-                match
-                for match in compiled_target(compiled_source(context))
-            ]
-
-        return output_result
+        # NOTE: no check compatibility and no combine
+        # matches from WITH should hide input variables, so we throw away all the input variables
+        for value in compiled_projection(input_result):
+            for match in compiled_target(value):
+                yield match
 
     def _set(self, input_result, target_expression, source_expression):
         if target_expression.data == 'target_global':
@@ -403,13 +414,10 @@ class Session:
 
     def _where(self, input_result, source_expression):
         compiled_source = self._compile_source(source_expression)
-        output_result = []
 
         for context in input_result:
             if compiled_source(context):
-                output_result.append(context)
-
-        return output_result
+                yield context
 
     def _save(self, input_result, file_format, source_expression, file_path):
         compiled_source = self._compile_source(source_expression)
@@ -425,9 +433,17 @@ class Session:
         return input_result
 
     def _create_index(self, name, key_expression):
+        if name in self._index_keys:
+            raise Exception(f'Index {name} already exists')
+
         self._index_keys[name] = key_expression
 
         self._update_indexes()
+        return None
+
+    def _drop_index(self, name):
+        del self._index_keys[name]
+
         return None
 
     def _update_indexes(self):
@@ -462,12 +478,35 @@ class Session:
                 for target_pair in expression.children
                 if target_pair.data in ('target_shorthand_pair', 'target_full_pair')
             }
+            defaults = {
+                str(target_pair.children[0]): (
+                    json.loads(target_pair.children[2].children[0]) if target_pair.data == 'target_full_pair'
+                    else json.loads(target_pair.children[1].children[0])
+                )
+                for target_pair in expression.children
+                if target_pair.data in ('target_shorthand_pair', 'target_full_pair')
+                and len(target_pair.children) == (3 if target_pair.data == 'target_full_pair' else 2)
+            }
             rest = next((
                 self._compile_target(child.children[0])
                 for child in expression.children
                 if child.data == 'target_rest_expression'
             ), None)
-            return destructuring.obj(pairs, rest)
+            return destructuring.obj(pairs, defaults, rest)
+        elif expression.data == 'target_tuple':
+            elements = [
+                self._compile_target(target_element.children[0])
+                for target_element in expression.children
+                if target_element.data == 'target_element'
+            ]
+            rest = next((
+                self._compile_target(child.children[0])
+                for child in expression.children
+                if child.data == 'target_rest_expression'
+            ), None)
+            if rest is not None:
+                raise Exception('target_rest_expression in target_tuple not supported')
+            return destructuring.tup(elements, rest)
         elif expression.data == 'target_constant':
             return destructuring.lit(json.loads(expression.children[0]))
         elif expression.data == 'target_alias':
@@ -482,8 +521,71 @@ class Session:
                 re.sub(r'^`|^}|`$|\${$', '', child) if isinstance(child, str) else self._compile_target(child)
                 for child in expression.children
             ])
+        elif expression.data == 'with_clause':
+            elements = [
+                self._compile_target(child)
+                for child in expression.children
+            ]
+            return destructuring.tup(elements)
+        elif expression.data == 'with_full_pair':
+            return self._compile_target(expression.children[1])
+        elif expression.data == 'with_shorthand_pair':
+            source_variable = expression.children[0]
+            target_variable = Tree('target_variable', source_variable.children)
+            return self._compile_target(target_variable)
         else:
             raise Exception(f'Node of type {expression.data} not supported')
+
+    def _contains_aggregate(self, expression):
+        if expression.data == 'source_variable':
+            return False
+        elif expression.data == 'source_aggregate':
+            return True
+        elif expression.data == 'source_object':
+            return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'source_spread_expression':
+            return self._contains_aggregate(expression.children[0])
+        elif expression.data == 'with_clause':
+            return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'with_full_pair':
+            return self._contains_aggregate(expression.children[0])
+        elif expression.data == 'with_shorthand_pair':
+            return self._contains_aggregate(expression.children[0])
+        else:
+            raise Exception(f'Node of type {expression.data} not supported')
+
+    def _extract_keys(self, expression, keys):
+        if expression.data == 'source_aggregate':
+            return keys, expression
+        elif expression.data == 'with_clause':
+            new_children = []
+            for child in expression.children:
+                keys, new_child = self._extract_keys(child, keys)
+                new_children.append(new_child)
+            return keys, Tree('with_clause', new_children)
+        elif expression.data == 'with_full_pair':
+            source_variable = expression.children[0]
+            keys, source_variable = self._extract_keys(source_variable, keys)
+            return keys, Tree('with_full_pair', [source_variable, expression.children[1]])
+        elif expression.data == 'with_shorthand_pair':
+            source_variable = expression.children[0]
+            target_variable = Tree('target_variable', source_variable.children)
+            keys, source_variable = self._extract_keys(source_variable, keys)
+            return keys, Tree('with_full_pair', [source_variable, expression.children[0]])
+        elif expression.data == 'source_variable':
+            return keys + [expression], Tree('source_key', [Token('INT', len(keys))])
+        else:
+            raise Exception(f'Node of type {expression.data} not supported')
+
+    def _compile_projection(self, expression):
+        if self._contains_aggregate(expression):
+            keys, grouped_expression = self._extract_keys(expression, [])
+            return expr.grp_ret(
+                expr.arr([expr.el(self._compile_source(key)) for key in keys]),
+                self._compile_source(grouped_expression)
+            )
+        else:
+            return expr.ret(self._compile_source(expression))
 
     def _compile_source(self, expression):
         if expression.data == 'source_method_call':
@@ -497,12 +599,21 @@ class Session:
                 return expr.bin(lambda o, a: (a[0] if len(a) > 0 else ',').join(o), subject, arguments)
             elif expression.children[1] == 'includes':
                 return expr.bin(lambda o, a: a[0] in o, subject, arguments)
+            elif expression.children[1] == 'trim':
+                return expr.bin(lambda o, a: o.strip(), subject, arguments)
+            elif expression.children[1] == 'match':
+                to_arr_or_null = lambda x: [x[0], *x.groups()] if x is not None else None
+                return expr.bin(lambda o, a: to_arr_or_null(re.match(a[0], o)), subject, arguments)
             else:
                 raise Exception(f'Method {expression.children[1]} not supported')
         elif expression.data == 'source_property':
             left = self._compile_source(expression.children[0])
             key = str(expression.children[1])
             return expr.uni(lambda l: l[key], left)
+        elif expression.data == 'source_element':
+            left = self._compile_source(expression.children[0])
+            key = self._compile_source(expression.children[1])
+            return expr.bin(lambda l, k: l[k], left, key)
         elif expression.data == 'source_ne':
             left = self._compile_source(expression.children[0])
             right = self._compile_source(expression.children[1])
@@ -510,7 +621,8 @@ class Session:
         elif expression.data == 'source_and':
             left = self._compile_source(expression.children[0])
             right = self._compile_source(expression.children[1])
-            return expr.bin(lambda l, r: l and r, left, right)
+            # don't use expr.bin(), but build short-circuit AND
+            return lambda c: left(c) and right(c)
         elif expression.data == 'source_valid':
             left = self._compile_source(expression.children[0])
             format = str(expression.children[1])
@@ -521,6 +633,10 @@ class Session:
             format = str(expression.children[1])
             right = self._compile_source(expression.children[2])
             return expr.bin(lambda l, r: not self._validate(format, l, r), left, right)
+        elif expression.data == 'source_add':
+            left = self._compile_source(expression.children[0])
+            right = self._compile_source(expression.children[1])
+            return expr.bin(lambda l, r: l + r, left, right)
         elif expression.data == 'source_not':
             operand = self._compile_source(expression.children[0])
             return expr.uni(lambda o: not o, operand)
@@ -557,9 +673,20 @@ class Session:
             return expr.el(self._compile_source(expression.children[0]))
         elif expression.data == 'source_spread_expression':
             return self._compile_source(expression.children[0])
+        elif expression.data == 'source_aggregate':
+            return expr.grp_arr(self._compile_source(expression.children[0]))
         elif expression.data == 'source_exists':
             subquery = expression.children[0]
-            return lambda c: len(self._eval(subquery, [c])) > 0
+            return lambda c: any(True for _ in self._eval(subquery, [c]))
+        elif expression.data == 'with_clause':
+            elements = [self._compile_source(child) for child in expression.children]
+            return expr.arr(elements)
+        elif expression.data == 'with_full_pair':
+            return expr.el(self._compile_source(expression.children[0]))
+        elif expression.data == 'with_shorthand_pair':
+            return expr.el(self._compile_source(expression.children[0]))
+        elif expression.data == 'source_key':
+            return expr.grp_key(int(expression.children[0]))
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 

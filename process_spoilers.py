@@ -14,12 +14,13 @@ if __name__ == '__main__':
 
     session = Session()
     for script in scripts:
-        with open(script) as fp:
+        with open(script, encoding='UTF-8') as fp:
             print(f'Executing {script}...')
             result = session.query(''.join(fp.readlines()))
 
-    for record in result:
-        print(record)
+    if result is not None:
+        for record in result:
+            print(record)
 
     stop = time.perf_counter()
 

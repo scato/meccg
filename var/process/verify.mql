@@ -25,4 +25,26 @@ UNION
 
 MATCH card
 WHERE card IS NOT JSON(@schema)
-RETURN card;
+RETURN card
+
+;--UNION
+
+LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern
+WITH attr, pattern[] AS patterns
+WHERE [
+    "set", "type", "alignment",
+    "mp", "site_type", "region_type", "name",
+    "mind", "gi", "di",
+    "race", "class", "region",
+    "prowess", "body", "cp"
+].includes(attr)
+MATCH {set, name} AS card
+WHERE card.includes(attr) AND card[attr] != null
+SET value = card[attr]
+WHERE value != null AND NOT EXISTS (
+    WITH value, patterns AS pattern[]
+    WHERE value.match("^" + pattern + "$")
+)
+RETURN {set, name, attr, value};
+
+-- TODO: skills, home_site, text

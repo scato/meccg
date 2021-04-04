@@ -1,8 +1,3 @@
---SET card.text = card.text.join(" ")
-
-
-
-
 LOAD JSON FROM "var/json/atscreat.json" AS spoiler
 WITH spoiler AS {cards: card[], ...spoiler}
 SET extra = {type: "Hazard", alignment: null}
@@ -55,7 +50,7 @@ CREATE {...spoiler, ...card, ...extra};
 
 LOAD JSON FROM "var/json/balcharacters.json" AS spoiler
 WITH spoiler AS {cards: card[], ...spoiler}
-SET extra = {}
+SET extra = {alignment: "Minion"}
 CREATE {...spoiler, ...card, ...extra};
 
 LOAD JSON FROM "var/json/balhazards.json" AS spoiler
@@ -315,3 +310,5 @@ LOAD JSON FROM "var/json/wizsites.json" AS spoiler
 WITH spoiler AS {cards: card[], ...spoiler}
 SET extra = {alignment: "Hero"}
 CREATE {...spoiler, ...card, ...extra};
+
+CREATE INDEX card_set_name ON {set, name, alignment};

@@ -1,8 +1,10 @@
 MATCH {type: "Character"} AS card
-SAVE JSONL card TO "var/jsonl/character.jsonl";
+WITH card AS {set, type, alignment, name, text, mp = "", mind = null, gi = null, di, skills, race, prowess, body, home_site, cp = null}
+SAVE JSONL * TO "var/jsonl/character.jsonl";
 
 MATCH {type: "Hazard", class: "Agent"} AS card
-SAVE JSONL card TO "var/jsonl/hazard-agent.jsonl";
+WITH card AS {set, type, alignment, class, name, text, mp, mind, di, skills, race, prowess, body, home_site, cp}
+SAVE JSONL * TO "var/jsonl/hazard-agent.jsonl";
 
 MATCH {type: "Hazard", class} AS card
 WHERE class.includes("Creature")
@@ -34,3 +36,5 @@ MATCH {type: "Site"} AS card
 SAVE JSONL card TO "var/jsonl/site.jsonl";
 
 DELETE _;
+
+DROP INDEX card_set_name;

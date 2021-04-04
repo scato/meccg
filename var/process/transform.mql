@@ -1,25 +1,91 @@
-MERGE {keyed_to: ["w", "w"]} INTO {set: "The Wizards", name: "Tom (Tuma)"};
+-------------------
+-- CARD SPECIFIC --
+-------------------
 
---MATCH {text} AS card
---SET text = text.replace("\n", " ")
---SET text = text.replace("  ", " ")
---SET text = text.replace(". ", ".\n")
---SET text = text.replace(".\" ", ".\"\n")
---SET text = text.split("\n")
---MERGE {text} INTO card;
+MERGE {alignment: "Balrog", mind: null, cp: null} INTO {set: "The Balrog", name: "The Balrog"};
+MERGE {mp: "", mind: "2"} INTO {set: "The Lidless Eye", name: "Dôgrib"};
+MERGE {prowess: "2", body: "8"} INTO {set: "Promo Cards", name: "Bill Ferny"};
+MERGE {text: ["Trolls. Three strikes."]} INTO {set: "The Wizards", name: "Olog-hai (Trolls)"};
+
+------------------
+-- SET SPECIFIC --
+------------------
+
+MATCH {set, name, alignment, keyed_to}
+WHERE ["Dark Minions", "The Lidless Eye", "Promo Cards", "The White Hand"].includes(set)
+WHERE keyed_to != null
+MERGE {keyed_to: [keyed_to]} INTO {set, name};
+
+MATCH {set, name, alignment, home_site}
+WHERE ["Dark Minions"].includes(set)
+SET home_site = home_site.replace("\n", " ")
+SET home_site = home_site.split(", ")
+MERGE {home_site} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, text}
+WHERE ["Against the Shadow", "The Lidless Eye", "Promo Cards", "The White Hand"].includes(set)
+MERGE {text: [text]} INTO {set, name, alignment};
+
+--------
+-- MP --
+--------
+
+MERGE {mp: ""} INTO {type: "Character", mp: null};
+
+--------------
+-- KEYED TO --
+--------------
 
 MERGE {keyed_to: []} INTO {keyed_to: null};
+
+MATCH {set, name, alignment, keyed_to}
+WHERE keyed_to != []
+SET keyed_to = keyed_to
+    .join(" ")
+    .replace("  ", " ")
+    .replace(",", "")
+    .replace(" and ", " ")
+    .replace(".", "")
+    .replace("Free-hold", "F")
+    .replace("Border-hold", "B")
+    .replace("Ruins & Lairs", "R")
+    .replace("Free-domain", "f")
+    .replace("Border-land", "b")
+    .replace("Wilderness", "w")
+    .replace("Shadow-land", "s")
+    .replace("Sh-h", "S")
+    .replace("Da-h", "D")
+    .replace("Wi", "w")
+    .replace("Sh-l", "s")
+    .replace("Da-d", "d")
+    .replace("Co", "c")
+    .replace("R&L", "R")
+    .replace("BL", "b")
+    .replace("W", "w")
+    .replace("SL", "s")
+    .replace("DD", "d")
+    .replace("2 c", "c c")
+    .replace("2", "w w")
+    .replace("r", "R")
+    .split(" ")
+MERGE {keyed_to} INTO {set, name, alignment};
+
 MERGE {keyed_to: []} INTO {keyed_to: [""]};
 
-MATCH {keyed_to} AS card
-WHERE keyed_to != []
-SET keyed_to = keyed_to.join(" ")
---SET keyed_to = keyed_to.replace("Free-hold", "F")
---SET keyed_to = keyed_to.replace("Border-hold", "B")
---SET keyed_to = keyed_to.replace("Ruins & Lairs", "R")
---SET keyed_to = keyed_to.replace("Free-domain", "f")
---SET keyed_to = keyed_to.replace("Border-land", "b")
---SET keyed_to = keyed_to.replace("Wilderness", "w")
-SET keyed_to = keyed_to.replace("2 c", "c c")
-SET keyed_to = keyed_to.split(" ")
-MERGE {keyed_to} INTO card;
+----------
+-- TEXT --
+----------
+
+MATCH {set, name, alignment, text, line_without_br}
+WHERE line_without_br != ""
+MERGE {text: [...text, line_without_br]} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, text}
+SET text = text
+    .join(" ")
+    .replace("\n", " ")
+    .replace("  ", " ")
+    .replace(". ", ".\n")
+    .replace(".\" ", ".\"\n")
+    .split("\n")
+MERGE {text} INTO {set, name, alignment};
