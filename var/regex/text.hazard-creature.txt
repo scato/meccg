@@ -9,30 +9,152 @@ Elf\.
 Man\.
 Men\.
 Trolls\.
+Wolves\.
+Animals\.
+Nazgul \(.+\)\.
+Troll\.
+Animal\.
+Orc\.
+Dragon\.
+Pukel-creature\.
+Spider\.
+Orcs\.
+Awakened Plant\.
+Undead\.
+Giant\.
+Giants\.
+Spiders\.
+Drake\.
+Slayer\.
+Bears\.
+Balrog\.
+Dunedain\.
 One strike\.
+One Strike\.
+1 strike\.
+One strike \(detainment against hero companies\)\.
+One strike \(detainment against covert and hero companies\)\.
 Two strikes\.
+Two Strikes\.
+Two strikes \(playable only against an overt minion company\)\.
+2 strikes-all body checks resulting from a successful strike are modified by \+1\.
 Three strikes\.
+Three Strikes\.
+3 strikes\.
+Three strikes \(playable only against minion companies\)\.
+Three strikes \(playable only against hero companies\).
 Four strikes\.
+Four strikes \(playable only against minion companies\)\.
 Five strikes\.
+Five strikes \(two strikes and detainment against hero companies\)\.
 Six strikes\.
+May be played as a hazard creature \(with one strike\) or as a permanent-event\.
+May be played as a hazard creature \(with one strike\) or as a short-event\.
+May be played as a hazard creature \(with two strikes\) or as a permanent-event\.
+Two attacks \(of one strike each\) against the same character\.
+Three attacks \(of one strike each\) all against the same character\.
+3 attacks of 2 strikes each\.
+Each character in the company faces one strike\.
+Each character in the company faces one strike \(detainment against covert and hero companies\)\.
+Each wounded character faces one strike\.
+Attacker chooses defending character\.
 Attacker chooses defending characters\.
+Attacker chooses the defending characters\.
 Detainment and -[1-9] prowess against hero companies\.
 Detainment against hero companies\.
 Detainment against hero and covert companies\.
-# Special abilities
-Manifestation of .+\.
-Discard this card if .+ comes into play\.
-Maia hazard creatures may be keyed to Border-holds or Ruins & Lairs against any company that has faced Dwarven Travelers this turn\.
-Each character wounded by this attack must discard all items he bears\.
-Unless the attack is canceled, all untapped characters in defending company are tapped following this attack\.
+As a creature, playable only against minion companies\.
+If played on a company that has already faced an Orc attack this turn, .+ receives \+[1-9] prowess\.
+Orc-lieutenant receives an additional \+3 prowess if played on a company that has already faced Uruk-lieutenant this turn\.
+\+4 prowess versus Ringwraiths\.
+Pirates receives \+2 prowess when keyed to Coastal Seas\.
+15 prowess against Hobbits\.
+Each ranger in attacked company lowers Little Snuffler's body by 2\.
 # Keyed to
 As a creature, may be played keyed to .+\.
 As a creature, may also be played keyed to .+\.
+Playable keyed to .+\.
 May be played keyed to .+\.
 May also be played keyed to .+\.
-Playable keyed to .+\.
 Playable at .+\.
-# wizards and lords
+May be played at .+\.
+May also be played at .+\.
+Also playable at .+\.
+As a creature, may be played at any site in .+.
+As a creature, she may be played at .+\.
+May also be played following an Orc or Troll attack in a Shadow-land \[s\] or Shadow-hold \[S\]\.
+Only playable at a Shadow-hold or at a Dark-hold, and only if a character in the company is wounded or Doors of Night is in play.
+Two Wildernesses \[w\] in site path are required\.
+Two Wildernesses \[w\] in the site path are required\.
+Two Wildernesses \[w\] in site path are otherwise required\.
+Three wildernesses \[w\] in site path are required\.
+Three Wildernesses \[w\] in site path are required\.
+Three Wildernesses \[w\] in site path are required \(only two Wildernesses \[w\] are required if Doors of Night is in play\)\.
+Three Wildernesses \[w\] or two Shadow-lands \[s\] in site path are required\.
+Two Shadow-lands \[s\] in site path are required\.
+Only two Wildernesses in site path are required if Doors of Night is in play\.
+May also be keyed to .+\.
+May also be played on a company moving .+\.
+May also be played \(on the same turn and on the same company as .+\) keyed to .+\.
+May be played following any .+ attack not keyed to a site\.
+May not be played against a company containing a character with .+ as a home site\.
+If Doors of Night is in play, playable at .+\.
+If Doors of Night is in play, also playable at .+\.
+If Doors of Night is in play, may also be played keyed to .+\.
+If Doors of Night is in play, .+ may be played at .+\.
+If Doors of Night is in play, she may also be keyed to .+\.
+If Doors of Night is not in play, may also be played keyed to .+\.
+# Tap characters to cancel
+A character can tap to cancel one of these attacks\.
+The defender may tap one character in the same company to cancel one of these attacks\.
+The defender may tap any one character in the company to cancel one of these attacks\.
+One or two of these attacks may be canceled by tapping one character \(not the defending character\) in the defender's company for each attack canceled\.
+Each untapped character in the company may tap to cancel a strike against a wounded character\.
+# Tap characters
+Any character that would normally be wounded is only tapped instead - no body checks are made\.
+Any character that would normally be wounded is only tapped intstead - no body checks are made\.
+Unless the attack is canceled, all untapped characters in defending company are tapped following this attack\.
+Unless this attack is cancelled, all untapped characters in defending company are tapped following attack\.
+Any character facing a strike whose mind is equal to or lower than the strike's prowess must tap if untapped following the strike \(unless the strike is cancelled\)\.
+# Corruption checks
+Before a defending character is selected, every character in the company makes a corruption check\.
+If this attack is not canceled, every character in the company makes a corruption check before defending characters are selected\.
+After attack, each character wounded by .+ makes a corruption check modified by -[1-9]\.
+After attack, each character wounded by the .+ makes a corruption check modified by -[1-9]\.
+After the attack, each character wounded by .+ makes a corruption check modified by -[1-9]\.
+# Discard characters
+If the body check for a .+ character wounded by .+ equals the character's body, the character is discarded\.
+If the body check for a .+ character wounded by .+ equals his body, the character is discarded\.
+Each non-Wizard defending character wounded by the .+ is discarded\.
+# Discard items
+Each character wounded by this attack must discard all items he bears\.
+If any strike of .+ wounds a character, the company must immediately discard one item \(of defender’s choice\)\.
+If any strike of .+ wounds a character, the company must immediately discard one item \(of defender's choice\)\.
+For each successful strike, an item held by the defending company must be discarded \(defender's choice\); the defending character is not harmed\.
+For each successful strike, an item the defending character bears must be discarded \(defender's choice\); he is not harmed\.
+If played after ".+" or ".+" and if keyed to the same site path against the same company, each character wounded by ".+" must discard all non-special items he bears\.
+If any strike of Pirates wounds a character, the company must immediately discard one item \(of defender’s choice\)\.
+Defending company must discard one item of attacker's choice for each character wounded by Were-worm\.
+# Other special abilities
+Manifestation of .+\.
+Discard this card if .+ comes into play\.
+His prowess against such a strike is equal to his mind attribute\.
+Maia hazard creatures may be keyed to Border-holds or Ruins & Lairs against any company that has faced Dwarven Travelers this turn\.
+If any strike is successful, the defending company must return to its site of origin \(defending characters are wounded normally\).
+After the attack, the defender must reveal one random card from his hand for each character in the defending company\.
+Following the attack, the attacker looks at a number of cards from the top of the defender's play deck equal to the number of successful strikes of the attack\.
+The attacker may place any of these cards face down on the bottom of the defender's play deck \(in any order he chooses\)\.
+He places the rest on top of the defender's deck \(in any order he chooses\)\.
+Alternatively, playable as a short-event against a moving hero company\.
+Unless the company contains Beorn or an untapped warrior with prowess greater than 4, it must return to its site of origin\.
+All body checks resulting from successful strikes are modified by an additional \+1\.
+Any non-unique Orc or Troll hazard creature can be played \(not counting against the hazard limit\) on a company that has faced Bûthrakaur that turn\.
+Any non-unique Orc or Troll hazard creature can be played \(not counting against the hazard limit\) on a company that has faced Umagaur that turn\.
+Unless Chill Douser's attack is cancelled, all Undead attacks against the company for the rest of the turn receive \+1 strike and \+1 prowess\.
+If attack is not defeated, any resource that requires a scout in target company cannot be played for the rest of the turn\.
+Any character wounded by Carrion Birds makes two body checks instead of one, both checks modified by -1\.
+If played as a short-event, modify the prowess and strikes of a Wolf attack by \+1\.
+# Nazgul, Wizards, monsters and lords
 Discard when any play deck is exhausted\.
 As a permanent-event, all Maia attacks: receive \+1 prowess and \+1 strike and attacker chooses defending characters\.
 As a permanent-event, the hazard limit against all overt minion companies is increased by one\.
@@ -44,3 +166,20 @@ As a permanent-event, the next non-Ringwraith minion discarded from play is inst
 Discard when a minion is so eliminated\.
 As a permanent-event, all companies moving in Southern Mirkwood, Western Mirkwood, Woodland Realm, and/or Heart of Mirkwood have their hazard limit increased by one\.
 As a permanent-event, all ring items give one additional corruption point\.
+If played as a permanent-event, it will remain in play until tapped during the opponent's movement/hazard phase \(tapping counts against the hazard limit\)\.
+When tapped, Witch-king of Angmar becomes a long-event and causes all Shadow-holds \[S\] to become Dark-holds \[D\]\.
+When tapped, Uvatha the Horseman becomes a short-event and you may bring one hazard creature from your discard pile to your hand\.
+If Doors of Night is in play, Shelob may be played as a permanent-event that gives \+1 prowess and \+1 strikes to all Spider and Animal attacks\.
+She may opt to attack from a permanent-event state and receive these bonuses, but her attack counts as one against the hazard limit\.
+Discard when Shelob attacks or when Doors of Night leaves play\.
+When tapped, Ren the Unclean becomes a short-event: each character in play must make a corruption check\.
+When tapped, Hoarmurath of Dir becomes a short-event and gives \+1 strike to any one attack\.
+When tapped, Indur Dwandeath becomes a short-event and makes any wounded character discard an item \(but not a ring\)\.
+When tapped, Khamul the Easterling becomes a short-event and forces opponent to discard one card of his choice for every Nazgul permanent-event in play \(including this one\)\.
+If played as a short-event, bring any hazard card from your discard pile back into your hand\.
+When tapped, Dwar of Waw becomes a short-event and gives \+1 prowess to all Wolf, Spider and Animal attacks until the end of the turn\.
+When tapped, Adunaphel becomes a short-event and causes any one character to tap\.
+When tapped, Akhorahil becomes a short-event and modifies any one character's body by -1 for the rest of this turn\.
+If played as a permanent-event, all Spider attacks receive \+1 strike\.
+Additionally, any company moving in Southern Mirkwood, Heart of Mirkwood, Woodland Realm, Dagorlad, or Brown Lands faces a Spider attack of 2 strikes with 10 prowess\.
+You can return Spider of the Môrlat as a permanent-event to your hand-which counts as one against the hazard limit\.

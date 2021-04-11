@@ -25,13 +25,14 @@ parser = Lark(r"""
     query_statement: read_clause+ [write_clause]
                    | write_clause
 
-    subquery: read_clause+
+    subquery: read_clause+ [return_clause]
     
     ?read_clause: load_clause
                 | match_clause
                 | with_clause
                 | set_clause
                 | where_clause
+                | order_by_clause
 
     load_clause: "LOAD" FORMAT "FROM" target_expression "AS" target_expression
     match_clause: "MATCH" target_expression
@@ -39,6 +40,7 @@ parser = Lark(r"""
     set_clause: "SET" target_variable "=" source_expression
               | "SET" target_global "=" source_expression
     where_clause: "WHERE" source_expression
+    order_by_clause: "ORDER" "BY" source_expression
 
     ?with_pair: with_shorthand_pair
               | with_full_pair
@@ -120,7 +122,8 @@ parser = Lark(r"""
                       | "NOT" prefix_expression -> source_not
 
     ?member_expression: terminal_expression
-                      | "EXISTS" "(" subquery ")" -> source_exists
+                      | "EXISTS" "(" subquery ")" -> source_subquery_exists
+                      | "ARRAY" "(" subquery ")" -> source_subquery_array
                       | member_expression "." CNAME source_method_arguments -> source_method_call
                       | member_expression "." CNAME -> source_property
                       | member_expression "[" "]" -> source_aggregate
@@ -135,6 +138,7 @@ parser = Lark(r"""
                         | source_star
                         | source_object
                         | source_array
+                        | "(" source_expression ")"
 
     source_constant: ESCAPED_STRING
                    | /null/
@@ -226,6 +230,9 @@ class Session:
         elif node.data == 'where_clause':
             source_expression, = node.children
             return self._where(result, source_expression)
+        elif node.data == 'order_by_clause':
+            source_expression, = node.children
+            return self._order_by(result, source_expression)
         elif node.data == 'create_clause':
             source_expression, = node.children
             return self._create(result, source_expression)
@@ -419,18 +426,26 @@ class Session:
             if compiled_source(context):
                 yield context
 
+    def _order_by(self, input_result, source_expression):
+        compiled_source = self._compile_source(source_expression)
+
+        return sorted(input_result, key=compiled_source)
+
     def _save(self, input_result, file_format, source_expression, file_path):
         compiled_source = self._compile_source(source_expression)
 
-        with open(file_path, 'w') as fp:
+        with open(file_path, 'w', encoding='UTF-8') as fp:
             for context in input_result:
                 if file_format == 'JSONL':
                     json.dump(compiled_source(context), fp)
                     fp.write('\n')
+                elif file_format == 'TEXT':
+                    fp.write(compiled_source(context))
+                    fp.write('\n')
                 else:
                     raise Exception(f'File format {file_format} not supported')
 
-        return input_result
+        return None
 
     def _create_index(self, name, key_expression):
         if name in self._index_keys:
@@ -551,6 +566,8 @@ class Session:
             return self._contains_aggregate(expression.children[0])
         elif expression.data == 'with_shorthand_pair':
             return self._contains_aggregate(expression.children[0])
+        elif expression.data == 'source_element':
+            return any(self._contains_aggregate(child) for child in expression.children)
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
@@ -603,7 +620,7 @@ class Session:
                 return expr.bin(lambda o, a: o.strip(), subject, arguments)
             elif expression.children[1] == 'match':
                 to_arr_or_null = lambda x: [x[0], *x.groups()] if x is not None else None
-                return expr.bin(lambda o, a: to_arr_or_null(re.match(a[0], o)), subject, arguments)
+                return expr.bin(lambda o, a: to_arr_or_null(re.search(a[0], o)), subject, arguments)
             else:
                 raise Exception(f'Method {expression.children[1]} not supported')
         elif expression.data == 'source_property':
@@ -675,9 +692,12 @@ class Session:
             return self._compile_source(expression.children[0])
         elif expression.data == 'source_aggregate':
             return expr.grp_arr(self._compile_source(expression.children[0]))
-        elif expression.data == 'source_exists':
+        elif expression.data == 'source_subquery_exists':
             subquery = expression.children[0]
             return lambda c: any(True for _ in self._eval(subquery, [c]))
+        elif expression.data == 'source_subquery_array':
+            subquery = expression.children[0]
+            return lambda c: list(self._eval(subquery, [c]))
         elif expression.data == 'with_clause':
             elements = [self._compile_source(child) for child in expression.children]
             return expr.arr(elements)

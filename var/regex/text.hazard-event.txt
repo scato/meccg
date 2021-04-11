@@ -1,1 +1,807 @@
-.*
+\+2 prowess to all automatic-attacks at sites in Hollin, Redhorn Gate, and Wold & Foothills\.
+\+4 to influence attempt\.
+\+6 to influence attempt \(\+10 if the agent is a diplomat\)\.
+\+6 to influence attempt\.
+\+8 if ally, faction, or character is playable at agent's home site\.
+-1 prowess to all Orc, Troll, Dwarf, and Ringwraith characters not at, nor moving to or from, an Under-deeps site\.
+-2 to character's direct influence \(to a minimum of zero\)\.
+-2/-1 to his prowess/body until the end of the turn\.
+A Dragon attack is modified by \+1 to prowess and \+1 to body\.
+A Dragon attack receives one additional strike \(with no body\)\.
+A Dragon can assign a strike \(with a -3 modification to it's prowess\) to a character already assigned to receive one of its strikes\.
+A Dragon hazard crreature can attack a company with four Wildernesses \[w\] in its site path\.
+A Nazgul's prowess is modified by \+1; if used with the Witch-king of Angmar, his prowess is increased by \+1 plus the number of Nazgul permanent-events in play\.
+A Nazgul's prowess is modified by \+2\.
+A character in the same company as The One Ring \(not the bearer himself\) must make a corruption check modified by -2\.
+A character receives 2 corruption points\.
+A character with this card gives his player negative character marshalling points\.
+A company at this site must face an Orc attack of three strikes at 7 prowess at the beginning of its site phase\.
+A company moving to or from an Under-deep site must return to its site of origin\.
+A company without a ranger that has moved to this site this turn must do nothing during its site phase\.
+A non-Wizard character facing a strike from a Dragon hazard creature attack loses all skills while bearing this card\.
+A non-Wizard, non-Hobbit character receives 2 corruption points\.
+A ranger in the company can tap to cancel this card before it resolves\.
+A reserved Dragon or Drake receives \+2 prowess when attacking\.
+A revealed Wizard receives 2 corruption points and makes a corruption check at the end of any movement/hazard phase in a turn during which his company moved to a Haven \[H\]\.
+A single-strike hazard creature attack is made on the company with the attributes of the revealed character, except the prowess is increased by 7\.
+A strike from a Dragon attack is modified by \+2 prowess and -1 body\.
+A successful strike doesn't wound the defending character, instead the character is taken prisoner at one of the agent's home sites of the attacker's choice \(regardless of site's location\) and the agent returns to the same site\.
+A successful strike doesn't wound the defending character; instead the company must discard one item \(defender's choice\)\.
+Additionally, any sage at a site in a Dark-domain or Gorgoroth, or moving with a Dark-domain or Gorgoroth in his site path, loses his sage skill\.
+Additionally, cancels the effects of Secret Passage and Secret Entrance\.
+Additionally, each detainment automatic-attack at a Free-hold or Border-hold becomes a normal automatic-attack\.
+Additionally, his Elf characters and Elf factions are each worth 0 marshalling points in all cases\.
+Additionally, if Doors of Night is in play, all Wolf attacks receive \+2 prowess and all Wolf, Spider, and Animal attacks receive \+1 strikes for the rest of the turn against the company\.
+Additionally, if Doors of Night is in play, any Undead hazard creature may be played keyed to Ruins and Lairs\.
+Additionally, if Doors of Night is in play, during each company's movement/hazard phase, the hazard player may draw one additional card for every card in excess of one drawn by his opponent\.
+Additionally, if Doors of Night is in play, each non-Darkhaven site in play with at least two Wildernesses in its site path is tapped\.
+Additionally, if Doors of Night is in play, each non-Haven site in play with a Shadow-land \[s\] or a Dark-domain \[d\] in its site path is tapped\.
+Additionally, if Doors of Night is in play, each non-Haven site in play with at least two Wildernesses \[w\] in its site path is tapped\.
+Additionally, if Doors of Night is in play, the number of strikes for each Undead attack is doubled\.
+Additionally, if Doors of Night is in play, the number of strikes for each Undead attack is doubled\.
+Additionally, if Doors of Night is in play, the prowesses of all attacks are modified by \+1 and the prowess of each Man and Dunadan is modified by -1\.
+Additionally, if Doors of Night is in play, treat all Free-domains \[f\] as Border-lands \[b\] and all Border-lands \[b\] as Wildernesses \[w\]\.
+Additionally, if Doors of Night is in play, treat all Free-domains as Border-lands and all Border-lands as Wildernesses\.
+Additionally, if Shadow of Mordor is in play, any character wounded by an attack keyed to \(or an automatic-attack at\) a Shadow-hold \[S\] or a Dark-hold \[D\] makes an additional body check modified by -2\.
+Additionally, target Nazgul may be played keyed to a Shadow-land \[s\] or Shadow-hold \[S\]\.
+Additionally, the Fallen-wizard's hand size is reduced by 1 if his SPs exceed 10, and by 1 more if his SPs exceed 20\.
+Affected companies cannot use starter movement if region movement is being used in the game\.
+Affects a faction already in play\.
+Affects each company with a Costal Sea \[c\] in its site path\.
+Affects the following sites: The Lonely Mountain, Irerock, Zarak Dum, and Gold Hill\.
+Affects the following sites: The Loney Mountain, Irerock, Zarak Dum, and Gold Hill\.
+After the attack is resolved, if the creature is not a Nazgul: the creature is removed from play \(defender receives the marshalling points\); and, in addition, if the defender has The Iron Crown in his hand, he may immediately play it with a character in the defending company\.
+After the attack is resolved, if the creature is not a Nazgul: the creature is removed from play \(defender recieves the marshalling points\); and , in addition, if the defender has The Iron Crown in his hand, he may immediately play it with a character in the defending company\.
+After the attack, this card is discarded and the corruption of the traitor is resolved normally \(i\.e\., he is discarded or removed from play\)\.
+Against each company, one Orc hazard creature may be played that does not count towards the hazard limit\.
+Agent attacks \(not counting against hazard limit\) with a \+3 modification to his prowess during the movement/hazard phase\.
+Agent may attack \(not counting against hazard limit\) during the movement/hazard phase\.
+Agent may attack \(not counting against hazard limit\) with a \+4 modification to his prowess during the movement/hazard phase\.
+All Elf, Dwarf, Dunadan, and Hobbit attacks receive \+2 prowess and \+2 strikes \(\+1 prowess and \+1 strike if Doors of Night is in play\)\.
+All Elves and Hobbits in the target's company have \+1 mind, and a Wizard in the company has -1 direct influence\.
+All Orc and Troll automatic-attacks receive \+3 strikes and \+2 prowess\.
+All Orc, Troll, and Man attacks with body have their body modified by \+1; and all Orc, Troll, and Man attacks with no body have 4 body\.
+All Orc, Troll, and Men attacks receive \+1 prowess\.
+All Spider and Animal attacks receive \+2 prowess\.
+All Undead attacks receive \+1 strike and \+1 prowess\.
+All Undead automatic-attacks are duplicated \(i\.e\., each Undead automatic-attack must be faced twice, including all modifications\)\.
+All automatic-attacks at sites in the following regions have their number of strikes and prowess increased by one \(by two if Doors of Night is in play\): Angmar, Gap of Isen, Gorgoroth, Gundabad, High Pass, Redhorn Gate, Rohan, Southern Mirkwood, and Ûdun\.
+All body checks resulting from successful strikes of this attack are modified by \+1\.
+All hazard long-events remain in play until this card is discarded\.
+All items and storable events played with target minion are then automatically stored \(no corruption checks are made\)\.
+All non-agent Man attacks receive \+1 prowess and \+1 strikes\.
+All of his corruption checks are modified by adding the number of characters in his company\.
+All offering attempts and influence attempts are modified by - 3\.
+All resource environment cards in play are immediately discarded, and all resource environment effects are canceled\.
+All versions of the site become Ruins & Lairs and each gains an additional automatic- attack: animals — each character faces 1 strike with 7 prowess\.
+Also, the Fallen- wizard's company is overt\.
+Alternatively, \+1 prowess to a Spider attack\.
+Alternatively, Daelomin may be played at the site this turn \(without discarding a creature\)\.
+Alternatively, Leucaruth can attack a company with three Wildernesses \[w\] in her site path\.
+Alternatively, a manifestation of Bairanax can direct such a strike with no prowess modification\.
+Alternatively, a strike from an attack by a manifestation of Smaug is modified by \+4 prowess and -2 body\.
+Alternatively, all strikes of Earcaraxe at Home attempt to capture all non-Wizard characters defending against her strikes\.
+Alternatively, allows a Nazgul to be played keyed to a Shadow-land \[s\]\.
+Alternatively, an attack by a manifestation of Scatha is modified by \+2 to prowess and \+2 to body\.
+Alternatively, an attack from a manifestation of Scorba receives two additional strikes \(each with no body\)\.
+Alternatively, as a short-event, take any agent who has a home site that is a Free-hold or Border-hold from your play deck into your hand \(reveal it to opponent and reshuffle your play deck\)\.
+Alternatively, as a short-event, take any agent who has a home site that is a Shadow-hold or Dark-hold from your play deck into your hand \(reveal it to opponent and reshuffle your play deck\)\.
+Alternatively, bring a Maia permanent-event from active play to your hand\.
+Alternatively, can target and cancel one resource short-event declared earlier in the same chain of effects \(i\.e\., before the resource short-event resolves\)\.
+Alternatively, force a target character to make a corruption check\.
+Alternatively, gives a prowess bonus to a Dragon or Drake attack \(must be played before its strikes are assigned\) dictated by the number of Prowess of Age cards played on the attack: \+1 prowess if 1 played; \+4 if 2 played; \+9 if 3 played\.
+Alternatively, if Doors of Night is in play, at the end of each turn, each player may return one unique Dragon manifestation and/or one Drake hazard creature from his discard pile to his hand\.
+Alternatively, if Doors of Night is in play, target company must immediately return to its site of origin\.
+Alternatively, if Doors of Night is in play, treat one Border-land \[b\] as a Wilderness \[w\] or one Border-hold \[B\] as a Ruins & Lairs \[R\] until the end of the turn\.
+Alternatively, if Doors of Night is in play, treat one Free-domain \[f\] as a Border-land \[b\] or one Free-hold \[F\] as a Border-hold \[B\] until the end of the turn\.
+Alternatively, if Doors of Night is in play, treat one Shadow-land \[s\] as a Dark-domain \[d\] until end of the turn\.
+Alternatively, if Doors of Night is in play, treat one Wilderness \[w\] as a Shadow-land \[s\] or one Ruins & Lairs \[R\] as a Shadow-hold \[S\] until the end of the turn\.
+Alternatively, it may be revealed as an on-guard card when a burglary attempt is announced -- this attempt is modified by -5\.
+Alternatively, lowers the body of one non-Wizard character wounded by a manifestation of Itangast by 2 until the end of the turn, or lowers the body of each non-Wizard character in a company facing an attack by a manifestation of Itangast by one until the end of the turn\.
+Alternatively, make a roll \(draw a #\) - if the result is greater than 8, bring an eliminated Elf or Maia hazard creature to its owner's discard pile and place this card in your opponent's marshalling point pile \(do not discard it\)\.
+Alternatively, may be revealed as an on-guard card on a company after the successful play of an item, ally, or faction\.
+Alternatively, modify an influence attempt by an agent by \+4\.
+Alternatively, playable on a detainment automatic-attack a minion company is facing\.
+Alternatively, playable on a minion Shadow-hold or Dark-hold\.
+Alternatively, return any manifestation of Agburanar to your hand from your discard pile and increase the hazard limit by two\.
+Alternatively, target character makes a corruption check\.
+Alternatively, the target character is forced to make a corruption check\.
+Alternatively, this card can be played as a resource card\.
+Alternatively, you may play this card as a resource on yourself if you have at least ten cards in your play deck\.
+An additional \+7 to the attempt if target character has the same home site as the agent or if target ally is playable at the agent's home site\.
+An additional automatic-attack is created at the site this turn: 5 strikes with 8 prowess \(detainment, no attack type\)\.
+An additional automatic-attack is created at the site until the end of the turn\.
+An additional automatic-attack is created at the site until the end of the turn\.
+Ancient Deep-hold has an additional automatic-attack: Spawn 2 strikes with 17/7 prowess/body\.
+Any Undead hazard creatures so played do not count against the hazard limit\.
+Any agent may attack a company at his site at the start of the site phase if the company chooses not to enter the site\.
+Any attempt by a character to influence a faction playable at a site in Horse Plains, Khand, Harondor, Nurn, Gorgoroth, Imlad Morgul, or Udûn is modified by -6 and cannot be done with Muster\.
+Any body check resulting from a successful strike of such a modified attack is modified by \+2\.
+Any character wounded by an Orc attack makes an additional body check modified by -1\.
+Any company moving in Andrast Coast, Bay of Belfalas, Eriadoran Coast, and/or Andrast immediately faces one Dragon attack \(considered a hazard creature attack\) -- 3 strikes at 15/6 \(attacker chooses defending characters\)\.
+Any company moving in Forochel, Angmar, and/or Gundabad immediately faces one Dragon attack \(considered a hazard creature attack\) -- 4 strikes at 10/7 \(attacker chooses defending characters\)\.
+Any company moving in Nurn faces three attacks: Orcs - 5 strikes with 8 prowess, Orcs - 4 strikes with 10 prowess, Trolls - 3 strikes with 12 prowess\.
+Any company moving in Withered Heath, Gundabad, Anduin Vales, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 3 strikes at 12/6 \(attacker chooses defending characters\)\.
+Any company moving in Withered Heath, Northern Rhovanion, Iron Hill, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 4 strikes at 16/7\.
+Any company moving in Withered Heath, Northern Rhovanion, Iron Hills, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 3 strikes at 13/8\.
+Any company moving in Withered Heath, Northern Rhovanion, Iron Hills, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 3 strikes at 14/7\.
+Any company moving in Withered Heath, Northern Rhovanion, Iron Hills, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 3 strikes at 15/7 \(attacker chooses defending character\)\.
+Any company moving in Withered Heath, Northern Rhovanion, Iron Hills, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creature attack\) -- 4 strikes at 11/7 \(attacker chooses defending characters\)\.
+Any company moving in Withered Heath, Woodland Realm, Northern Rhovanion, and/or Grey Mountain Narrows immediately faces one Dragon attack \(considered a hazard creture attack\) -- 4strikes at 13/8\.
+Any company moving through the region containing a site where the faction is playable, or through any region adjacent to this one, faces an attack\.
+Any company moving to or from an Under-deep sites faces an attack \(cannot be canceled\): Rock Fall - 1 strike with 7 prowess against each character \(weapons do not modify prowess against these strikes\)\.
+Any creature that can be keyed to a Dark-domain may be keyed to Angmar or Gundabad\.
+Any creature that can be keyed to a Dark-domain may be keyed to Heart of Mirkwood, Southern Mirkwood, Brown Lands, or Dagorlad\.
+Any creature that can be keyed to a Dark-domainmay be keyed to Khand, Imlad Morgul, Nurn, Gorgoroth, Udûn, or Dagorlad\.
+Any creature that can be keyed to a Shadow-land may be keyed to Anduin Vales, Northern Rhovanion, Southern Rhovanion, Grey Mountain Narrows, Woodland Realm, Western Mirkwood, Heart of Mirkwood, Southern Mirkwood, Brown Lands, or Dagorlad\.
+Any creature that can be keyed to a Shadow-land may be keyed to Forochel, Arthedain, Angmar, Gundabad, or Rhudaur\.
+Any creature that can be keyed to a Shadow-land may be keyed to Ithilien, Harondor, Horse Plains, Khand, Imlad Morgul, Nurn, Gorgoroth, Udûn, or Dagorlad\.
+Any effect that would move him to an untapped state makes him tapped instead\.
+Any influence check he makes is modified by -1 and any test for a gold ring in his company is modified by -1\.
+Any one Dragon hazard creature \(except Earcaraxe\) may be played \(and does not count against the hazard limit\) at the site during the site phase this turn after the successful play of a major or greater item\.
+Any one item held by a character removed in this fashion may automatically be transferred to another character in his company\.
+Any one item held by the removed character may automatically be transferred to another character in his company \(all other non-follower cards he controls are discarded\.\)
+Any resulting body check is modified by \+1\.
+Any riddling roll, offering attempt, or influence attempt by target character is modified by -4\.
+Any riddling roll, offering attempt, or influence attempt by the target character is modified by -4\.
+Any successful strike does not harm the character, but rather the character is taken prisoner at the site\.
+As a permanent-event, playable on a face-down agent who was brought into play this turn\.
+At the end of each of his turns, target minion makes a corruption check for each item his company bears that he does not bear\.
+At the end of each turn, each player may take one unique Dragon manifestation or one Drake hazard creature from his discard pile and shuffle it into his play deck\.
+At the end of the organization phase, a company at a site with Siege on it must make a roll \(or draw a #\) and subtract one from the result for every non-scout character it contains\.
+At the end of the organization phase, each company at Lorien that wishes to move must make a roll \(or draw a #\)\.
+At the end of the target's movement/hazard phase, each non-Ringwraith, non-Wizard, non-Elf character at the same site as the target must make a roll \(draw a #\) modified by -2\.
+At the start of each of his untap phases, make a body check for that character\.
+At the start of its site phase, each company at a site in a Dark-domain \(or Shadow-land, if Doors of Night is in play\) must tap one untapped character if available\.
+Attacker chooses defending characters\.
+Attacker may choose defending non-Wizard character to face the first strike assigned from the attack\.
+Attacking player may always assign the first strike of any attack to this character \(unless Alatar moves into the company to face a strike\)\.
+Attempt is automatically successful if target faction is playable at the agent's home site\.
+Automatically cancels any effect that causes a player to search through or look at any portion of a play deck or a discard pile outside of the normal sequence of play\.
+Bring one hazard creature of the following type from your discard pile to your hand: Maia, Elf, Dwarf, or Dúnedain\.
+Bring one hazard from your sideboard or discard pile into your play deck and shuffle \(up to two if Doors of Night is in play\)\.
+Cancel and discard any card requiring scout skill before it is resolved or cancel any ongoing effect of a card that required scout skill to play\.
+Cancel any card requiring scout skill before it is resolved or cancel any ongoing effect of a card that required scout skill to play\.
+Cannot be duplicated against a given company\.
+Cannot be duplicated at a given site\.
+Cannot be duplicated in a given company\.
+Cannot be duplicated on a given Elf\.
+Cannot be duplicated on a given Fallen-wizard\.
+Cannot be duplicated on a given Nazgul\.
+Cannot be duplicated on a given Wizard\.
+Cannot be duplicated on a given agent\.
+Cannot be duplicated on a given attack\.
+Cannot be duplicated on a given character or company\.
+Cannot be duplicated on a given character\.
+Cannot be duplicated on a given company\.
+Cannot be duplicated on a given faction\.
+Cannot be duplicated on a given minion\.
+Cannot be duplicated on a given site or Dragon Manifestation\.
+Cannot be duplicated on a given site\.
+Cannot be duplicated on a given turn\.
+Cannot be duplicated\.
+Cannot be duplicates on a given attack\.
+Cannot be revealed as an on-guard card\.
+Character cannot be controlled by direct influence\.
+Character makes a corruption check modified by -1\.
+Character must discard any rings along with his other items\.
+Choose one card and show it to your opponent\.
+Company discards one minor item of its choice or chooses one of its characters to become wounded \(no body check required\)\.
+Company must immediately return to its site of origin\.
+Corruption points for Palantiri are doubled\.
+Corruption\.
+Creates an additional automatic-attack at a Ruins & Lairs \[R\] until the end of the turn\.
+Creates an additional automatic-attack at a Shadow-hold \[S\] or Dark-hold \[D\] until the end of the turn\.
+Dark Enchantment\.
+Dark enchantment\.
+Determine if each Orc or Troll character is discarded as indicated on their cards\.
+Discard Bane of the Ithil-stone whenever a play deck is exhausted\.
+Discard Foes Shall Fall if attached Dragon or Drake is defeated\.
+Discard Icy Touch if it is not played with a character\.
+Discard Ireful Flames when any play deck is exhausted\.
+Discard Ireful Flames when any playdeck is exhausted\.
+Discard a ranger agent at target company's new site\.
+Discard all resource permanent-events that have been played on each company with a Wizard \(i\.e\., on the company as a whole, not individual characters, e\.g\., Fellowship\)\.
+Discard any ally if its currnet site is an Under-deeps site or if its current site's nearest Haven is not the same as the nearest Haven for the site at which the ally can be played\.
+Discard any faction if its result is 2 or 3, or if its result plus that player's unused general influence is less than 10\.
+Discard associated creature's card if Foes Shall Fall is discarded\.
+Discard associated creature's card if this card is discarded\.
+Discard during any organization phase if the company is at a Haven/Darkhaven\.
+Discard event\.
+Discard if a Spider or Animal attack is defeated\.
+Discard if attack doesn't wound a character\.
+Discard the Nazgûl when this card is brought into play\.
+Discard the ally if it attacks and is not defeated\.
+Discard this card after this corruption check\.
+Discard this card during its organization phase if the company is at a Darkhaven\.
+Discard this card during the organization phase if target character is in a company by himself and at a Darkhaven\.
+Discard this card during the target's organization phase if he is at a Darkhaven\.
+Discard this card if associated creature is defeated\.
+Discard this card if his company has 4 or more characters\.
+Discard this card if no character is eliminated by the attack\.
+Discard this card or a Man hazard creature from your hand at the end of opponent's long-event phase\.
+Discard this card when Doors of Night leaves play, or when any play deck is exhausted\.
+Discard this card when a creature keyed to one of these regions \(not to the region symbol\) is defeated\.
+Discard this card when a reserved creature played with it attacks\.
+Discard this card when an Undead attack is defeated\.
+Discard this card when any play deck is exhausted\.
+Discard this card when such an affected attack \(automatic, hazard creature, or otherwise\) is defeated\.
+Discard this card when such an automatic-attack is defeated\.
+Discard this card when the associated site or Dragon manifestation leaves play\.
+Discard this card when the site is discarded or returned to its location deck\.
+Discard when any play deck is exhausted or when an Under-deep site is reached from another Under-deep site or at the end of the turn after Great Ship or Ford was played\.
+Discard when any play deck is exhausted\.
+Discard when the agent is revealed\.
+Discard when the site card is discarded or returned to its location deck\.
+Discard when the site card is discarded or when the site card is returned to the location deck\.
+Does not affect Hobbits and Dwarves\.
+Does not affect Hobbits and Wizards\.
+Does not affect Wizards or Ringwraiths\.
+Draw cards from your play deck until your hand size is reached\.
+During each of his organization phases, one character \(other than the bearer\) in bearer's company is discarded \(of bearer's player's choice\) along with all cards played with him\.
+During his organization phase, a Wizard with this card may tap to attempt to remove it\.
+During his organization phase, a character at a Haven with this card may tap to attempt to remove it\.
+During his organization phase, a character with this card may tap and attempt to remove it\.
+During his organization phase, a character with this card may tap to attempt to remove it\.
+During his organization phase, a sage in the target character's company may tap to attempt to remove this card\.
+During his organization phase, an Elf with this card may tap to attempt to remove it\.
+During his organization phase, target may tap to attempt to remove this card\.
+During his organization phase, the character may tap to attempt to remove this card by making a roll \(drawing a #\) - if the result is greater than 6, discard this card\.
+During his organization phase, the character may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 4, discard this card\.
+During his organization phase, the character may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 5, discard this card\.
+During his organization phase, the character may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 6, discard this card\.
+During his organization phase, the character may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 7, discard this card\.
+During his organization phase, the minion may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 5, discard this card\.
+During his organization phase, the target character may tap to attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 8, discard this card\.
+During his untap phase, make a body check for that character modified by \+1\.
+During that character's next long-event phase, discard this card and return the character to its owner's hand\.
+During the organization phase, a sage in target character's company \(other than character\) may tap to attempt to remove this card\.
+During the organization phase, a sage in target character's company may tap to attempt to remove this card\.
+Each Border-hold \[B\] receives an automatic-attack: Wolves -- strikes with 7 prowess\.
+Each Border-hold receives an additional automatic-attack: Wolves —- 3 strikes with 7 prowess\.
+Each Nazgûl so played does not count against the hazard limit\.
+Each Nazgûl that attacks target company this turn receives \+2 prowess and lowers the body of any characters it wounds by one \(for the rest of the turn\)\.
+Each Under-deep site, Dark-hold, and Shadow-hold has an additional automatic-attack \(cannot be canceled\): Lava Flows - 1 strike against each character with 6 prowess \(weapons do not modify prowess against these strikes\)\.
+Each agent may take an extra agent action each time he normally takes an agent action\.
+Each card discarded in this fashion counts as one against the company's hazard limit\.
+Each character has the corruption points doubled for one of his sources of corruption \(the player controlling the character chooses\)\.
+Each character in target company must face one strike \(not an attack\) of 8 prowess which cannot be cancelled\.
+Each character in the company being attacked must immediately face one strike equal to the attack's prowess\.
+Each company moving in a Dark-domain draws one less card at the start of its movement/hazard phase \(to no minimum\)\.
+Each company moving with region cards using one or more of such regions must make a roll \(or draw a #\) modified by \+2 for each ranger in the company, by \+1 for each scout, and by \+1 for each diplomat\.
+Each moving company that has a Shadow-land \[s\] or a Dark-domain \[d\] in its site-path must return to its site of origin unless it contains a ranger\.
+Each moving company that has at least two Wildernesses \[w\] in its site path must return to its site of origin unless it contains a ranger\.
+Each moving company that has at least two Wildernesses in its site path must return to its site of origin unless it contains a ranger\.
+Each moving company with a Wilderness \[w\] in its site path must return to its site of origin\.
+Each non-Wizard character that is not in a Haven \[H\], Free-hold \[F\], or Border-hold \[B\] does not untap normally during his untap phase\.
+Each non-haven site in play with a Coastal Sea in its site path is tapped\.
+Each player makes a roll \(draws a #\) for each faction he has in play\.
+Each player may take one Man hazard creature from his discard pile and shuffle it into his play deck at the end of each turn\.
+Eliminated Spawn do not count\.
+Environment\.
+Except for unused general influence and unused normal direct influence \(including influence modifications given in a character’s card text\), all modifications to each influence attempt are reduced to zero\.
+Fallen-wizard players must use minion site cards for hero Havens \.
+Fallen-wizards may not bring characters with more than 4 mind into play\.
+Following the attack, character splits off into a different company with the same site path as the company in which he was\.
+For Alatar and Radagast, reduce the modifier to 0 for prowess and double it for direct influence\.
+For any item to be played at one of these sites, its player must remove an item in his hand from play that would itself be playable at the site\.
+For each card you discard from your hand when Dragon's Terror is declared, target one non-Wizard character of your choice in the defending company and make a roll \(or draw a #\)--add \+2 for a Dragon attack\.
+For each check, modify the roll by subtracting the corruption of that item\.
+For each company at or moving to an Under-deep site, the hazard limit is increased by one and the prowess of all attacks is increased by one\.
+For the rest of the turn, the target Hobbit cannot be discarded or returned to its owner's hand for any reason\.
+For this turn, any hazard creatures of this type played against target company do not count against the hazard limit\.
+Forces the discard of one resource long-event\.
+Gates of Morning may still be removed normally \(e\.g\., through the use of Twilight, Doors of Night, etc\.\)\.
+He faces a seperate movement/hazard phase this turn with a hazard limit of one\.
+He loses two miscellaneous marshalling points\.
+He may rejoin his original company following all movement/hazard phases\.
+He must choose to either: remove the card from the game or decrease the number of cards he may hold in his hand by one for the rest of the game\.
+He receives 1 corruption point \(CP\)\.
+He receives 1 corruption point \(CP\)\.
+He receives 2 corruption points and makes a corruption check at the end of his untap phase if not at a Haven \(or Wizardhaven\)\.
+His direct influence is zero while bearing this card\.
+His general influence is modified by -1\.
+His prowess and direct influence are each modified by -1\.
+If Dooors of Night is in play, this attack also affects: Northern Rhovanion, Iron Hills, Southern Rhovanion, and Angmar\.
+If Doors of Night is in play, all Giant attacks also receive these bonuses\.
+If Doors of Night is in play, at the end of each turn, each player may return one Nazgul permanent-event from his discard pile to his hand\.
+If Doors of Night is in play, the company need not contain an Orc, Troll, or Man and any one character in that company is tapped \(defender's choice\)\.
+If Doors of Night is in play, the prowess of each automatic-attack is increased by three\.
+If Doors of Night is in play, the prowess of each hazard creature is modified by \+2\.
+If Doors of Night is in play, this attack also affects: Anduin Vales, Western Mirkwood, Heart of Mirkwood,and Gundabad\.
+If Doors of Night is in play, this attack also affects: Brown Lands, Southern Rhovanion, Dorwinion, Dagorlad, and Horse Plains\.
+If Doors of Night is in play, this attack also affects: Brown Lands, Southern Rhovanion, Dorwinion, Dagorland, and Horse Plains\.
+If Doors of Night is in play, this attack also affects: Numeriador, Arthedain, and Rhudaur\.
+If Doors of Night is in play, this attack also affects: Old Pukel-land, Enedhwaith, Anfalas, and any Coastal Sea \[c\] region \(or region type\)\.
+If Doors of Night is in play, this attack also affects: Southern Rhovanion, Dorwinion, Heart of Mirkwood, and Woodland Realm\.
+If Gates of Morning is in play, it is considered to be out of play while Peril Returned is in play\.
+If Gates of Morning is not in play, Doors of Night is considered to be in play\.
+If a Fallen-wizard has more than 4 stage points, his player must also use minion site cards for Free-holds \.
+If a Fallen-wizard has more than 7 stage points, his player must also use minion site cards for Border-holds \.
+If a Fallen-wizard has more than 9 stage points, he may not bring characters with more than 3 mind into play\.
+If a character in the company becomes wounded, the prowess of each character in the company is modified by -2 for the rest of the turn\.
+If a company that has moved to this site this turn does not tap a ranger, it must do nothing during its site phase\.
+If a player has 15 or fewer cards in his play deck \(20 or fewer if a Fallen-wizard\), all effects are automatically canceled which allow him to search through or look at any portion of his play deck or discard pile outside of the normal sequence of play\.
+If agent is revealed and not in a Free-hold or Haven, he can tap to allow any Undead hazard creatures to be played at his site this turn\.
+If all three attacks are defeated by your opponent, he receives this card in his MP pile and 2 kill MPs\.
+If an opponent's company moves to a site where the ally is playable, it faces a single-strike attack \(with no type\) with the attributes of the ally, except the prowess is increased by 7\.
+If any character is eliminated, place creature's card with this card-creature is considered off to the side\.
+If any item is played at the site or at the site associated with the Dragon at home manifestation, the site's automatic-attacks are again faced\.
+If at a Haven \[H\] during his organization phase, a character with this card may tap to attempt to remove it\.
+If at a Haven during his untap phase, a character with this card may attempt to remove it \(but he may not untap or heal\)\.
+If at a haven \[H\] during his untap phase, a character with this card may attempt to remove it instead of untapping or healing\.
+If available, your opponent must choose and return to his hand any number of Elves and Dwarves \(or Orcs and Trolls\) in the company whose total mind equals or exceeds this result\.
+If defeated, discard this card and place the ally in your opponent's marshalling point pile - he receives the ally's marshalling points as kill points\.
+If defeated, place the character in your opponent's marshalling point pile - he receives the character's marshalling points as kill points\.
+If he fails, discard The One Ring along with the target character\.
+If he has more than 7 stage points, he receives an additional stage point\.
+If he is a Fallen-wizard, he receives 2 stage points and the CPs received are instead: 4 CPs if his stage points \(SPs\) exceed 18, 3 CPs if his SPs exceed 11, 2 CPs if his SPs exceed 5, 1 CP if his SPs exceed 0 \(use the first that applies\)\.
+If he is a Fallen-wizard, he receives 2 stage points\.
+If he is a Fallen-wizard, these modifiers are both instead: -4 if his stage points \(SPs\) exceed 14, -3 if his SPs exceed 9, -2 if his SPs exceed 4, -1 is his SPs exceed 0 \(use the first modifier that applies\)\.
+If he is a Fallen-wizard, these modifiers are instead: -5 if his stage points \(SPs\) exceed 20, -4 if his SPs exceed 15, -3 if his SPs exceed 10, -2 if his SPs exceed 5 \(use the first modifer that applies\)\.
+If he is a Fallen-wizard, this modifier is instead: -9 if his stage points \(SPs\) exceed 20, -7 if his SPs exceed 15, -5 if his SPs exceed 10, or -3 if his SPs exceed 5 \(use the first modifier that applies\)\.
+If no rings are available as such, he must reveal his hand to you\.
+If none are available, opponent must show you the cards he revealed to himself\.
+If not eliminated, his player then makes a roll \(draws a #\) adding his body\.
+If one is available, opponent must choose a non-special, non-hoard item from the revealed cards to place off to the side under this card \(item does not give marshalling points and is considered out of play\)\.
+If placed on-guard, it may be revealed and played when a character in the company declares a riddling, offering, or influence attempt\.
+If placed on-guard, it may be revealed and played when a character in the company declares such an attempt\.
+If successful, the target is not discarded, but rather it is returned to its owner's hand\.
+If target Undead can attack, bring it into play as a creature that attacks immediately \(not counting against the hazard limit\)\.
+If target character is a Dwarf, he receives 2 corruption points\.
+If the Hobbit bears a ring, his player makes a roll at the start of each of his untap phases-if the result is less that 7, the ring is discarded\.
+If the Hobbit is removed from play, one of his items may be transferred to another character in his company; any other cards under his control are discarded\.
+If the Nazgûl is defeated, place this card in opponent's marshalling point pile and remove the Nazgûl from play\.
+If the attack is not canceled or defeated, make a roll following the attack adding two for each excess strike\.
+If the attack is not defeated, each character in the company makes a roll \(draws a #\) and adds his mind\.
+If the bearer fails this corruption check, his Ring is discarded, but he remains in play\.
+If the character would normally be eliminated as a result of this check, he is instead discarded \(along with all cards played with him\)\.
+If the company chooses to enter the site, it must make a roll \(draw a #\) and subtract its company size\.
+If the company has a Coastal Sea \[c\] in its site path, it may do nothing at the site during its site phase\.
+If the company has a Dark-domain \[d\] in its site path, its hazard limit is doubled until the end of the turn\.
+If the company has a Free-domain \[f\] in its site path, it may do nothing at the site during its site phase\.
+If the creature could not normally be played on the company, modify its prowess by -4\.
+If the result is 12 or less, the company must do nothing during the site phase\.
+If the result is greater than 12, he untaps\.
+If the result is greater than 14, the effect is canceled and the attack receives \+1 prowess\.
+If the result is greater than 15, the character is automatically rescued into his own company located at the rescue site\.
+If the result is greater than 6, the company may enter the site as normal\.
+If the result is greater than 6, you may replace company's new site card with a different site from your location deck that is located in the same region or an adjacent region as the company's new site\.
+If the result is greater than the character's body, he is wounded or he is eliminated if he is already wounded\.
+If the result is greater than the character's mind plus 5, the character is returned to his player's hand \(one item may be transferred to another character in the same company\)\.
+If the result is greater than the character's mind plus 6, the character is discarded \(along with all cards he controls\)\.
+If the result is greater than the character's mind, the character becomes tapped\.
+If the result is greater than the character's mind, the character taps\.
+If the result is less than 11, the character splits off from the company and forms his own company with the same site path as his original company\.
+If the result is less than 12, that character splits off into a different company, and immediately returns to his original company's site of origin\.
+If the result is less than 13, that character splits off from his company, forms a new company consisting of just himself \(and faces no movement/hazard phase this turn\), and immediately returns to his original company's site of origin\.
+If the result is less than 16, discard this card\.
+If the result is less than 7, the company may not move this turn\.
+If the result minus five is greater than the prowess of the highest mind character in the company \(of your choice\), place that character "off to the side" with this card and discard all cards on that character\.
+If the result plus the ally's mind is greater than your opponent's unused general influence plus its controlling character's unused direct influence plus two, the ally attacks its controlling character \(detainment attack against a hero\)\.
+If the strike fails, the target character must make a body check modified by -1 if he has armor, by -1 if he has a shield, and by -1 if he has a helmet\.
+If the strike is defeated, discard this card\.
+If the strike is not defeated, place creature's card with Foes Shall Fall-creature is considered off to the side\.
+If the strike is not successful, discard this card\.
+If the strike is successful, he is not harmed and is taken prisoner at a Ruins & Lairs, Shadow-hold, or Dark-hold\.
+If the strike is successful, target character is not harmed and is taken prisoner at a Ruins & Lairs\.
+If the strike is successful, target character is not harmed and is taken prisoner at a Ruins & Lairsor Shadow-hold\.
+If the strike is successful, the wounded character's body is reduced by one until the end of the turn for every complete increment of 5 the strike was successful by \(subtract the character's prowess plus dice roll from the strike's prowess, divide by five, and drop any fractions\)\.
+If this 2nd automatic attack is defeated, this permanent-event is removed from play \(i\.e\., the Balrog is defeated\)\.
+If this card is played as an on-guard card, it can be revealed during opponent's site phase to cancel a card requiring scout skill\.
+If this card is played as an on-guard card, it can be revealed during the opponent's site phase to cancel and discard a card requiring scout skill before it is resolved\.
+If this result is less than 5, the company may not move this turn\.
+If this strike is successful, it forces the discard of the character \(with no body check\) and all cards he controls\.
+If you discard \(from your hand\) a hazard creature playable at the site, one Dragon hazard creature may be played this turn keyed to the site\.
+If your opponent defeats this 2nd automatic-attack, he receives the marshalling points\.
+If your opponent has 7 or more stage points and is not Alatar, hazards his companies defeat \(while this card is in play\) without an asterisk \[\*\] are worth no marshalling points\.
+If your opponent has more than one stage card and 4 or more stage points, he must discard one stage card of his choice\.
+If your opponent looks at cards from your hand \(due to the use of one of his cards or abilities\) and sees Will Shaken, place this card in his marshalling point pile\.
+In addition, \+1 to all body checks for Elves, Dwarves, Hobbits, Dúnedain, and Men resulting from Spider attacks\.
+In addition, -1 to all influence attempts\.
+In addition, cancels the effects of Great Ship and Ford\.
+In addition, cancels the effects of Into Dark Tunnels, Old Road, Great Road, and Bridge\.
+In addition, each greater item gives an additional corruption point\.
+In addition, each major item gives an additional corruption point\.
+In addition, each moving company draws one less card to minimum of one at the start of its movement/hazard phase\.
+In addition, for each Spider attack your opponent faces, you can choose for it to be at \+1 prowess and detainment\.
+In addition, non-unique Spider creatures can be keyed to Under-deeps Ruins & Lairs and Shadow-holds\.
+In addition, once per turn the hazard player may use one against the hazard limit to play a Wolf or Animal hazard creature from his discard pile\.
+In addition, one unique Dragon manifestation played against each company does not count against the hazard limit\.
+In addition, only one unique Dragon manifestation may be played per turn\.
+In addition, the hazard limit against any company facing one or more animal hazard creature attacks is increased by one\.
+In addition, unless Galadriel is at Lorien or she is not in play, Lorien is considered a Free-hold \[F\] \(for purposes of healing and playing hazards\)\.
+In addition, you may discard this card from play during opponent's movement/hazard phase \(not counting against the hazard limit\) to increase the hazard limit against one company by two\.
+In this case, you and your opponent reverse roles\.
+Influence checks he makes against hero resources are modified by: -9 if his stage points \(SPs\) exceed 18, -7 if his SPs exceed 12, -5 if his SPs exceed 7, -3 if his SPs exceed 3, or -1 if his SPs exceed 0 \(use the first modifier that applies\)\.
+Instead or using prowess against the strike, each character uses his body modified by \+1 if he has a shield, by \+1 is he has a helmet, and by \+3 if he taps\.
+Items effects not requiring tapping apply normally\.
+Items played with these characters are also returned to opponent's hand\.
+Its hazard limit increases by one for every Border-land in its site path\.
+Its hazard limit increases by one for every Shadow-land in its site path\.
+Its hazard limit increases by one for every Wilderness in its site path\.
+Make a body check modified by \+1 for each character\.
+Make a roll \(draw a #\) adding the marshalling points \(as though they were stored\) and corruption points of all items and events played with target minion\.
+Make a roll \(draw a #\) and subtract five \(seven for Orcs and Trolls\)\.
+Make a roll \(draw a #\) for a character in play of your choice with a home site the same as the agent's current site\.
+Make a roll \(draw a #\) modified by -1 if the faction is a minion faction\.
+Make a roll \(draw a #\) modified by -2 for each ranger in the company\.
+Make a roll \(draw a #\)-if the result is greater than 6, the event is cancelled and discarded\.
+Make a roll \(draw a #\)\.
+Make a roll \(or draw a #\) for each untapped non-Wizard character in the company; modify this roll by -2 for hero characters\.
+Make a roll \(or draw a #\): if the result is greater than 6, discard this card\.
+Make a roll \(or draw a #\): if the result is greater than 7, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than 4, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than 5, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than 6, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than 7, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than 8, discard this card\.
+Make a roll \(or draw a #\): if this result is greater than a 6, discard this card\.
+Make a roll \(or draw a #\): if this results is greater than 6, discard this card\.
+Make a roll and add the Fallen-wizard's stage points\.
+Make a roll and add the attack's prowess\.
+Make a roll—if this result is greater than 6, discard this card\.
+Make a roll—if this result is greater than 8, discard this card\.
+May be played when an Under-deep site is revealed as a new site card \(before the roll is made\)\.
+May be revealed on-guard if the company chooses not to enter the site\.
+May not be duplicated on a given Nazgul\.
+May not be played if The Iron Crown is in play\.
+May only be played if Gates of Morning is not in play\.
+Modify the prowess of all characters in a company attacked by a Nazgul by -1 until the end of the turn\.
+Modify the prowess of one auto-attack at a Shadow-hold \[S\] or Dark-hold \[D\] site by \+2\.
+Modify the prowess of one automatic-attack at a Ruins & Lairs \[R\] site by \+2\.
+Modify the roll by \+1 for each character in his company that taps in support\.
+Nazgul may attack any company possessing any ring in a Shadow-land \[s\] or Shadow-hold \[S\]\.
+Nazgul may attack the company containing the bearer of The One Ring at any site that is not a Free-hold \[F\] or Haven \[H\]\.
+No character at a site in a Dark-domain or Gorgoroth, or moving with a Dark-domain or Gorgoroth in his site path, can use spells, light enchantments, or rituals\.
+No such cards may be played on each Wizard's company\.
+On the turns after it is played, this card affects the region that contains the site where this faction is playable and all adjacent regions\.
+Once during each of his organization phases, the character may attempt to remove this card by making a roll \(drawing a #\)-if the result is greater than 7, discard this card\.
+One Undead hazard creature against each company doesn't count against its hazard limit\.
+One character \(attacker's choice\) in that company suffers -1 to his prowess until the end of the turn\.
+One character \(attacker's choice\) wounded by an attack modified by this card receives 4 corruption points \(place this card under the character\)\.
+One character wounded by an attack modified by this card receives 6 corruption points \(place this card under the character\)\.
+One environment card \(in play or declared earlier in the same chain of effects\) is canceled and discarded\.
+One environment card in play is immediately discarded\.
+One revealed Nazgûl, Dragon, or a non-unique creature of your choice immediatly attacks the company \(regardless of its playability requirements\)\.
+One strike of an at home manifestation of any unique Dragon can attempt to capture a non-Wizard character\.
+Opponent discards the other three\.
+Opponent may play this item as though it were in his hand at any Under-deep site\.
+Opponent must discard a ring from his hand or from one of his companies if available\.
+Opponent reveals four cards at random from his discard pile\.
+Opponent reveals the top ten cards of his play deck to himself\.
+Opponent shuffles all remaining revealed cards into his play deck\.
+Other cards have no effect on this attack\.
+Otherwise, discard the character\.
+Otherwise, discard this card\.
+Otherwise, place this card with the Fallen-wizard\.
+Otherwise, target character receives 1 corruption point and his body is lowered by 1\.
+Otherwise, the body checks have no effect unless an untapped character fails his check, in which case he becomes tapped\.
+Otherwise, the company must face an attack to be resolved before any automatic-attacks: Orcs - 4 strikes at 9 prowess\.
+Place all non-hazard cards from your hand off to the the side\.
+Place the non-hazard cards from off to the side face down on top of your play deck in any order you choose\.
+Place this card in opponent's marshalling point pile\.
+Place with any wounded character in a company that just faced a Nazgul attack; the character receives 3 corruption points\.
+Playable before strikes are assigned on a non-detainment Orc or Troll attack with more strikes than characters and allies in the company\.
+Playable before the strike sequence on The Balrog facing a strike with a prowess higher than his\.
+Playable if Doors of Night is in play on a Nazgûl permanent-event that could immediately attack if it were in your hand\.
+Playable if opponent has at least ten cards in his play deck\.
+Playable if you have an ally in your hand\.
+Playable if your opponent is a Fallen-wizard\.
+Playable on The Balrog at or moving to a non-Under-deeps site\.
+Playable on a Border-hold \[B\] or Free-hold \[F\] site\.
+Playable on a Border-hold or Free-hold\.
+Playable on a Dragon or Drake attack \(before the strikes are assigned\)\.
+Playable on a Dragon or Drake hazard creature attack before the strikes are assigned\.
+Playable on a Elf character\.
+Playable on a Fallen-wizard at a Wizardhaven \.
+Playable on a Fallen-wizard or a Wizard\.
+Playable on a Fallen-wizard\.
+Playable on a Free-hold or Border-hold\.
+Playable on a Hobbit character\.
+Playable on a Hobbit facing a strike from an Orc attack\.
+Playable on a Nazgûl in your discard pile that could immediatly attack\.
+Playable on a Ruins & Lairs \[R\] that is not a Dragon's lair\.
+Playable on a Ruins & Lairs\.
+Playable on a Shadow-hold \(or on a Ruins & Lairs or Border-hold if Doors of Night is in play\)\.
+Playable on a Shadow-hold \[S\] not in Gorgoroth, Nurn, Udun, or Imlad Morgul\.
+Playable on a Wizard or a Fallen-wizard\.
+Playable on a Wizard, Fallen-wizard, or Ringwraith\.
+Playable on a character bearing a major or greater item\.
+Playable on a character facing a Dragon or Drake strike \(before the dice are rolled to resolve the strike\)\.
+Playable on a character facing a Spider attack\.
+Playable on a character facing a strike with a prowess of 12 or greater\.
+Playable on a character facing an Undead strike\.
+Playable on a character of 5 mind or less\.
+Playable on a character\.
+Playable on a company at or moving to a Ruins & Lairs or Under-deeps site if you discard an Animal or Spider creature from your hand\.
+Playable on a company at or moving to a Ruins & Lairs or Under-deeps site, if there are more Spawn cards in play than characters in the company\.
+Playable on a company containing at least one minor item that is at or moving to a Ruins & Lairs, Shadow-hold, or Dark-hold\.
+Playable on a company containing both Dwarves and Elves, or both Orcs and Trolls\.
+Playable on a company facing a non-detainment attack from: Undead, Nazgûl, or Maia; does not count against the hazard limit\.
+Playable on a company moving in a Wilderness, Border-land, or Free-domain if Doors of Night is not in play; does not count against the hazard limit\.
+Playable on a company moving through a Wilderness if you have a character in your hand\.
+Playable on a company moving to a site with an automatic-attack\.
+Playable on a company moving with at least two Wildernesses, one Shadow-land, or one Dark-domainin their site path\.
+Playable on a company that has already faced a Dragon or Drake attack this turn\.
+Playable on a company that is moving this turn\.
+Playable on a company that moved this turn to a site with a Coastal Sea \[c\] in its site path\.
+Playable on a company using region movement to move through one of the following regions \(and not stopping at a site therein\): High Pass, Redhorn Gate, Angmar, Gundabad, Grey Mountain Narrows, or Minas Morgul\.
+Playable on a company with an untapped Orc, Troll, or Man character\.
+Playable on a company\.
+Playable on a face-up Agent who can use shadow-magic\.
+Playable on a faction that is normally playable at a Border-hold \(except Army of the Dead\)\.
+Playable on a faction\.
+Playable on a hero Border-hold or Free-hold \.
+Playable on a minion company at or moving to a Free-hold or Border-hold, or playable on a hero company at or moving to a Shadow-hold or Dark-hold\.
+Playable on a minion in a Darkhaven or Barad-dûr\.
+Playable on a minion resource short-event declared earlier in the same chain of effects\.
+Playable on a moving company using region movement\.
+Playable on a moving company with at least one Wilderness in its site path if you have at least 10 cards in your play deck\.
+Playable on a moving company with at least one Wilderness in its site path\.
+Playable on a moving company with two Dark-domains in its site path\.
+Playable on a moving company\.
+Playable on a non-Hobbit, non-Dwarf, non-Orc, non-Ringwraith character\.
+Playable on a non-Hobbit, non-Wizard, non-Ringwraith character\.
+Playable on a non-Ringwraith character\.
+Playable on a non-Ringwraith company that is not moving\.
+Playable on a non-Ringwraith, non-Wizard character not bearing The One Ring\.
+Playable on a non-Ringwraith, non-Wizard character with mind of 7 or less\.
+Playable on a non-Ringwraith, non-Wizard, non-Elf character at or moving to a non-Haven, non-Ruins & Lairs site\.
+Playable on a non-Ringwraith, non-Wizard, non-Hobbit character\.
+Playable on a non-Wizard character facing a strike from a Dragon hazard creature attack\.
+Playable on a non-Wizard character facing a strike from a Dragon or Drake hazard creature attack\.
+Playable on a non-Wizard character moving in a Shadow-land or Dark-domain\.
+Playable on a non-Wizard character moving with at least two Wildernesses in his site path if you discard any Undead hazard creature from your hand \(show opponent\)\.
+Playable on a non-Wizard character that is not the bearer of The One Ring\.
+Playable on a non-Wizard character whose company is facing a hazard creature attack\.
+Playable on a non-Wizard character whose company is facing an attack of five strikes or more\.
+Playable on a non-Wizard character wounded by an Undead attack this turn; does not count against the hazard limit\.
+Playable on a non-Wizard, non-Ringwraith character bearing a Palantír, greater item, or ring that is not a gold ring\.
+Playable on a non-Wizard, non-Ringwraith character in a company with 3 or fewer characters\.
+Playable on a non-Wizard, non-Ringwraith character\.
+Playable on a site in a Wilderness that normally is a Border-hold or a Shadow-hold, or on a non-protected Wizardhaven in a Wilderness \.
+Playable on a site that contains a hoard or on a Dragon at home manifestation\.
+Playable on a site with an Orc or Troll automatic-attack\.
+Playable on a site\.
+Playable on a stored item\.
+Playable on a stored resource permanent-event that required an information site to be played\.
+Playable on a strike\.
+Playable on a unique faction in play\.
+Playable on a wounded non-Wizard, non-Ringwraith character\.
+Playable on an Elf not in a Haven \[H\]\.
+Playable on an Elf, Hobbit, or Wizard\.
+Playable on an Orc or Troll attack before strikes are assigned; does not count against the hazard limit\.
+Playable on an Undead hazard creature in your discard pile\.
+Playable on an agent\.
+Playable on an ally\.
+Playable on an attack by a True Fire-drake, by a Winged Fire-drake, or by any manifestation of Itangast, Leucaruth, Scorba, or Smaug \(must be played before strikes are assigned\)\.
+Playable on an attack with more strikes than defending characters before strikes are assigned; does not count against the hazard limit\.
+Playable on an automatic-attack or an attack from Shelob; does not count against the hazard limit\.
+Playable on an untapped Orc, Troll, or Man character if Doors of Night is in play\.
+Playable on an untapped agent\.
+Playable on an untapped diplomat agent\.
+Playable on an untapped non-Ringwraith, non-Wizard character\.
+Playable on any character\.
+Playable on any faction in play\.
+Playable on the bearer of The One Ring\.
+Playable only if Doors of Night is in play, treat all Wildernesses \[w\] as Shadow-lands \[s\] and all Shadow-lands \[s\] as Dark-domains \[d\]\.
+Playable only if Doors of Night is in play\.
+Playable only if you have a Nazgûl permanent-event in play\.
+Playable only on a company that is moving this turn\.
+Playable only on a minion\.
+Remove News of Doom from the game\.
+Remove this card from the game\.
+Replace the new site card of a moving company with a Coastal Sea \[c\] in its site path with a card from your location deck that has a Coastal Sea \[c\] in its site path\.
+Rescue-attack: Same race as agent - 3 strikes with 8 prowess\.
+Rescue-attack: Spiders - 3 strikes with 9 prowess\.
+Rescue-attack: Undead - 3 strikes with 8 prowess\.
+Rescue-attacks \(3\): Orcs - 3 strikes with 6 prowess, Orcs - 4 strikes with 7 prowess, Orcs - 5 strikes with 8 prowess\.
+Return any unique Dragon manifestation to your hand from your discard pile\.
+Return item to opponent's hand \(discarding all attached cards\)\.
+Return the character to the player's hand if this result plus his unused general influence is less than 10\.
+Return the faction to opponent's hand if the result plus the normal marshalling points the faction gives is greater than 12\.
+Reveal the character\.
+Reveal the top seven cards of your play deck\.
+Reveal to yourself a number of cards from the top of opponent's play deck equal to the number of Spawn cards in play\.
+Reveal your hand to opponent\.
+Shuffle all unused cards and return them to the top of your play deck\.
+Shuffle and replace all remaining cards back on top of his play deck\.
+Spawn\.
+Such a character may instead make a roll \(or draw a #\) adding his mind stat\.
+Such short-events have no effect on this card \(i\.e\., it may not be cancelled by such a short-event\)\.
+Tap a diplomat if another diplomat is in his company or at his new site or at his current site\.
+Tap a sage if another sage is in his company or at his new site or at his current site\.
+Tap a scout agent at target company's new site\.
+Tap a warrior agent at target company's new site\.
+Tap all untapped characters in the company with a mind less than 2 plus the number of Spawn cards in play\.
+Tap all untapped items in play\.
+Tap all untapped non-Ringwraith, non-Wizard characters in the company\.
+Tap an Orc, Troll, or Man character in that company \(defender's choice\)\.
+Tap an agent at target company's new site\.
+Tap during a company's movement/hazard phase to increase the hazard limit against that company by one\.
+Tap one Elf character\.
+Tap target character at a Haven \[h\] during the organization phase to discard this card\.
+Tap the agent who may then make an influence attempt against a faction playable at the agent's site\.
+Tap the agent who may then make an influence attempt against an ally or character\.
+Tap the agent who may then make an influence attempt against an ally, faction, or character\.
+Tap the agent\.
+Tap the character\.
+Target Elf receives 2 corruption points and must make a corruption check during each of his untap phases if he is not in a Haven\.
+Target Hobbit receives \+2 prowess against the strike\.
+Target agent may take an extra agent action \(which does not count against the hazard limit\) each time he normally takes an agent action\.
+Target any effect \(declared earlier in the same chain of effects\) that would cancel a Spider attack\.
+Target character can never become untapped while bearing this card\.
+Target character is forced to make corruption check modified by -2\.
+Target character makes a body check during each of his organization phases\.
+Target character makes a corruption check at the end of his movement/hazard phase for each region he moved through\.
+Target character makes a corruption check at the end of his untap phase if he is at a Haven \[H\]\.
+Target character makes a corruption check each time a character in his company becomes wounded\.
+Target character makes a corruption check each time a character in his company gains an item\.
+Target character makes a roll \(draws a #\) and adds his mind\.
+Target character makes one corruption check after all other hazards have been played for each Wilderness \[w\] in the site path that his company moved through that turn\.
+Target character receives 2 corruption points and makes a corruption check at the end of his movement/hazard phase for each Wilderness in his company's site path\.
+Target character receives 2 corruption points and makes a corruption check at the end of his untap phase if at a Darkhaven\.
+Target character receives 2 corruption points and makes a corruption check each time a character in his company becomes wounded\.
+Target character receives 2 corruption points and makes a corruption check each time a character in his company gains an item \(including a ring special item\)\.
+Target character receives 2 corruption points and makes a corruption check each time his player discards a card from his hand during his turn\.
+Target character's company faces an attack from creature at the start of each movement/hazard phase if creature is playable\.
+Target company loses one item of its choice and its player must randomly discard two cards from his hand\.
+Targets and cancels any effect \(declared earlier in the same chain of effects\) that would cancel an attack from a unique Dragon manifestation\.
+Targets and cancels one hero short-event played by a Fallen-wizard earlier in the same chain of effects\.
+Targets and cancels one minion short-event played by a Fallen-wizard earlier in the same chain of effects\.
+The Balrod appears in Moria\.
+The Drowning-deeps and Remains of Thangorodrim each have an additional automatic-attack: Spawn 2 strikes with 15/9 prowess/body\.
+The Fallen-wizard's player must use minion sites for Border-holds , Free-holds , and hero Havens \.
+The Hobbit's player must make a roll \(or draw a #\); return the Hobbit to the player's hand if the result plus his unused general influence is less then 11\.
+The Moria site gains a second automatic-attack of 1 strike with 18 prowess and no body\.
+The Nazgûl attacks immediately \(not counting against the hazard limit\) with \+2 prowess and -1 body\.
+The Nazgûl immediately attacks as a creature from its permanent-event state \(not counting against the hazard limit\) and chooses defending characters\.
+The Pûkel-deeps and The Gem-deeps each have an additional automatic-attack: Spawn 3 strikes with 15/8 prowess/body\.
+The Wind-deeps and The Rusted-deeps each have an additional automatic-attack: Spawn 2 strikes with 16/8 prowess/body\.
+The ally must be able to be attacked\.
+The attack becomes normal \(not detainment\) and has -1 prowess\.
+The attack is detainment if the ally and the company are both minion or both hero; and this card is discarded afterwards\.
+The attack is detainment if the company and faction are both minion or both hero\.
+The attack is detainment if the revealed character and the company are both minion or both hero\.
+The attack is the same type as the faction and has 4 strikes with 8 prowess\.
+The attack receives \+1 strike, \+1 prowess, and -2 body\.
+The attack's prowess is modified by -1\.
+The bearer of The One Ring makes a corruption check modified by -4\.
+The bearer of a Ring must make a corruption check modified by -2\.
+The body of one non-Wizard character wounded by a Dragon attack is lowered by 1 until the end of the turn\.
+The character faces a separate movement/hazard phase this turn with a hazard limit of one\.
+The character makes a roll \(draws a #\)\.
+The character playing an item need not make a corruption check\.
+The character recieves 2 corruption points\.
+The character returns to his player's hand if the result plus his player's unused general influence is less than 10\.
+The character to be attacked is chosen by the player who does not control the traitor's company\.
+The character's player must make a roll \(or draw a #\)\.
+The character's player must make a roll \(or draw a #\); return the character to the player's hand if the result plus his unused general influence is less than 10\.
+The company cannot voluntarily split or move to a new site unless it taps all of its untapped characters to a maximum of two during its organization phase\.
+The company must do nothing during its site phase if it has a Free-domain in its site path\.
+The company must do nothing during its site phase this turn\.
+The creature must be playable in some region besides Coastal Sea\.
+The direct influence of each Ringwraith is lowered by 2 \(by 3 if Doors of Night is in play\)\.
+The direct influence of each Wizard is reduced by 2 \(by 4 if Doors of Night is in play\)\.
+The faction's player makes a roll \(draws a #\), and discards the faction if the result plus his unused general influence is less than 11\.
+The faction's player makes a roll \(or draws a #\), the faction is discarded if the result plus his unused general influence is less than 11\.
+The first attempt to cancel this attack instead cancels the affects of this card\.
+The first excess strike assigned to each character gives a -4 modification to his prowess instead of -1\.
+The hazard limit for each company is increased by one for every card over one drawn by that company during its movement/hazard phase\.
+The hazard limit is increased by two for each moving company with a size of less than four that also contains a Wizard or a non-ranger character with a mind of 6 or more\.
+The mind of each other non-follower, non-Ringwraith, non-Wizard character in his company increases by one\.
+The next character wounded by the attack \(on whom a corruption card has not already been played this turn\) receives 2 corruption points \(place this card with the character\)\.
+The next non-Hobbit character to make a successful influence attempt \(e\.g\., against a faction, an opponent's character, etc\.\) must immediately make a corruption check modified by -4\.
+The next time The Balrog would otherwise untap, make him tapped instead and discard this card\.
+The next time target character would otherwise heal, discard this card instead\.
+The number of region cards affected companies can play is reduced by one \(normally from four to three\)\.
+The number of region cards that may be played by a moving company using region movement is reduced by one \(by two if Doors of Night is in play\) to a minimum of two\.
+The number of strikes and prowess of each Orc and Troll attack are each increased by one \(by two for Orc attacks if Doors of Night is in play\)\.
+The number of strikes and prowess of each Orc and Troll attack is increased by one \(by two for Orces if Doors of Night is in play\)\.
+The number of strikes and prowess of each Wolf, Spider, and Animal attack are each increased by one \(by two for Wolf attacks if Doors of Night is in play\)\.
+The number of strikes and prowess of each Wolf, Spider, and Animal attack are increased by one \(by two for Wolves if Doors of Night is in play\)\.
+The number of strikes for each automatic-attack at a Free-hold or Border-hold is doubled\.
+The number of strikes for each automatic-attack at a Ruins & Lairs \[R\] site is doubled\.
+The number of strikes for each automatic-attack at a Ruins & Lairs is doubled\.
+The number of strikes for each automatic-attack at a Shadow-hold \[S\] site or at a Dark-hold \[D\] site is doubled\.
+The number of strikes of one Nazgul hazard creature is increased by one and its prowess is decreased by 2\.
+The on-going effects of all resource short-events that were played during the organization phase are cancelled for the duration of the movement/hazard phase and the site phase\.
+The penalty for an untapped character not tapping against one of these strikes is -5\.
+The prowess and body of each character in the company is modified by -1\.
+The prowess and body of target attack and of all Orc and Troll attacks against this company for the rest of the turn are each reduced by three\.
+The prowess and body of target attack are each reduced by one\.
+The prowess of a character is modified by -1 until the end of the turn\.
+The prowess of all Undead attacks is increased by one\.
+The prowess of each Spider and Animal attack against the company is increased by two for the rest of the turn\.
+The prowess of each automatic-attack is increased by one\.
+The prowess of each non-ranger Dunadan is modified by -1\.
+The prowess of one Dragon attack is modified by \+2 or one Dragon hazard creature may be played at a Ruins & Lairs \[R\] that has two Wildernesses \[w\] in its site path \(only one Wilderness \[w\] is required if Doors of Night is in play\)\.
+The prowess of one Undead attack is modified by \+1\.
+The prowess of one automatic-attack at a Ruins and Lairs \[R\] site is increased by 3 until the end of the turn\.
+The prowess of one automatic-attack at a Shadow-hold \[S\] or Dark-hold \[D\] site is increased by 3 until the end of the turn\.
+The prowess of one strike of an attack by an Orc, Troll, Man, or Nazgul creature is increased by \+4\.
+The prowess of target character is modified by -1 until the end of the turn\.
+The prowess of the attack is equal to the prowess of the traitor plus 10\.
+The rescue-attack equals all automatic-attacks of the site at the time of rescue\.
+The roll is modified by \+2 if the character is at a Haven\[H\] and by \+2 for each sage in his company that taps in support\.
+The roll required to move between adjacent Under-deep sites is increased by 2\.
+The site has the automatic- attacks indicated on the corresponding minion site card \(detainment against hero companies\) but with \+2 prowess\.
+The site has the automatic-attacks indicated on the corresponding hero site card \(detainment against overt companies\) but with \+2 prowess\.
+The strike is canceled and The Balrog taps, if untapped\.
+The strike's prowess is modified by -1\.
+The strike's prowess is modified by -3\.
+The target attack which follows receives \+1 body and -2 prowess\.
+The target character makes a corruption check at the end of his untap phase\.
+The target makes a corruption check whenever his controlling player plays a stage card\.
+Then, if the result was greater than 15, discard the minion \(and all other cards played with him\)\.
+These attacks must be faced immediately and are not considered automatic-attacks\.
+This attack has 1 strike and prowess equal to the ally's normal prowess plus a dice roll \(drawn #\)\.
+This automatic-attack is faced after the automatic-attack it duplicates\.
+This automatic-attack is faced immediately following its original\.
+This can be used on an opponent's Nazgûl permanent-event as well as on your own\.
+This card affects companies with at least as many Hobbits as non-Hobbit characters\.
+This card allows you to place a tapped Nazgul permanent-event back into your hand instead of discarding it\.
+This card can be played at any time and does not count against the hazard limit\.
+This card cannot be played\.
+This card cannot serve both functions\.
+This card creates one or more attacks on the company, the total of which duplicates exactly \(including modifications\) all automatic-attacks at the site\.
+This card does not untap during your untap phase\.
+This card is effective during each player's organization phase\.
+This card may also be played as a resource\.
+This card may be played at any time during any player's turn\.
+This card may be revealed as an on-guard card for either effect\.
+This card must have already attacked the company this turn\.
+This card overrides any conflicting resources\.
+This card reserves up to one Dragon or Drake hazard creature\.
+This is an exact duplicate \(including all existing and eventual modifications to prowess, etc\.\) of an existing automatic-attack at the site of your choice\.
+This is an exact duplicate \(including all existing and eventual modifications to prowess, etc\.\) of an existing automatic-attack of your choice at the site\.
+This modification is -2 if Doors of Night is not in play\.
+This modification is -4/-2 if Gates of Morning is in play\.
+This result is modified by -3 if the character's company moved this turn using a site path containing a Coastal Sea \[c\]\.
+This roll is modified by: -1 if company contains any Men, -1 if company contains any Hobbits, \+2 if company contains any Dwarves\.
+This strike's prowess is modified by -1\.
+This turn, the prowess of one automatic-attack \(your choice\) at target site is increased by 2 and cannot be canceled\.
+This turn, the prowess of one automatic-attack \(your choice\) at target site is increased by 3\.
+This use cannot be duplicated on a given character\.
+To play this card, you must discard a Spawn card from your hand\.
+To reserve a Dragon or Drake creature, place it face up "off to the side" with this card \(not counting against the hazard limit\)\.
+To the roll add 5 if the agent's current site is also the agent's home site\.
+Treat one target Wilderness \[w\] as two Wildernesses \[w\] or one Shadow-land \[s\] as two Wildernesses \[w\] or one Border-land \[b\] as two Wildernesses \[w\] until the end of the turn\.
+Twilight may also be played as a resource, and may be played at any point during any player's turn\.
+Unique\.
+Unless Agburanar Ahunt is in play, Caves of Ulund has an additional automatic-attack: Dragon -- 2 strikes at 16/9\.
+Unless Bairanax Ahunt is in play, Ovir Hollow has an additional automatic-attack: Dragon -- 2 strikes at 15/7\.
+Unless Daelomin Ahunt is in play, Dancing Spire has an additional auto-attack: Dragon -- 3 strikes at 14/8\.
+Unless Earcaraxe Ahunt is in play, Isle of the Ulond has an additional automatic-attack: Dragon -- 2 strikes at 18/7 \(attacker chooses defending characters\), In addition, the hazard limit against any moving company with a Coastal Sea \[c\] region in its site path is increased by one\.
+Unless Itangast Ahunt is in play, Gold Hill has an additional automatic-attack: Dragon -- 3 strikes at 19/8\.
+Unless Leucaruth Ahunt is in play, Irerock has an additional automatic-attack: Dragon -- 2 strikes at 17/8\.
+Unless Scatha Ahunt is in play, Gondmaeglom has an additional automatic-attack: Dragon -- 3 strikes at 16/9\.
+Unless Scorba Ahunt is in play, Zarak Dum has an additional automatic-attack: Dragon -- 3 strikes at 13/8\.
+Unless Smaug Ahunt is in play, The Lonely Mountain has an additional automatic-attack: Dragon -- 2 strikes at 18/8\.
+Until the end of the turn, any attack by a scout agent at this site has its number of strikes increased by one and attacker chooses defending characters\.
+Until the end of the turn, each non-Hobbit, non-Wizard character at the site must make a corruption check each time an item is played at the site\.
+Until the end of the turn, each non-Hobbit, non-Wizard, non-Ringwraith character at the site must make a corruption check each time an item is played at the site\.
+Unused general influence modification does not apply\.
+When Doors of Night is played, and all resource environment cards in play are immediately discarded, and all resource environment effects are cancelled\.
+When a character makes one of these checks, it is modified by subtracting the corruption points the item would normally give the character if he controlled it\.
+When a character makes one of these corruption checks, it is modified by subtracting the corruption points that the item would normally give the character if he controlled the item\.
+When a character would otherwise be discarded from play, discard all cards on him, place him "off to the side" with this card, and return any character already with this card to its owner's hand\.
+When any item is played at this site, the company must face all automatic-attacks of the site again with the attack's prowess modified by \+3\.
+When played, announce a creature type except Nazgûl, Undead, or Dragons \(like Orcs, Men, Slayers, Drakes, etc\.\)\.
+When the agent is revealed, and if his home site is a Border-hold or a Free-hold, the site where he came into play \(which is not represented by a card\) may legally be any Border-hold or a Free-hold\.
+When the agent is revealed, and if his home site is a Shadow-hold or a Dark-hold, the site where he came into play \(which is not represented by a card\) may legally be any Shadow-hold or a Dark-hold\.
+When the next character fails a corruption check, he becomes a "traitor" and an attack is immediately made against a character in the traitor's company\.
+When this card is discarded, all hazard long-events are discarded\.
+When this card is played, place one ally from your hand "off to the side" with it \(the ally gives no marshalling points\)\.
+Whenever target creature would normally heal, he instead makes a roll \(or draws a #\): if the result is greater than 10, he heals normally and this card is removed\.
+You may choose a non-unique one and remove it from play\.
+You may play a reserved creature as though it were in your hand\.
+You may play one additional hazard on target campany for each Border-land \[b\] in its site path\.
+You may play one additional hazard on target company for each Shadow-land \[s\] in its site path\.
+You may play one additional hazard on target company for each Wilderness \[w\] in its site path\.
+You may return the ally to your hand and discard this card during your organization phase\.
+You may use two against a company's hazard limit to untap this card\.
+Your opponent may either: tap the character, tap an ally the character controls, or choose for you to make a roll \(draw a #\)\.
+Your opponent may skip his turn in order to place this card in your discard pile\.
+Your opponent must choose to either: discard from play enough stage cards \(of his choice\) to reduce his stage point total below 7 or to receive 4 stage points\.

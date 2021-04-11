@@ -77,6 +77,11 @@
         {% else %}
             {{ card.class }}
         {% endif %}
+        {% if card.cp is not none %}
+            <BR>[{{ card.cp }} CP]
+        {% elif card.mp is not none %}
+            <BR>[{{ card.mp }}{{ ' ' }}{{ card._mp_type }} MP{% if card._extra_mp_s %}s{% endif %}]
+        {% endif %}
     {% elif category == 'Items' %}
         {{ card.class }}
     {% elif category == 'Minion Agents' %}

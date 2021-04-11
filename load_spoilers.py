@@ -6,7 +6,10 @@ from meccg.scraping import load_html
 from meccg.unjinja import untemplate
 
 file_blacklist = ('atscreatnew', 'balhazcreatures', 'empty', 'german')
-mac_roman_files = ('lecreatures', 'lefactions', 'leitems', 'lemevents', 'leminions', 'leringwraith', 'whwiz')
+mac_roman_files = (
+    'lecreatures', 'lefactions', 'lehevents', 'leitems', 'lemevents', 'leminions', 'leringwraith',
+    'whhazevent', 'whwiz',
+)
 
 templates = {
     os.path.splitext(os.path.basename(filename))[0]: filename
@@ -21,6 +24,7 @@ for file in index['files']:
     if name not in file_blacklist:
         for prefix, template in templates.items():
             if name.startswith(prefix):
+                print(f'Parsing {name}.html using {template}...')
                 encoding = 'mac_roman' if name in mac_roman_files else None
                 load_html(f'http://meccg.net/netherlands/meccg/spoilers/{name}.html')
                 spoiler = untemplate(template, f'var/html/{name}.html', encoding=encoding)

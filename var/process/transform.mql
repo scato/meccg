@@ -2,10 +2,30 @@
 -- CARD SPECIFIC --
 -------------------
 
-MERGE {alignment: "Balrog", mind: null, cp: null} INTO {set: "The Balrog", name: "The Balrog"};
-MERGE {mp: "", mind: "2"} INTO {set: "The Lidless Eye", name: "Dôgrib"};
-MERGE {prowess: "2", body: "8"} INTO {set: "Promo Cards", name: "Bill Ferny"};
-MERGE {text: ["Trolls. Three strikes."]} INTO {set: "The Wizards", name: "Olog-hai (Trolls)"};
+MERGE {alignment: "Balrog", mind: null, cp: null} INTO {set: "The Balrog", name: "The Balrog", alignment: "Minion"};
+MERGE {class: "Permanent-event"} INTO {set: "The Dragons", name: "Ireful Flames", alignment: null};
+MERGE {mp: "", mind: "2"} INTO {set: "The Lidless Eye", name: "Dôgrib", alignment: "Minion"};
+MERGE {body: "-"} INTO {set: "The Lidless Eye", name: "Barrow-wight", alignment: null};
+MERGE {prowess: "2", body: "8"} INTO {set: "Promo Cards", name: "Bill Ferny", alignment: "Minion"};
+MERGE {body: "-"} INTO {set: "The White Hand", name: "Goblin-faces", alignment: null};
+MERGE {body: "-"} INTO {set: "The White Hand", name: "The White Hand", alignment: "Stage"};
+MERGE {text: ["Trolls. Three strikes."]} INTO {set: "The Wizards", name: "Olog-hai (Trolls)", alignment: null};
+
+MATCH {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null, text}
+SET text = ARRAY(WITH text AS line[] RETURN line.replace("[3 CP]\n", ""))
+MERGE {cp: "3", text: text} INTO {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null};
+
+MATCH {set: "Dark Minions", name: "Foes Shall Fall", alignment: null, text}
+SET text = ARRAY(WITH text AS line[] RETURN line.replace("[1(2) CP]\n", ""))
+MERGE {cp: "1(2)", text: text} INTO {set: "Dark Minions", name: "Foes Shall Fall", alignment: null};
+
+MATCH {set: "Dark Minions", name: "Elwen", alignment: "Minion", text}
+SET text = ARRAY(WITH text AS line[] RETURN line + ".")
+MERGE {text} INTO {set: "Dark Minions", name: "Elwen", alignment: "Minion"};
+
+MATCH {set: "The Dragons", name: "Galdor", alignment: "Hero", text}
+SET text = ARRAY(WITH text AS line[] RETURN line + ".")
+MERGE {text} INTO {set: "The Dragons", name: "Galdor", alignment: "Hero"};
 
 ------------------
 -- SET SPECIFIC --
@@ -14,23 +34,61 @@ MERGE {text: ["Trolls. Three strikes."]} INTO {set: "The Wizards", name: "Olog-h
 MATCH {set, name, alignment, keyed_to}
 WHERE ["Dark Minions", "The Lidless Eye", "Promo Cards", "The White Hand"].includes(set)
 WHERE keyed_to != null
-MERGE {keyed_to: [keyed_to]} INTO {set, name};
+MERGE {keyed_to: [keyed_to]} INTO {set, name, alignment};
+
+MATCH {set: "The Wizards" AS set, name, alignment, keyed_to}
+SET keyed_to = keyed_to.split("")
+MERGE {keyed_to} INTO {set, name, alignment};
 
 MATCH {set, name, alignment, home_site}
 WHERE ["Dark Minions"].includes(set)
-SET home_site = home_site.replace("\n", " ")
-SET home_site = home_site.split(", ")
+SET home_site = home_site
+    .replace("\n", " ")
+    .split(", ")
 MERGE {home_site} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, home_site}
+WHERE ["The White Hand"].includes(set)
+SET home_site = ARRAY(
+    WITH home_site AS line[]
+    RETURN line.replace("\n", "")
+)
+MERGE {home_site} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, text}
+WHERE ["Promo Cards"].includes(set)
+SET text = text
+    .replace("<i>", "")
+    .replace("</i>", "")
+    .replace("</b>", "")
+MERGE {text} INTO {set, name, alignment};
 
 MATCH {set, name, alignment, text}
 WHERE ["Against the Shadow", "The Lidless Eye", "Promo Cards", "The White Hand"].includes(set)
 MERGE {text: [text]} INTO {set, name, alignment};
 
+MATCH {set, name, alignment, text}
+WHERE ["The Dragons", "The Wizards"].includes(set)
+SET text = ARRAY(
+    WITH text AS line[]
+    RETURN line
+        .replace("e.g. ", "e.g., ")
+        .replace("i.e. ", "i.e., ")
+)
+MERGE {text} INTO {set, name, alignment};
+
 --------
 -- MP --
 --------
 
-MERGE {mp: ""} INTO {type: "Character", mp: null};
+MERGE {mp: ""} INTO {mp: null};
+MERGE {mp: ""} INTO {mp: "0"};
+
+----------
+-- MIND --
+----------
+
+MERGE {mind: null} INTO {mind: "0"};
 
 --------------
 -- KEYED TO --
@@ -72,6 +130,13 @@ MERGE {keyed_to} INTO {set, name, alignment};
 
 MERGE {keyed_to: []} INTO {keyed_to: [""]};
 
+--------
+-- CP --
+--------
+
+MERGE {cp: null} INTO {cp: ""};
+MERGE {cp: null} INTO {cp: "0"};
+
 ----------
 -- TEXT --
 ----------
@@ -83,7 +148,11 @@ MERGE {text: [...text, line_without_br]} INTO {set, name, alignment};
 MATCH {set, name, alignment, text}
 SET text = text
     .join(" ")
+    .trim()
     .replace("\n", " ")
+    .replace("\u00a0", " ")
+    .replace("\u0007", "")
+    .replace("  ", " ")
     .replace("  ", " ")
     .replace(". ", ".\n")
     .replace(".\" ", ".\"\n")

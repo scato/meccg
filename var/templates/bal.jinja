@@ -48,7 +48,9 @@
         {% if card.subclass is not none %}
             SUBCLASS: {{ card.subclass }}<BR>
             MP: {{ card.mp }}<BR>
-            PLAYABLE: {{ card.keyed_to }}<BR>
+            {% if card.keyed_to is not none %}
+                PLAYABLE: {{ card.keyed_to }}<BR>
+            {% endif %}
             STRIKES: {{ card.strikes }}<BR>
             PROWESS: {{ card.prowess }}<BR>
             BODY: {{ card.body }}<BR>
