@@ -29,6 +29,10 @@ def arr(es):
     return lambda c: [v for e in es for v in e(c)]
 
 
+def ter(d, l, r):
+    return lambda c: l(c) if d(c) else r(c)
+
+
 def bin(f, l, r):
     return lambda c: f(l(c), r(c))
 

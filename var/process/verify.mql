@@ -1,11 +1,15 @@
+-- Load all cards
 LOAD JSONL FROM `var/jsonl/${source}.jsonl` AS card
 CREATE card;
 
+-- Create an index for faster lookup
 CREATE INDEX card_set_name ON {set, name};
 
+-- Load the JSON schema
 LOAD JSON FROM "var/schema.json" AS schema
 SET @schema = schema;
 
+-- Find cards that haven't been saved (non-promo)
 LOAD JSON FROM `var/json/${source}.json` AS spoiler
 WHERE source != "promos"
 WITH spoiler AS {cards: {name}[], set}
@@ -15,6 +19,7 @@ WHERE NOT EXISTS (
 
 UNION
 
+-- Find cards that haven't been saved (promo)
 LOAD JSON FROM `var/json/promos.json` AS spoiler
 WITH spoiler AS {category: set, sets: {cards: {name}[]}[]}
 WHERE NOT EXISTS (
@@ -23,89 +28,66 @@ WHERE NOT EXISTS (
 
 UNION
 
+-- Find cards that do not validate against the JSON schema
 MATCH card
 WHERE card IS NOT JSON(@schema)
 RETURN card
 
 UNION
 
-LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern
-WITH attr, pattern[] AS patterns
-WHERE [
+-- Find cards with weird attribute values (non-array)
+WITH [
     "set", "type", "alignment",
     "mp", "site_type", "region_type", "name",
     "mind", "gi", "di",
     "race", "class", "region",
     "prowess", "body", "cp"
-].includes(attr)
-MATCH {set, name} AS card
-WHERE card.includes(attr) AND card[attr] != null
-SET value = card[attr]
+] AS attr[]
+SET patterns = ARRAY(LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern RETURN pattern)
+MATCH {[attr]: value} AS card
+WHERE value != null
 WHERE NOT EXISTS (
     WITH value, patterns AS pattern[]
     WHERE value.match("^" + pattern + "$")
 )
-RETURN {set, name, attr, value}
+RETURN {set: card.set, name: card.name, attr, value}
 
 UNION
 
-LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern
-WITH attr, pattern[] AS patterns
-WHERE ["skills", "home_site"].includes(attr)
-MATCH {set, name} AS card
-WHERE card.includes(attr) AND card[attr] != null
-WITH set, name, attr, card[attr] AS value[], patterns
+-- Find cards with weird attribute values (non-text array)
+WITH ["skills", "adjacent_regions", "home_site"] AS attr[]
+SET patterns = ARRAY(LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern RETURN pattern)
+MATCH {[attr]: values} AS card
+WITH card, attr, values as value[], patterns
 WHERE NOT EXISTS (
     WITH value, patterns AS pattern[]
     WHERE value.match("^" + pattern + "$")
 )
-RETURN {set, name, attr, value}
+RETURN {set: card.set, name: card.name, attr, value}
 
 UNION
 
-LOAD TEXT FROM `var/regex/text.character.txt` AS pattern
-WITH pattern[] AS patterns
-MATCH {type: "Character", set, name, text: value[]}
+-- Find cards with weird attribute values (text)
+MATCH {type, class = null, text: values} AS card
+SET category = CASE
+    WHEN type == "Character" THEN "character"
+    WHEN type == "Hazard" AND class == "Agent" THEN "hazard-agent"
+    WHEN type == "Hazard" AND class.includes("Creature") THEN "hazard-creature"
+    WHEN type == "Hazard" THEN "hazard-event"
+    WHEN type == "Region" THEN "region"
+    WHEN type == "Resource" AND class == "Ally" THEN "resource-ally"
+    WHEN type == "Resource" AND class.includes("event") THEN "resource-event"
+    WHEN type == "Resource" AND class == "Faction" THEN "resource-faction"
+    WHEN type == "Resource" AND class.includes("Item") THEN "resource-item"
+    WHEN type == "Site" THEN "site"
+END
+SET patterns = ARRAY(LOAD TEXT FROM `var/regex/text.${category}.txt` AS pattern RETURN pattern)
+WITH card, values as value[], patterns
 WHERE NOT EXISTS (
     WITH value, patterns AS pattern[]
     WHERE value.match("^" + pattern + "$")
 )
-RETURN {set, name, attr: "text", value}
-
-UNION
-
-LOAD TEXT FROM `var/regex/text.hazard-agent.txt` AS pattern
-WITH pattern[] AS patterns
-MATCH {type: "Hazard", class: "Agent", set, name, text: value[]}
-WHERE NOT EXISTS (
-    WITH value, patterns AS pattern[]
-    WHERE value.match("^" + pattern + "$")
-)
-RETURN {set, name, attr: "text", value}
-
-UNION
-
-LOAD TEXT FROM `var/regex/text.hazard-creature.txt` AS pattern
-WITH pattern[] AS patterns
-MATCH {type: "Hazard", class, set, name, text: value[]}
-WHERE class.includes("Creature")
-AND NOT EXISTS (
-    WITH value, patterns AS pattern[]
-    WHERE value.match("^" + pattern + "$")
-)
-RETURN {set, name, attr: "text", value}
-
-UNION
-
-LOAD TEXT FROM `var/regex/text.hazard-event.txt` AS pattern
-WITH pattern[] AS patterns
-MATCH {type: "Hazard", class, set, name, text: value[]}
-WHERE class != "Agent" AND NOT class.includes("Creature")
-AND NOT EXISTS (
-    WITH value, patterns AS pattern[]
-    WHERE value.match("^" + pattern + "$")
-)
-RETURN {set, name, attr: "text", value};
+RETURN {set: card.set, name: card.name, attr: "text", value};
 /*
 ORDER BY value
 SET value = value
@@ -116,5 +98,5 @@ SET value = value
     .replace("[", "\\[")
     .replace("]", "\\]")
     .replace("*", "\\*")
-SAVE TEXT value TO "text.hazard-event.missing.txt";
+SAVE TEXT value TO `text.${category}.missing.txt`;
 */

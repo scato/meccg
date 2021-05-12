@@ -11,9 +11,9 @@ if __name__ == '__main__':
     re._MAXCACHE = 1024
 
     scripts = [
-        # 'var/process/extract.mql',
-        # 'var/process/transform.mql',
-        # 'var/process/load.mql',
+        'var/process/extract.mql',
+        'var/process/transform.mql',
+        'var/process/load.mql',
         'var/process/verify.mql',
     ]
 

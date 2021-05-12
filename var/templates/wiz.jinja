@@ -64,7 +64,7 @@
         RANDOM#: {{ card.random_number }}<BR>
     {% elif card.type == 'Region' %}
         REGION TYPE: {{ card.region_type }}<BR>
-        MOVE TO: {{ card.ajacent_regions|join(', ') }}<BR>
+        MOVE TO: {{ card.adjacent_regions|join(', ') }}<BR>
         ARTIST: {{ card.artist }}<BR>
     {% elif card.type == 'Site' %}
         {% if card.region == 'The Shire' %}

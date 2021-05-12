@@ -144,6 +144,28 @@ def unw(e):
     return match
 
 
+def unp(ke, ve):
+    """
+    Unwind an array, matching each element using expression e
+    >>> e = unp(var('k'), var('v'))
+    >>> e({'x': 1, 'y': 2})
+    [{'k': 'x', 'v': 1}, {'k': 'y', 'v': 2}]
+    """
+    def match(x):
+        if isinstance(x, dict):
+            return [
+                sat.cmb(kz, vz)
+                for ky, vy in x.items()
+                for kz in ke(ky)
+                for vz in ve(vy)
+                if sat.cmp(kz, vz)
+            ]
+        else:
+            return []
+
+    return match
+
+
 def tpl(ps):
     """
     Match a string against a template

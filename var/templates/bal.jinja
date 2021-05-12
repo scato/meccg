@@ -78,11 +78,17 @@
                 MP: {{ card.mp }}<BR>
             {% endif %}
         {% endif %}
+        {% if card.mind is not none %}
+            MIND: {{ card.mind }}<BR>
+        {% endif %}
         {% if card.di is not none %}
             INFLUENCE: {{ card.di }}<BR>
         {% endif %}
         {% if card.prowess is not none %}
             PROWESS: {{ card.prowess }}<BR>
+        {% endif %}
+        {% if card.body is not none %}
+            BODY: {{ card.body }}<BR>
         {% endif %}
         {% if card.cp is not none %}
             CORRUPT: {{ card.cp }}<BR>

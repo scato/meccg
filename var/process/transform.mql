@@ -130,6 +130,12 @@ MERGE {keyed_to} INTO {set, name, alignment};
 
 MERGE {keyed_to: []} INTO {keyed_to: [""]};
 
+------------
+-- SKILLS --
+------------
+
+MERGE {skills: []} INTO {type: "Resource", class: "Ally", skills: null};
+
 --------
 -- CP --
 --------

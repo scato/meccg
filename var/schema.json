@@ -7,9 +7,12 @@
         { "$ref": "#/definitions/hazard-agent"},
         { "$ref": "#/definitions/hazard-creature"},
         { "$ref": "#/definitions/hazard-event"},
-        { "$ref": "#/definitions/resource"},
-        { "$ref": "#/definitions/site"},
-        { "$ref": "#/definitions/region"}
+        { "$ref": "#/definitions/region"},
+        { "$ref": "#/definitions/resource-ally"},
+        { "$ref": "#/definitions/resource-event"},
+        { "$ref": "#/definitions/resource-faction"},
+        { "$ref": "#/definitions/resource-item"},
+        { "$ref": "#/definitions/site"}
       ]
     },
     "base": {
@@ -25,11 +28,12 @@
     "common": {
       "type": "object",
       "properties": {
-        "set": {"type": "string"},
+        "set": {"type": "string", "minLength": 1},
         "type": {"enum": ["Character", "Resource", "Hazard", "Site", "Region"]},
         "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Stage", "Fallen-wizard", "Wizard", null]},
         "name": {"type": "string", "minLength": 1},
         "mp": {"type": "string"},
+        "region_type": {"enum": ["c", "f", "b", "w", "s", "d"]},
         "mind": {"type": ["string", "null"], "minLength": 1},
         "gi": {"type": ["string", "null"], "minLength": 1},
         "di": {"type": ["string", "null"], "minLength": 1},
@@ -41,7 +45,7 @@
         "skills": {
           "type": "array",
           "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]},
-          "minItems": 1
+          "minItems": 0
         },
         "race": {"type": "string", "minLength": 1},
         "class": {"type": "string", "minLength": 1},
@@ -68,7 +72,8 @@
           "properties": {
             "type": {"const": "Character"},
             "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Fallen-wizard", "Wizard"]},
-            "di": {"type": "string"}
+            "di": {"type": "string"},
+            "skills": {"type": "array", "minItems": 1}
           },
           "required": [
             "set", "type", "alignment", "name", "text",
@@ -90,7 +95,8 @@
             "type": {"const": "Hazard"},
             "alignment": {"const": null},
             "class": {"const": "Agent"},
-            "di": {"type": "string"}
+            "di": {"type": "string"},
+            "skills": {"type": "array", "minItems": 1}
           },
           "required": [
             "set", "type", "alignment", "class", "name", "text",
@@ -132,25 +138,101 @@
     },
     "hazard-event": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Hazard"},
             "alignment": {"const": null},
             "class": {"enum": ["Short-event", "Long-event", "Permanent-event", "Permanent-event or Short-event"]}
-          }
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "sp", "prowess", "body", "cp"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "sp", "prowess", "body", "cp"
+          ]}
         }
       ]
     },
-    "resource": {
+    "region": {
+      "allOf": [
+        {"$ref": "#/definitions/common"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Region"},
+            "alignment": {"const": null}
+          },
+          "required": [
+            "set", "type", "alignment", "name",
+            "region_type", "adjacent_regions"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "name",
+            "region_type", "adjacent_regions"
+          ]}
+        }
+      ]
+    },
+    "resource-ally": {
+      "allOf": [
+        {"$ref": "#/definitions/common"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Resource"},
+            "alignment": {"enum": ["Hero", "Minion", "Stage"]},
+            "class": {"enum": ["Ally"]}
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "skills", "prowess", "body"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "di", "skills", "prowess", "body"
+          ]}
+        }
+      ]
+    },
+    "resource-event": {
       "allOf": [
         {"$ref": "#/definitions/base"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Resource"},
-            "alignment": {"enum": ["Hero", "Minion", "Stage"]}
+            "alignment": {"enum": ["Hero", "Minion", "Stage"]},
+            "class": {"enum": ["Short-event", "Long-event", "Permanent-event", "Permanent-event or Short-event"]}
+          }
+        }
+      ]
+    },
+    "resource-faction": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Resource"},
+            "alignment": {"enum": ["Hero", "Minion", "Stage"]},
+            "class": {"enum": ["Faction"]}
+          }
+        }
+      ]
+    },
+    "resource-item": {
+      "allOf": [
+        {"$ref": "#/definitions/base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "Resource"},
+            "alignment": {"enum": ["Hero", "Minion", "Stage"]},
+            "class": {"enum": ["Minor Item", "Major Item", "Greater Item", "Gold Ring Item", "Special Item"]}
           }
         }
       ]
@@ -163,18 +245,6 @@
           "properties": {
             "type": {"const": "Site"},
             "alignment": {"enum": ["Hero", "Minion", "Balrog", "Fallen-wizard"]}
-          }
-        }
-      ]
-    },
-    "region": {
-      "allOf": [
-        {"$ref": "#/definitions/base"},
-        {
-          "type": "object",
-          "properties": {
-            "type": {"const": "Region"},
-            "alignment": {"const": null}
           }
         }
       ]

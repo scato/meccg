@@ -13,13 +13,16 @@ SAVE JSONL * TO "var/jsonl/hazard-creature.jsonl";
 
 MATCH {type: "Hazard", class} AS card
 WHERE class != "Agent" AND NOT class.includes("Creature")
-SAVE JSONL card TO "var/jsonl/hazard-event.jsonl";
+WITH card AS {set, type, alignment, class, name, text, mp = "", mind = null, di = null, sp = null, prowess = null, body = null, cp = null}
+SAVE JSONL * TO "var/jsonl/hazard-event.jsonl";
 
 MATCH {type: "Region"} AS card
-SAVE JSONL card TO "var/jsonl/region.jsonl";
+WITH card AS {set, type, alignment, name, region_type, adjacent_regions}
+SAVE JSONL * TO "var/jsonl/region.jsonl";
 
 MATCH {type: "Resource", class: "Ally"} AS card
-SAVE JSONL card TO "var/jsonl/resource-ally.jsonl";
+WITH card AS {set, type, alignment, class, name, text, mp, mind, di = null, skills = [], prowess, body}
+SAVE JSONL * TO "var/jsonl/resource-ally.jsonl";
 
 MATCH {type: "Resource", class: "Faction"} AS card
 SAVE JSONL card TO "var/jsonl/resource-faction.jsonl";

@@ -56,6 +56,7 @@ parser = Lark(r"""
     create_clause: "CREATE" source_expression
 
     return_clause: "RETURN" source_expression
+                 | "RETURN" "DISTINCT" source_expression -> return_distinct_clause
     
     merge_clause: "MERGE" source_expression "INTO" target_expression
 
@@ -70,6 +71,7 @@ parser = Lark(r"""
                       | target_tuple
                       | target_alias
                       | target_unwind
+                      | target_unpack
 
     target_object: "{" "}"
                  | "{" target_rest_expression "}"
@@ -93,6 +95,7 @@ parser = Lark(r"""
     
     target_constant: ESCAPED_STRING
                    | /null/
+                   | /\[\]/
     
     target_template: /`[^`$]*`/
                    | /`[^`$]*\${/ target_expression (/}[^`$]*\${/ target_expression)* /}[^`$]*`/
@@ -100,6 +103,8 @@ parser = Lark(r"""
     target_alias: target_expression "AS" CNAME
     
     target_unwind: target_expression "[" "]"
+
+    target_unpack: "{" "[" target_expression "]" ":" target_expression "}"
 
     ?source_expression: and_expression
     
@@ -122,12 +127,18 @@ parser = Lark(r"""
                       | "NOT" prefix_expression -> source_not
 
     ?member_expression: terminal_expression
+                      | case_expression
                       | "EXISTS" "(" subquery ")" -> source_subquery_exists
                       | "ARRAY" "(" subquery ")" -> source_subquery_array
                       | member_expression "." CNAME source_method_arguments -> source_method_call
                       | member_expression "." CNAME -> source_property
                       | member_expression "[" "]" -> source_aggregate
                       | member_expression "[" source_expression "]" -> source_element
+
+    case_expression: "CASE" case_expression_case* "END" -> source_boolean_case
+                   | "CASE" source_expression case_expression_case* "END" -> source_match_case
+
+    case_expression_case: "WHEN" source_expression "THEN" source_expression -> source_boolean_when
 
     source_method_arguments: "(" ")"
                            | "(" source_expression ("," source_expression)* ")"
@@ -238,7 +249,10 @@ class Session:
             return self._create(result, source_expression)
         elif node.data == 'return_clause':
             source_expression, = node.children
-            return self._return(result, source_expression)
+            return self._return(result, False, source_expression)
+        elif node.data == 'return_distinct_clause':
+            source_expression, = node.children
+            return self._return(result, True, source_expression)
         elif node.data == 'merge_clause':
             source_expression, target_expression = node.children
             return self._merge(result, source_expression, target_expression)
@@ -315,11 +329,20 @@ class Session:
         self._update_indexes()
         return input_result
 
-    def _return(self, input_result, source_expression):
+    def _return(self, input_result, distinct, source_expression):
         compiled_source = self._compile_source(source_expression)
 
-        for context in input_result:
-            yield compiled_source(context)
+        if distinct:
+            found = set()
+            for context in input_result:
+                value = compiled_source(context)
+                value_json = json.dumps(value)
+                if value_json not in found:
+                    found.add(value_json)
+                    yield value
+        else:
+            for context in input_result:
+                yield compiled_source(context)
 
     def _merge(self, input_result, source_expression, target_expression):
         compiled_source = self._compile_source(source_expression)
@@ -531,6 +554,8 @@ class Session:
             return destructuring.var(key)
         elif expression.data == 'target_unwind':
             return destructuring.unw(self._compile_target(expression.children[0]))
+        elif expression.data == 'target_unpack':
+            return destructuring.unp(self._compile_target(expression.children[0]), self._compile_target(expression.children[1]))
         elif expression.data == 'target_template':
             return destructuring.tpl([
                 re.sub(r'^`|^}|`$|\${$', '', child) if isinstance(child, str) else self._compile_target(child)
@@ -554,10 +579,14 @@ class Session:
     def _contains_aggregate(self, expression):
         if expression.data == 'source_variable':
             return False
+        elif expression.data == 'source_constant':
+            return False
         elif expression.data == 'source_aggregate':
             return True
         elif expression.data == 'source_object':
             return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'source_full_pair':
+            return self._contains_aggregate(expression.children[1])
         elif expression.data == 'source_spread_expression':
             return self._contains_aggregate(expression.children[0])
         elif expression.data == 'with_clause':
@@ -568,18 +597,25 @@ class Session:
             return self._contains_aggregate(expression.children[0])
         elif expression.data == 'source_element':
             return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'source_array':
+            return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'source_array_element':
+            return any(self._contains_aggregate(child) for child in expression.children)
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
     def _extract_keys(self, expression, keys):
         if expression.data == 'source_aggregate':
             return keys, expression
-        elif expression.data == 'with_clause':
+        elif expression.data in ('with_clause', 'source_object', 'source_full_pair', 'source_constant'):
             new_children = []
             for child in expression.children:
-                keys, new_child = self._extract_keys(child, keys)
-                new_children.append(new_child)
-            return keys, Tree('with_clause', new_children)
+                if isinstance(child, Token):
+                    new_children.append(child)
+                else:
+                    keys, new_child = self._extract_keys(child, keys)
+                    new_children.append(new_child)
+            return keys, Tree(expression.data, new_children)
         elif expression.data == 'with_full_pair':
             source_variable = expression.children[0]
             keys, source_variable = self._extract_keys(source_variable, keys)
@@ -588,7 +624,7 @@ class Session:
             source_variable = expression.children[0]
             target_variable = Tree('target_variable', source_variable.children)
             keys, source_variable = self._extract_keys(source_variable, keys)
-            return keys, Tree('with_full_pair', [source_variable, expression.children[0]])
+            return keys, Tree('with_full_pair', [source_variable, target_variable])
         elif expression.data == 'source_variable':
             return keys + [expression], Tree('source_key', [Token('INT', len(keys))])
         else:
@@ -631,6 +667,10 @@ class Session:
             left = self._compile_source(expression.children[0])
             key = self._compile_source(expression.children[1])
             return expr.bin(lambda l, k: l[k], left, key)
+        elif expression.data == 'source_eq':
+            left = self._compile_source(expression.children[0])
+            right = self._compile_source(expression.children[1])
+            return expr.bin(lambda l, r: l == r, left, right)
         elif expression.data == 'source_ne':
             left = self._compile_source(expression.children[0])
             right = self._compile_source(expression.children[1])
@@ -707,6 +747,14 @@ class Session:
             return expr.el(self._compile_source(expression.children[0]))
         elif expression.data == 'source_key':
             return expr.grp_key(int(expression.children[0]))
+        elif expression.data == 'source_boolean_case':
+            right = expr.lit(None)
+            for child in reversed(expression.children):
+                cond = self._compile_source(child.children[0])
+                left = self._compile_source(child.children[1])
+                right = expr.ter(cond, left, right)
+
+            return right
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
