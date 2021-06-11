@@ -7,25 +7,31 @@ MERGE {class: "Permanent-event"} INTO {set: "The Dragons", name: "Ireful Flames"
 MERGE {mp: "", mind: "2"} INTO {set: "The Lidless Eye", name: "Dôgrib", alignment: "Minion"};
 MERGE {body: "-"} INTO {set: "The Lidless Eye", name: "Barrow-wight", alignment: null};
 MERGE {prowess: "2", body: "8"} INTO {set: "Promo Cards", name: "Bill Ferny", alignment: "Minion"};
+MERGE {mind: "-1"} INTO {set: "The White Hand", name: "Open to the Summons", alignment: "Minion"};
 MERGE {body: "-"} INTO {set: "The White Hand", name: "Goblin-faces", alignment: null};
 MERGE {body: "-"} INTO {set: "The White Hand", name: "The White Hand", alignment: "Stage"};
 MERGE {text: ["Trolls. Three strikes."]} INTO {set: "The Wizards", name: "Olog-hai (Trolls)", alignment: null};
 
-MATCH {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null, text}
-SET text = ARRAY(WITH text AS line[] RETURN line.replace("[3 CP]\n", ""))
-MERGE {cp: "3", text: text} INTO {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null};
+MATCH {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null, text: line[]}
+SET line = line.replace("[3 CP]\n", "")
+MERGE {cp: "3", text: line[]} INTO {set: "Dark Minions", name: "Bring Our Curses Home", alignment: null};
 
-MATCH {set: "Dark Minions", name: "Foes Shall Fall", alignment: null, text}
-SET text = ARRAY(WITH text AS line[] RETURN line.replace("[1(2) CP]\n", ""))
-MERGE {cp: "1(2)", text: text} INTO {set: "Dark Minions", name: "Foes Shall Fall", alignment: null};
+MATCH {set: "Dark Minions", name: "Foes Shall Fall", alignment: null, text: line[]}
+SET line = line.replace("[1(2) CP]\n", "")
+MERGE {cp: "1(2)", text: line[]} INTO {set: "Dark Minions", name: "Foes Shall Fall", alignment: null};
 
-MATCH {set: "Dark Minions", name: "Elwen", alignment: "Minion", text}
-SET text = ARRAY(WITH text AS line[] RETURN line + ".")
-MERGE {text} INTO {set: "Dark Minions", name: "Elwen", alignment: "Minion"};
+MATCH {set: "Dark Minions", name: "Elwen", alignment: "Minion", text: line[]}
+SET line = line + "."
+MERGE {text: line[]} INTO {set: "Dark Minions", name: "Elwen", alignment: "Minion"};
 
-MATCH {set: "The Dragons", name: "Galdor", alignment: "Hero", text}
-SET text = ARRAY(WITH text AS line[] RETURN line + ".")
-MERGE {text} INTO {set: "The Dragons", name: "Galdor", alignment: "Hero"};
+MATCH {set: "The Dragons", name: "Galdor", alignment: "Hero", text: line[]}
+SET line = line + "."
+MERGE {text: line[]} INTO {set: "The Dragons", name: "Galdor", alignment: "Hero"};
+
+MATCH {set: "The Dragons", name: "Framsburg", alignment: "Hero", special, special_extra}
+SET auto_attack = special.replace("Automatic-attacks: ", "")
+SET special = special_extra
+MERGE {auto_attack, special} INTO {set: "The Dragons", name: "Framsburg", alignment: "Hero"};
 
 ------------------
 -- SET SPECIFIC --
@@ -67,15 +73,12 @@ MATCH {set, name, alignment, text}
 WHERE ["Against the Shadow", "The Lidless Eye", "Promo Cards", "The White Hand"].includes(set)
 MERGE {text: [text]} INTO {set, name, alignment};
 
-MATCH {set, name, alignment, text}
+MATCH {set, name, alignment, text: line[]}
 WHERE ["The Dragons", "The Wizards"].includes(set)
-SET text = ARRAY(
-    WITH text AS line[]
-    RETURN line
-        .replace("e.g. ", "e.g., ")
-        .replace("i.e. ", "i.e., ")
-)
-MERGE {text} INTO {set, name, alignment};
+SET line = line
+    .replace("e.g. ", "e.g., ")
+    .replace("i.e. ", "i.e., ")
+MERGE {text: line[]} INTO {set, name, alignment};
 
 --------
 -- MP --
@@ -83,6 +86,23 @@ MERGE {text} INTO {set, name, alignment};
 
 MERGE {mp: ""} INTO {mp: null};
 MERGE {mp: ""} INTO {mp: "0"};
+
+---------------
+-- SITE_TYPE --
+---------------
+
+MATCH {type: "Site", set, name, alignment, site_type}
+SET site_type = site_type
+    .replace("Wizardhaven", "H")
+    .replace("Free-hold", "F")
+    .replace("Border-hold", "B")
+    .replace("Ruins & Lairs", "R")
+    .replace("Shadow-hold", "S")
+    .replace("Dark-hold", "D")
+    .replace("DH", "D")
+    .replace("h", "H")
+    .replace("r", "R")
+MERGE {site_type} INTO {set, name, alignment};
 
 ----------
 -- MIND --
@@ -130,6 +150,54 @@ MERGE {keyed_to} INTO {set, name, alignment};
 
 MERGE {keyed_to: []} INTO {keyed_to: [""]};
 
+---------------
+-- SITE_PATH --
+---------------
+
+MATCH {set, name, alignment, site_path}
+SET site_path = CASE site_path
+    WHEN null THEN ""
+    ELSE site_path
+END
+SET site_path = site_path
+    .replace("Free-domain", "f")
+    .replace("Border-land", "b")
+    .replace("Wilderness", "w")
+    .replace("Shadow-land", "s")
+    .replace("Dark-domain", "d")
+    .replace("Coastal", "c")
+    .replace("Fr", "f")
+    .replace("Wi", "w")
+    .replace("Sh", "s")
+    .replace("Da", "d")
+    .replace("Co", "c")
+SET site_path = CASE set
+    WHEN "Dark Minions" THEN site_path.split(", ")
+    WHEN "The Dragons" THEN site_path.split("")
+    WHEN "The Wizards" THEN site_path.split("")
+    ELSE site_path.split(" ")
+END
+SET site_path = CASE site_path
+    WHEN [""] THEN []
+    ELSE site_path
+END
+MERGE {site_path} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, site_path1}
+SET site_path1 = CASE set
+    WHEN "The Lidless Eye" THEN site_path1.split(" ")
+    WHEN "The Wizards" THEN site_path1.split("")
+END
+MERGE {site_path1} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, site_path2}
+WHERE site_path2 != null
+SET site_path2 = CASE set
+    WHEN "The Lidless Eye" THEN site_path2.split(" ")
+    WHEN "The Wizards" THEN site_path2.split("")
+END
+MERGE {site_path2} INTO {set, name, alignment};
+
 ------------
 -- SKILLS --
 ------------
@@ -142,6 +210,19 @@ MERGE {skills: []} INTO {type: "Resource", class: "Ally", skills: null};
 
 MERGE {cp: null} INTO {cp: ""};
 MERGE {cp: null} INTO {cp: "0"};
+
+---------------------
+-- ADJACENT_REGION --
+---------------------
+
+MATCH {set, name, alignment, adjacent_regions}
+SET adjacent_regions = ARRAY(
+    WITH adjacent_regions AS adjacent_region[]
+    RETURN adjacent_region
+        .replace("Dorwinian", "Dorwinion")
+        .replace("Woodland Realms", "Woodland Realm")
+)
+MERGE {adjacent_regions} INTO {set, name, alignment};
 
 ----------
 -- TEXT --
@@ -164,3 +245,5 @@ SET text = text
     .replace(".\" ", ".\"\n")
     .split("\n")
 MERGE {text} INTO {set, name, alignment};
+
+MERGE {text: []} INTO {text: [""]};

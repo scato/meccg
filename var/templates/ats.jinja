@@ -133,7 +133,11 @@
     <tr>
     <td colspan={{ card._colspan }}>
     {% if category == 'Hero sites' or category == 'Minion Sites' %}
-        {{ card.site_path }}<br>
+        {% if card.adjacent_sites is not none %}
+            Adjacent Sites: {{ card.adjacent_sites }}<br>
+        {% else %}
+            {{ card.site_path }}<br>
+        {% endif %}
         {% if card.nearest_haven is not none %}
             {% if category == 'Hero sites' %}
                 Nearest Haven: {{ card.nearest_haven }}<br>
@@ -143,10 +147,10 @@
         {% endif %}
         Playable: {{ card.playable }}<br>
         {% if card.special is not none %}
-            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}<br>
+            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attack }}<br>
             Special: {{ card.special }}
         {% else %}
-            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}
+            Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attack }}
         {% endif %}
     {% else %}
         {% if card.keyed_to is not none %}

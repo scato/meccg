@@ -34,6 +34,7 @@
         "name": {"type": "string", "minLength": 1},
         "mp": {"type": "string"},
         "region_type": {"enum": ["c", "f", "b", "w", "s", "d"]},
+        "site_type": {"enum": ["H", "F", "B", "R", "S", "D"]},
         "mind": {"type": ["string", "null"], "minLength": 1},
         "gi": {"type": ["string", "null"], "minLength": 1},
         "di": {"type": ["string", "null"], "minLength": 1},
@@ -42,10 +43,23 @@
           "type": "array",
           "items": {"enum": ["F", "B", "R", "S", "D", "f", "b", "w", "s", "d", "c"]}
         },
+        "site_path": {
+          "type": ["array"],
+          "items": {"enum": ["f", "b", "w", "s", "d", "c"]}
+        },
+        "site_path1": {
+          "type": ["array", "null"],
+          "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
+          "minItems": 1
+        },
+        "site_path2": {
+          "type": ["array", "null"],
+          "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
+          "minItems": 1
+        },
         "skills": {
           "type": "array",
-          "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]},
-          "minItems": 0
+          "items": {"enum": ["Warrior", "Scout", "Ranger", "Sage", "Diplomat"]}
         },
         "race": {"type": "string", "minLength": 1},
         "class": {"type": "string", "minLength": 1},
@@ -57,10 +71,14 @@
           "minItems": 1
         },
         "cp": {"type": ["string", "null"], "minLength": 1},
-        "text": {
-          "type": "array",
+        "adjacent_regions": {
+          "type":  "array",
           "items": {"type": "string", "minLength": 1},
           "minItems": 1
+        },
+        "text": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
         }
       }
     },
@@ -200,46 +218,70 @@
     },
     "resource-event": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Resource"},
             "alignment": {"enum": ["Hero", "Minion", "Stage"]},
             "class": {"enum": ["Short-event", "Long-event", "Permanent-event", "Permanent-event or Short-event"]}
-          }
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "gi", "di", "sp", "prowess", "body", "cp"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "mind", "gi", "di", "sp", "prowess", "body", "cp"
+          ]}
         }
       ]
     },
     "resource-faction": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Resource"},
             "alignment": {"enum": ["Hero", "Minion", "Stage"]},
             "class": {"enum": ["Faction"]}
-          }
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "sp", "race"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "sp", "race"
+          ]}
         }
       ]
     },
     "resource-item": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {
             "type": {"const": "Resource"},
             "alignment": {"enum": ["Hero", "Minion", "Stage"]},
             "class": {"enum": ["Minor Item", "Major Item", "Greater Item", "Gold Ring Item", "Special Item"]}
-          }
+          },
+          "required": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "di", "sp", "prowess", "body", "cp"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "class", "name", "text",
+            "mp", "di", "sp", "prowess", "body", "cp"
+          ]}
         }
       ]
     },
     "site": {
       "allOf": [
-        {"$ref": "#/definitions/base"},
+        {"$ref": "#/definitions/common"},
         {
           "type": "object",
           "properties": {

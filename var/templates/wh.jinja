@@ -62,7 +62,7 @@
         {% if card.di is not none %}
             DI: {{ card.di }}<br>
         {% endif %}
-        {% if card.prowess is not none %}
+        {% if card.prowess is not none or card.body is not none %}
             Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {% endif %}
         {% if card.cp is not none %}
@@ -79,7 +79,7 @@
         {% if card.mp is not none %}
             MP: {{ card.mp }}<br>
         {% endif %}
-        {% if card.prowess is not none %}
+        {% if card.prowess is not none or card.body is not none %}
             Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {% endif %}
         {% if card.cp is not none %}
@@ -136,7 +136,7 @@
         {% if card.gi is not none %}
             GI: {{ card.gi }}<br>
         {% endif %}
-        {% if card.prowess is not none %}
+        {% if card.prowess is not none or card.body is not none %}
             Pr/Bd: {{ card.prowess }}/{{ card.body }}<br>
         {% endif %}
         {% if card.sp is not none %}

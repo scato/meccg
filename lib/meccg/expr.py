@@ -43,7 +43,7 @@ def uni(f, o):
 
 def ret(e):
     return lambda rs: (
-        e(r)
+        (e(r), r)
         for r in rs
     )
 
@@ -61,6 +61,7 @@ def grp_arr(e):
 
 def grp_ret(ke, ge):
     return lambda rs: (
-        ge({'$keys': gk, '$records': list(grs)})
+        (ge(r), r)
         for gk, grs in itertools.groupby(rs, ke)
+        for r in [{'$keys': gk, '$records': list(grs)}]
     )

@@ -10,7 +10,7 @@ Bay of Belfalas
 Brown Lands
 Cardolan
 Dagorlad
-Dorwini[oa]n
+Dorwinion
 Dunland
 Elven Shores
 Enedhwaith
@@ -49,4 +49,4 @@ Udun
 Western Mirkwood
 Withered Heath
 Wold & Foothills
-Woodland Realms?
+Woodland Realm

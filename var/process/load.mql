@@ -24,18 +24,22 @@ MATCH {type: "Resource", class: "Ally"} AS card
 WITH card AS {set, type, alignment, class, name, text, mp, mind, di = null, skills = [], prowess, body}
 SAVE JSONL * TO "var/jsonl/resource-ally.jsonl";
 
+MATCH {type: "Resource", class} AS card
+WHERE class.includes("event")
+WITH card AS {set, type, alignment, class, name, text, mp = "", mind = null, gi = null, di = null, sp = null, prowess = null, body = null, cp = null}
+SAVE JSONL * TO "var/jsonl/resource-event.jsonl";
+
 MATCH {type: "Resource", class: "Faction"} AS card
-SAVE JSONL card TO "var/jsonl/resource-faction.jsonl";
+WITH card AS {set, type, alignment, class, name, text, mp, sp = null, race}
+SAVE JSONL * TO "var/jsonl/resource-faction.jsonl";
 
 MATCH {type: "Resource", class} AS card
 WHERE class.includes("Item")
-SAVE JSONL card TO "var/jsonl/resource-item.jsonl";
-
-MATCH {type: "Resource", class} AS card
-WHERE class.includes("event")
-SAVE JSONL card TO "var/jsonl/resource-event.jsonl";
+WITH card AS {set, type, alignment, class, name, text, mp, di = null, sp = null, prowess = null, body = null, cp = null}
+SAVE JSONL * TO "var/jsonl/resource-item.jsonl";
 
 MATCH {type: "Site"} AS card
+--WITH card AS {text, ...card}
 SAVE JSONL card TO "var/jsonl/site.jsonl";
 
 DELETE _;

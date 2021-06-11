@@ -135,10 +135,11 @@ parser = Lark(r"""
                       | member_expression "[" "]" -> source_aggregate
                       | member_expression "[" source_expression "]" -> source_element
 
-    case_expression: "CASE" case_expression_case* "END" -> source_boolean_case
-                   | "CASE" source_expression case_expression_case* "END" -> source_match_case
+    case_expression: "CASE" case_expression_case* case_expression_else? "END" -> source_boolean_case
+                   | "CASE" source_expression case_expression_case* case_expression_else? "END" -> source_match_case
 
     case_expression_case: "WHEN" source_expression "THEN" source_expression -> source_boolean_when
+    case_expression_else: "ELSE" source_expression -> source_boolean_else
 
     source_method_arguments: "(" ")"
                            | "(" source_expression ("," source_expression)* ")"
@@ -345,13 +346,13 @@ class Session:
                 yield compiled_source(context)
 
     def _merge(self, input_result, source_expression, target_expression):
-        compiled_source = self._compile_source(source_expression)
+        compiled_projection, target_expression = self._compile_merge_projection(source_expression, target_expression)
+        # compiled_source = self._compile_source(source_expression)
         compiled_target = self._compile_target(target_expression)
 
         # TODO: first generate changeset so that changes are isolated from reading query???
 
-        for context in input_result:
-            patch = compiled_source(context)
+        for patch, context in compiled_projection(input_result):
             for i, record in self._candidate_records(target_expression, context):
                 if any(sat.cmp(context, match) for match in compiled_target(record)):
                     self._records[i] = sat.cmb(record, patch)
@@ -414,7 +415,7 @@ class Session:
 
         # NOTE: no check compatibility and no combine
         # matches from WITH should hide input variables, so we throw away all the input variables
-        for value in compiled_projection(input_result):
+        for value, context in compiled_projection(input_result):
             for match in compiled_target(value):
                 yield match
 
@@ -452,7 +453,7 @@ class Session:
     def _order_by(self, input_result, source_expression):
         compiled_source = self._compile_source(source_expression)
 
-        return sorted(input_result, key=compiled_source)
+        return sorted(input_result, key=lambda x: json.dumps(compiled_source(x)))
 
     def _save(self, input_result, file_format, source_expression, file_path):
         compiled_source = self._compile_source(source_expression)
@@ -502,6 +503,7 @@ class Session:
             return '.'.join(
                 self._compile_identifier(child)
                 for child in expression.children
+                if isinstance(child, Token) or child.data != 'target_constant'
             )
         else:
             raise Exception(f'Node of type {expression.data} not supported')
@@ -573,6 +575,8 @@ class Session:
             source_variable = expression.children[0]
             target_variable = Tree('target_variable', source_variable.children)
             return self._compile_target(target_variable)
+        elif expression.data == 'target_key':
+            return destructuring.key(int(expression.children[0]))
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
@@ -587,6 +591,8 @@ class Session:
             return any(self._contains_aggregate(child) for child in expression.children)
         elif expression.data == 'source_full_pair':
             return self._contains_aggregate(expression.children[1])
+        elif expression.data == 'source_shorthand_pair':
+            return False
         elif expression.data == 'source_spread_expression':
             return self._contains_aggregate(expression.children[0])
         elif expression.data == 'with_clause':
@@ -607,7 +613,10 @@ class Session:
     def _extract_keys(self, expression, keys):
         if expression.data == 'source_aggregate':
             return keys, expression
-        elif expression.data in ('with_clause', 'source_object', 'source_full_pair', 'source_constant'):
+        elif expression.data in (
+                'with_clause', 'source_object', 'source_full_pair', 'source_constant',
+                'target_object', 'target_full_pair', 'target_constant',
+        ):
             new_children = []
             for child in expression.children:
                 if isinstance(child, Token):
@@ -627,6 +636,14 @@ class Session:
             return keys, Tree('with_full_pair', [source_variable, target_variable])
         elif expression.data == 'source_variable':
             return keys + [expression], Tree('source_key', [Token('INT', len(keys))])
+        elif expression.data == 'target_shorthand_pair':
+            target_key = expression.children[0]
+            target_value = Tree('target_variable', [target_key])
+            keys, target_value = self._extract_keys(target_value, keys)
+            return keys, Tree('target_full_pair', [target_key, target_value])
+        elif expression.data == 'target_variable':
+            source_variable = Tree('source_variable', expression.children)
+            return keys + [source_variable], Tree('target_key', [Token('INT', len(keys))])
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
@@ -639,6 +656,17 @@ class Session:
             )
         else:
             return expr.ret(self._compile_source(expression))
+
+    def _compile_merge_projection(self, source_expression, target_expression):
+        if self._contains_aggregate(source_expression):
+            keys, grouped_target_expression = self._extract_keys(target_expression, [])
+            keys, grouped_source_expression = self._extract_keys(source_expression, keys)
+            return expr.grp_ret(
+                expr.arr([expr.el(self._compile_source(key)) for key in keys]),
+                self._compile_source(grouped_source_expression)
+            ), grouped_target_expression
+        else:
+            return expr.ret(self._compile_source(source_expression)), target_expression
 
     def _compile_source(self, expression):
         if expression.data == 'source_method_call':
@@ -755,6 +783,20 @@ class Session:
                 right = expr.ter(cond, left, right)
 
             return right
+        elif expression.data == 'source_match_case':
+            value = self._compile_source(expression.children[0])
+            children = expression.children[1:]
+            if children[-1].data == 'source_boolean_else':
+                right = self._compile_source(children[-1].children[0])
+                children = children[:-1]
+            else:
+                right = expr.lit(None)
+            for child in reversed(children):
+                cond = expr.bin(lambda l, r: l == r, value, self._compile_source(child.children[0]))
+                left = self._compile_source(child.children[1])
+                right = expr.ter(cond, left, right)
+
+            return right
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 
@@ -797,6 +839,12 @@ class Session:
             key = self._compile_identifier(expression)
             if sat.has(key, context):
                 return Tree('target_constant', [json.dumps(sat.get(key, context))])
+            else:
+                return expression
+        elif expression.data == 'target_key':
+            i = int(expression.children[0])
+            if '$keys' in context and len(context['$keys']) > i:
+                return Tree('target_constant', [json.dumps(context['$keys'][i])])
             else:
                 return expression
         else:

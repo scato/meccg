@@ -49,9 +49,9 @@
         {% endif %}
         <td>
             {% if card.site_type == 'h' %}
-                Site Path From {{ card.adjacent_haven1 }}: {{ card.site_path1 }}
-                {% if card.adjacent_haven2 is not none %}
-                    <br>Site Path From {{ card.adjacent_haven2 }}: {{ card.site_path2 }}
+                Site Path From {{ card.nearest_haven1 }}: {{ card.site_path1 }}
+                {% if card.nearest_haven2 is not none or card.site_path2 is not none %}
+                    <br>Site Path From {{ card.nearest_haven2 }}: {{ card.site_path2 }}
                 {% endif %}
             {% else %}
                 Nearest Darkhaven: {{ card.nearest_haven }}
@@ -163,7 +163,7 @@
         {% elif category == 'Items' %}
             <TD>{{ card.mp }}</TD>
             <TD>{{ card.cp }}</TD>
-            {% if card.prowess is not none %}
+            {% if card.prowess is not none or card.body is not none %}
                 <TD>{{ card.prowess }}/{{ card.body }}</TD>
             {% else %}
                 <TD>{{ card.prowess_body }}</TD>

@@ -203,3 +203,17 @@ def nil():
     []
     """
     return lambda x: []
+
+
+def key(i):
+    """
+    Match a value into key i
+    >>> e = key(0)
+    >>> e('bar')  # doctest: +ELLIPSIS
+    [{'$keys': <function ...>}]
+    >>> sat.cmp(e('bar')[0], {'$keys': ['bar', 'baz']})
+    True
+    >>> sat.cmp(e('bar')[0], {'$keys': ['baz', 'bar']})
+    False
+    """
+    return lambda x: [sat.ctx('$keys', lambda y: isinstance(y, list) and len(y) > i and y[i] == x)]

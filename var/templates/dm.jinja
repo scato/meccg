@@ -48,7 +48,7 @@
             {{ card.prowess }}/{{ card.body }};
             {{ card.mp }} ally MP;
             {{ card.mind }} mind
-            {{ _extra_space }}
+            {{ card._extra_space }}
         ]
     {% elif category == 'Characters' %}
         {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
@@ -83,7 +83,21 @@
             <BR>[{{ card.mp }}{{ ' ' }}{{ card._mp_type }} MP{% if card._extra_mp_s %}s{% endif %}]
         {% endif %}
     {% elif category == 'Items' %}
-        {{ card.class }}
+        {{ card.class }}<br>
+        [
+            {% if card.mp != '' %}
+                {{ card.mp }} item MP{% if card._mp_comma %},{% else %};{% endif %}
+            {% endif %}
+            {% if card.di is not none %}
+                {{ card.di }} direct influence;
+            {% endif %}
+            {% if card.prowess is not none or card.body is not none %}
+                {{ card.prowess }} prowess;
+                {{ card.body }} body{% if card._body_comma %},{% else %};{% endif %}
+            {% endif %}
+            {{ card.cp }} CP
+            {{ card._extra_space }}
+        ]
     {% elif category == 'Minion Agents' %}
         {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}<br>
         [

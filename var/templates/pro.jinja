@@ -64,7 +64,7 @@
         {% if card.race is not none %}
             <br><b>Race:</b> {{ card.skills|join('/') }}{{ ' ' }}{{ card.race }}
         {% endif %}
-        {% if card.prowess is not none %}
+        {% if card.prowess is not none or card.body is not none %}
             <br><b>P/B:</b> {{ card.prowess }}/{{ card.body }}
         {% endif %}
         <br><b>Text:{{ card.text|safe }}
