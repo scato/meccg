@@ -100,7 +100,11 @@
             SP: {{ card.sp }}<br>
         {% endif %}
         {{ card.region }}<br>
-        {{ card.text }}
+        {% if card.special is not none %}
+            Special: {{ card.special }}
+        {% else %}
+            {{ card.text }}
+        {% endif %}
     {% elif category == 'Stage Resources: General' %}
         Rarity: {{ card.rarity }}<br>
         {% if card.mp is not none %}

@@ -41,6 +41,13 @@ def uni(f, o):
     return lambda c: f(o(c))
 
 
+def tpl(ps):
+    return lambda c: ''.join(
+        p if isinstance(p, str) else p(c)
+        for p in ps
+    )
+
+
 def ret(e):
     return lambda rs: (
         (e(r), r)

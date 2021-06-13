@@ -62,7 +62,7 @@ parser = Lark(r"""
 
     delete_clause: "DELETE" target_expression
 
-    save_clause: "SAVE" FORMAT source_expression "TO" ESCAPED_STRING
+    save_clause: "SAVE" FORMAT source_expression "TO" source_expression
     
     ?target_expression: target_constant
                       | target_template
@@ -150,6 +150,7 @@ parser = Lark(r"""
                         | source_star
                         | source_object
                         | source_array
+                        | source_template
                         | "(" source_expression ")"
 
     source_constant: ESCAPED_STRING
@@ -176,6 +177,9 @@ parser = Lark(r"""
     source_array_element: source_expression
 
     source_spread_expression: "..." source_expression
+    
+    source_template: /`[^`$]*`/
+                   | /`[^`$]*\${/ source_expression (/}[^`$]*\${/ source_expression)* /}[^`$]*`/
 
     GLOBAL: "@"? ("_"|LETTER) ("_"|LETTER|DIGIT)*
 
@@ -222,7 +226,12 @@ class Session:
             left, right = node.children
             left_result = self._eval(left, result)
             right_result = self._eval(right, result)
-            return itertools.chain(left_result, right_result)
+            if left_result is None:
+                return right_result
+            elif right_result is None:
+                return left_result
+            else:
+                return itertools.chain(left_result, right_result)
         elif node.data == 'subquery':
             # start with the context result and then apply each clause
             for child in node.children:
@@ -262,7 +271,7 @@ class Session:
             return self._delete(result, target_expression)
         elif node.data == 'save_clause':
             file_format, source_expression, file_path = node.children
-            return self._save(result, file_format, source_expression, json.loads(file_path))
+            return self._save(result, file_format, source_expression, file_path)
         elif node.data == 'create_index_statement':
             name, target_expression = node.children
             return self._create_index(name, target_expression)
@@ -457,17 +466,19 @@ class Session:
 
     def _save(self, input_result, file_format, source_expression, file_path):
         compiled_source = self._compile_source(source_expression)
+        compiled_file_path = self._compile_source(file_path)
 
-        with open(file_path, 'w', encoding='UTF-8') as fp:
-            for context in input_result:
-                if file_format == 'JSONL':
-                    json.dump(compiled_source(context), fp)
-                    fp.write('\n')
-                elif file_format == 'TEXT':
-                    fp.write(compiled_source(context))
-                    fp.write('\n')
-                else:
-                    raise Exception(f'File format {file_format} not supported')
+        for file_path_string, input_result_group in itertools.groupby(input_result, compiled_file_path):
+            with open(file_path_string, 'w', encoding='UTF-8') as fp:
+                for context in input_result_group:
+                    if file_format == 'JSONL':
+                        json.dump(compiled_source(context), fp)
+                        fp.write('\n')
+                    elif file_format == 'TEXT':
+                        fp.write(compiled_source(context))
+                        fp.write('\n')
+                    else:
+                        raise Exception(f'File format {file_format} not supported')
 
         return None
 
@@ -606,6 +617,10 @@ class Session:
         elif expression.data == 'source_array':
             return any(self._contains_aggregate(child) for child in expression.children)
         elif expression.data == 'source_array_element':
+            return any(self._contains_aggregate(child) for child in expression.children)
+        elif expression.data == 'source_method_call':
+            return any(self._contains_aggregate(child) for child in expression.children if not isinstance(child, Token))
+        elif expression.data == 'source_method_arguments':
             return any(self._contains_aggregate(child) for child in expression.children)
         else:
             raise Exception(f'Node of type {expression.data} not supported')
@@ -797,6 +812,11 @@ class Session:
                 right = expr.ter(cond, left, right)
 
             return right
+        elif expression.data == 'source_template':
+            return expr.tpl([
+                re.sub(r'^`|^}|`$|\${$', '', child) if isinstance(child, str) else self._compile_source(child)
+                for child in expression.children
+            ])
         else:
             raise Exception(f'Node of type {expression.data} not supported')
 

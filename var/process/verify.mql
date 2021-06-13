@@ -55,7 +55,7 @@ RETURN {set: card.set, name: card.name, attr, value}
 UNION
 
 -- Find cards with weird attribute values (non-text array)
-WITH ["skills", "adjacent_regions", "home_site"] AS attr[]
+WITH ["skills", "adjacent_regions", "adjacent_sites", "home_site"] AS attr[]
 SET patterns = ARRAY(LOAD TEXT FROM `var/regex/${attr}.txt` AS pattern RETURN "^" + pattern + "$")
 MATCH {[attr]: values} AS card
 WITH card, attr, values AS value[], patterns
@@ -82,7 +82,7 @@ SET category = CASE
     WHEN type == "Site" THEN "site"
 END
 SET patterns = ARRAY(LOAD TEXT FROM `var/regex/text.${category}.txt` AS pattern RETURN "^" + pattern + "$")
-WITH card, values AS value[], patterns
+WITH card, values AS value[], patterns, category
 WHERE NOT EXISTS (
     WITH value, patterns AS pattern[]
     WHERE value.match(pattern)

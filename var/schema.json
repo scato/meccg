@@ -76,6 +76,11 @@
           "items": {"type": "string", "minLength": 1},
           "minItems": 1
         },
+        "adjacent_sites": {
+          "type":  ["array", "null"],
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1
+        },
         "text": {
           "type": "array",
           "items": {"type": "string", "minLength": 1}

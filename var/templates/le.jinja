@@ -59,11 +59,8 @@
             {% if card.playable is not none %}
                 <br>Playable: {{ card.playable }}
             {% endif %}
-            {% if card._has_auto_attack %}
-                <br>Automatic-attacks: {{ card.auto_attack }}
-            {% endif %}
-            {% if card._has_two_auto_attacks %}
-                <br>Automatic-attacks (2): {{ card.auto_attack }}
+            {% if card.auto_attack is not none %}
+                <br>Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attack }}
             {% endif %}
             {% if card.special is not none %}
                 <br>Special: {{ card.special }}

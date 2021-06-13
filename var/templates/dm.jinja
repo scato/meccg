@@ -119,6 +119,23 @@
             opponent draws: {{ card.opp_draws }},
             you draw:{% if card._sudden_br %}<br>{% endif %} {{ card.you_draw }}
         ]
+        {% if card.adjacent_sites is not none %}
+            <BR>Adjacent Sites: {{ card.adjacent_sites }}
+        {% else %}
+            <BR>Nearest Haven: {{ card.nearest_haven }}
+        {% endif %}
+        {% if card.playable is not none %}
+            <BR>Playable: {{ card.playable }}
+        {% endif %}
+        {% if card.auto_attacks is not none %}
+            <BR>Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}
+            {% if card._num_auto_attacks == '(2)' %}
+                <BR>{{ card.auto_attack2 }}
+            {% endif %}
+        {% endif %}
+        {% if card.special is not none %}
+            <BR>Special: {{ card.special }}
+        {% endif %}
     {% endif %}
     {% for line in card.text %}
         <BR>{{ line }}

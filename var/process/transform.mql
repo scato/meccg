@@ -33,6 +33,17 @@ SET auto_attack = special.replace("Automatic-attacks: ", "")
 SET special = special_extra
 MERGE {auto_attack, special} INTO {set: "The Dragons", name: "Framsburg", alignment: "Hero"};
 
+MATCH {set: "Against the Shadow", name: "The Under-gates", alignment: "Minion", adjacent_sites}
+SET adjacent_sites = adjacent_sites.replace("Under-leas", "The Under-leas")
+MERGE {adjacent_sites} INTO {set: "Against the Shadow", name: "The Under-gates", alignment: "Minion"};
+
+MATCH {set: "Dark Minions", name: "The Under-galleries", alignment: "Hero", adjacent_sites}
+SET adjacent_sites = adjacent_sites.replace("Ûdun", "Udûn")
+MERGE {adjacent_sites} INTO {set: "Dark Minions", name: "The Under-galleries", alignment: "Hero"};
+
+MATCH {set: "The White Hand", name: "Deep Mines", alignment: "Fallen-wizard", text}
+MERGE {special: text} INTO {set: "The White Hand", name: "Deep Mines", alignment: "Fallen-wizard"};
+
 ------------------
 -- SET SPECIFIC --
 ------------------
@@ -211,9 +222,9 @@ MERGE {skills: []} INTO {type: "Resource", class: "Ally", skills: null};
 MERGE {cp: null} INTO {cp: ""};
 MERGE {cp: null} INTO {cp: "0"};
 
----------------------
--- ADJACENT_REGION --
----------------------
+----------------------
+-- ADJACENT_REGIONS --
+----------------------
 
 MATCH {set, name, alignment, adjacent_regions}
 SET adjacent_regions = ARRAY(
@@ -223,6 +234,25 @@ SET adjacent_regions = ARRAY(
         .replace("Woodland Realms", "Woodland Realm")
 )
 MERGE {adjacent_regions} INTO {set, name, alignment};
+
+--------------------
+-- ADJACENT_SITES --
+--------------------
+
+MATCH {set, name, alignment, adjacent_sites}
+WHERE adjacent_sites != null
+SET adjacent_sites = adjacent_sites
+    .replace("\n", " ")
+    .split(", ")
+MERGE {adjacent_sites} INTO {set, name, alignment};
+
+------------------
+-- AUTO_ATTACKS --
+------------------
+
+MATCH {set, name, alignment, auto_attacks, auto_attack2}
+SET auto_attacks = auto_attacks + "; " + auto_attack2
+MERGE {auto_attacks} INTO {set, name, alignment};
 
 ----------
 -- TEXT --
