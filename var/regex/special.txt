@@ -1,0 +1,71 @@
+A Ringwraith may not move to this site\.
+A company may move to this site only from one of your protected Wizardhavens and only if you have more than 6 stage points\.
+A covert company must tap an untapped character \(if available\) if this site is revealed as its new site\.
+A minion company may not attack another company at this site\.
+Agent minions may be brought into play under direct influence at this site\.
+All ring tests at this site are modified by -3\.
+An overt company must tap an untapped character \(if available\) if this site is revealed as its new site\.
+Any Dragon creature \(except Eärcaraxë\) may be keyed to this site\.
+Any Drake creature \(except Sea Serpent\) may be keyed to this site\.
+Any Gold Ring stored at this site is automatically tested \(modify the roll by -2\)\.
+Any Man hazard creature can be played at this site\.
+Any Undead and Spider creatures may be keyed to this site\.
+Any Undead creature may also be played at this site\.
+Any Undead creature may be keyed to this site\.
+Any Undead creature may be played at this site\.
+Any Undead creature or Pûkel-creature may also be played at this site\.
+Any Undead creature or Pûkel-creature may be keyed to this site\.
+Any Undead creature or Pûkel-creature may be played at this site\.
+Any attack against a minion company at this site is canceled\.
+Any character wounded by the Maia's attack is automatically eliminated\.
+Any company moving to Barad-Dur has its hazard limit modified by \+2\.
+Any company moving to Mount Doom has its hazard limit modified by \+2 and hazard creatures may always be played keyed to the site regardless of any other cards played\.
+Any company moving to this site has its hazard limit increased by 2\.
+Any gold ring item at this site is automatically tested during the site phase \(the site need not be entered\)\.
+Any of your companies moving to or from Rhosgobel is not considered to be moving through Southern Mirkwood \(including one less Dark-domain in their site path\)\.
+Any sage may tap to test a ring at this site, modifying the result by -3\.
+Contains a hoard\.
+Creatures keyed to Coastal Sea and any Drakes may be keyed to this site\.
+Creatures keyed to Coastal Seas may be keyed to this site\.
+Creatures keyed to this site are detainment\.
+Creatures keyed to this site attack normally, not as detaiment\.
+Creatures keyed to this site attack normally, not as detainment\.
+During the site phase, a company may discard two minor items they bear to make any one major item \(including a hoard item\) playable here that turn\.
+During the site phase, a covert company may discard two minor items they bear to make any one gold ring item \(regardless of its text restrictions\) playable at this site this turn\.
+During the site phase, you may tap two characters to untap this site - one a sage, one a scout\.
+Each character wounded must make a corruption check modified by -2\.
+Each character wounded must make a corruption check\.
+Geann a-Lisch counts as a Ruins & Lairs \[r\] for the purposes of playing and interpreting hazards\.
+Healing Cards affect all characters at the site\.
+If Balrog of Moria is in play or if it or Durin's Bane has been defeated, the first automatic attack is canceled\.
+If Khamûl the Easterling or Adûnaphel is in play as a permanent-event, one must be used as an additional automatic-attack \(attacker's choice, discard after use-ignore result of defeat\)\.
+If a manifestation of Balrog of Moria is in play or defeated, the first automatic-attack is canceled\.
+If any Nazgûl permanent-event is in play, one must be used as an additional automatic-attack \(attacker's choice, discard after use-ignore result of defeat\)\.
+If one of your companies is at this site, all attacks  against it are canceled\.
+If one of your companies is at this site, all attacks against it are canceled\.
+If the Witch-king of Angmar is in play as a permanent-event, it must be used as an additional automatic-attack \(discard after use-ignore result of defeat\)\.
+If the Wizard card Radagast is in play, the automatic-attacks are removed\.
+If your Ringwraith is at this site, he may tap during the organization phase to bring one Orc or Troll character from your discard pile into play at this site \(as another company\)\.
+Items may be played at this site even if it is tapped\.
+Items may be played here even if the site is tapped\.
+Its site path for this purpose, if needed, is the one from Carn Dûm\.
+May be duplicated in location deck\.
+No character may be brought into play at this site \(unless this site is the character's home site\)\.
+Non-Nazgûl creatures played at this site attack normally, not as detainment\.
+Only Radagast's companies may use this card\.
+Resources may never be stored at this site\.
+Stolen Knowledge\.
+The character must move to a different site from that of your Ringwraith this turn or be discarded at the end of the movement/hazard phase\.
+The first minor item played at this site each turn does not tap the site\.
+The protected Wizardhaven is the surface site for Deep Mines \(i\.e\., the sites are adjacent and the movement roll required to move between them is 0\)\.
+This site is a protected Wizardhaven\.
+This site is always returned to the location deck, never to the discard pile\.
+This site is never discarded or returned to its location deck\.
+This site never taps\.
+Treat this site as a Darkhaven during the Untap Phase\.
+Unless this site is a character's home site, a non-Orc, non-Troll character may not be brought into play at this site\.
+When Under-galleries would be placed in your discard pile, place it in your marshalling points pile instead for 3 marshalling points-this card is considered stored\.
+When a gold ring is tested in a company at this site, the result of the roll is modified by \+1\.
+When a gold ring is tested in a company at this site, the result of the roll is modified by \+2\.
+You receive the three stage points if any of your companies are at the site\.
+You receive the stage point if any of your companies are at this site\.

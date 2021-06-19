@@ -1,0 +1,21 @@
+# Single automatic attack
+(Dragon|Dwarves|Men|Orcs|Pûkel-creature|Pûkel-creatures|Pukel-man|Pukel-men|Spiders|Troll|Undead|Wolves) - [1-9] strikes? with 1?[0-9] prowess
+(Animals|Maia|Men|Trolls) - [1-9] strikes? with 1?[0-9] prowess \((attacker chooses defending characters|cannot be canceled|detainment)\)
+Undead - [1-9] strikes? with 1?[0-9] prowess; each character wounded must make a corruption check( modified by -2)?
+When a company enters this site, opponent may play one creature from his hand that is treated in all ways as the site's automatic attack \(if defeated, creature is discarded\) It must normally be playable keyed to a Ruins & Lairs \[R\], Shadow-hold \[S\], single Wilderness \[w\], or Shadow-land \[s\]
+# Automatic attacks with variable number of strikes
+(Dúnedain|Men|Orcs) - each character faces 1 strike with 1?[0-9] prowess \((detainment|detainment against covert company|detainment against overt company)\)
+# Double automatic attacks
+(Awakened Plant|Elves|Hobbits|Maia|Orcs|Troll) - [1-9] strikes? with 1?[0-9] prowess; (Awakened Plant|Elves|Dúnedain|Maia|Trolls|Wolves) - [1-9] strikes? with 1?[0-9] prowess
+(Balrog|Orcs|Drake|Pûkel-creature|Pukel-men|Trolls?|Undead) - [1-9] strikes? with 1?[0-9] prowess; Opponent may play as an automatic-attack one (non-unique )?hazard creature from his hand normally keyed to (a )?(Ruins & Lairs|Shadow-holds?|Coastal Seas?)
+Orcs - 5 strikes with 7 prowess \((detainment|detainment against overt company)\); Opponent may play as an automatic-attack one non-unique hazard creature from his hand normally keyed to a Ruins & Lairs
+Elves - each character faces 1 strike with 9 prowess \(detainment against covert company\); Elves - 3 strikes with 10 prowess \(against overt company only\)
+Orcs - 2 strikes with 8 prowess; Spider \(cannot be canceled\) - 1 strike with 16 prowess; any character wounded is immediately eliminated
+Orcs - 4 strikes with 7 prowess; Nazgûl \(cannot be canceled\) - 1 strike, 15 prowess
+Undead - 3 strikes with 8 prowess; Nazgûl \(cannot be canceled\) - 1 strike, 15 prowess
+Men - each character faces 1 strike with [1-9] prowess \(detainment against covert company\); Dúnedain - [1-9] strikes with 10 prowess \(against overt company only\)
+# Triple automatic attacks
+Elves - 4 strikes with 8 prowess; Elves - 3 strikes with 9 prowess; Elves - 2 strikes with 10 prowess
+Orcs - 3 strikes with 7 prowess; Trolls - 2 strikes with 8 prowess; Nazgûl \(cannot be canceled\) - 1 strike, 15 prowess
+Orcs - 4 strikes with 7 prowess; Trolls - 3 strikes with 9 prowess; Maia \(cannot be canceled\) - 1 strike, 24 prowess
+Undead - 4 strikes with 7 prowess; 3 strikes with 8 prowess; 2 strikes with 10 prowess

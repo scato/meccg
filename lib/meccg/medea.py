@@ -94,6 +94,7 @@ parser = Lark(r"""
     target_global: GLOBAL
     
     target_constant: ESCAPED_STRING
+                   | SIGNED_NUMBER
                    | /null/
                    | /\[\]/
     
@@ -154,6 +155,7 @@ parser = Lark(r"""
                         | "(" source_expression ")"
 
     source_constant: ESCAPED_STRING
+                   | SIGNED_NUMBER
                    | /null/
     
     source_variable: CNAME
@@ -188,9 +190,10 @@ parser = Lark(r"""
           | "TEXT"
 
     INLINE_COMMENT: /--.*/
-    MULTILINE_COMMENT: "/*" /(.|\n|\r)*/ "*/"
+    MULTILINE_COMMENT: "/*" /(.|\n|\r)*?/ "*/"
 
     %import common.ESCAPED_STRING
+    %import common.SIGNED_NUMBER
     %import common.CNAME
     %import common.LETTER
     %import common.DIGIT

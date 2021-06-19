@@ -127,8 +127,8 @@
         {% if card.playable is not none %}
             <BR>Playable: {{ card.playable }}
         {% endif %}
-        {% if card.auto_attacks is not none %}
-            <BR>Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attacks }}
+        {% if card.auto_attack is not none %}
+            <BR>Automatic-attacks{{ card._num_auto_attacks }}: {{ card.auto_attack }}
             {% if card._num_auto_attacks == '(2)' %}
                 <BR>{{ card.auto_attack2 }}
             {% endif %}

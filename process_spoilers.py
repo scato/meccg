@@ -15,6 +15,7 @@ if __name__ == '__main__':
         'var/process/transform.mql',
         'var/process/load.mql',
         'var/process/verify.mql',
+        # 'var/process/missing.mql',
     ]
 
     session = Session()

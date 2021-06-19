@@ -15,16 +15,6 @@
         { "$ref": "#/definitions/site"}
       ]
     },
-    "base": {
-      "type": "object",
-      "properties": {
-        "set": {"type": "string"},
-        "type": {"enum": ["Character", "Resource", "Hazard", "Site", "Region"]},
-        "alignment": {"enum": ["Hero", "Minion", "Balrog", "Ringwraith", "Stage", "Fallen-wizard", "Wizard", null]},
-        "name": {"type": "string", "minLength": 1}
-      },
-      "required": ["set", "type", "alignment", "name"]
-    },
     "common": {
       "type": "object",
       "properties": {
@@ -44,15 +34,6 @@
           "items": {"enum": ["F", "B", "R", "S", "D", "f", "b", "w", "s", "d", "c"]}
         },
         "site_path": {
-          "type": ["array"],
-          "items": {"enum": ["f", "b", "w", "s", "d", "c"]}
-        },
-        "site_path1": {
-          "type": ["array", "null"],
-          "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
-          "minItems": 1
-        },
-        "site_path2": {
           "type": ["array", "null"],
           "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
           "minItems": 1
@@ -63,20 +44,55 @@
         },
         "race": {"type": "string", "minLength": 1},
         "class": {"type": "string", "minLength": 1},
+        "region": {"type": "string", "minLength": 1},
         "prowess": {"type": ["string", "null"], "minLength": 1},
         "body": {"type": ["string", "null"], "minLength": 1},
+        "opp_draws": {"type": "string", "length": 1},
+        "you_draw": {"type": "string", "length": 1},
+        "cp": {"type": ["string", "null"], "minLength": 1},
         "home_site": {
           "type": "array",
           "items": {"type": "string", "minLength": 1},
           "minItems": 1
         },
-        "cp": {"type": ["string", "null"], "minLength": 1},
         "adjacent_regions": {
           "type":  "array",
           "items": {"type": "string", "minLength": 1},
           "minItems": 1
         },
+        "nearest_haven": {"type": ["string", "null"], "minLength": 1},
+        "nearest_haven1": {"type": ["string", "null"], "minLength": 1},
+        "nearest_haven2": {"type": ["string", "null"], "minLength": 1},
+        "site_path1": {
+          "type": ["array", "null"],
+          "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
+          "minItems": 1
+        },
+        "site_path2": {
+          "type": ["array", "null"],
+          "items": {"enum": ["f", "b", "w", "s", "d", "c"]},
+          "minItems": 1
+        },
         "adjacent_sites": {
+          "type":  ["array", "null"],
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1
+        },
+        "playable": {
+          "type": ["array", "null"],
+          "items": {
+            "enum": [
+              "min", "maj", "maj*", "gr", "gr*", "ring", "info",
+              "*--Scroll of Isildur only",
+              "*--hero item only",
+              "*--weapon, armor, shield, or helmet only",
+              "*--Palantíri only"
+            ]
+          },
+          "minItems": 1
+        },
+        "auto_attack": {"type": ["string", "null"], "minLength": 1},
+        "special": {
           "type":  ["array", "null"],
           "items": {"type": "string", "minLength": 1},
           "minItems": 1
@@ -292,7 +308,19 @@
           "properties": {
             "type": {"const": "Site"},
             "alignment": {"enum": ["Hero", "Minion", "Balrog", "Fallen-wizard"]}
-          }
+          },
+          "required": [
+            "set", "type", "alignment", "name",
+            "site_type", "site_path", "sp", "region", "opp_draws", "you_draw",
+            "nearest_haven", "nearest_haven1", "nearest_haven2", "site_path1", "site_path2",
+            "adjacent_sites", "playable", "auto_attack", "special"
+          ],
+          "propertyNames": {"enum": [
+            "set", "type", "alignment", "name",
+            "site_type", "site_path", "sp", "region", "opp_draws", "you_draw",
+            "nearest_haven", "nearest_haven1", "nearest_haven2", "site_path1", "site_path2",
+            "adjacent_sites", "playable", "auto_attack", "special"
+          ]}
         }
       ]
     }

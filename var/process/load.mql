@@ -39,8 +39,11 @@ WITH card AS {set, type, alignment, class, name, text, mp, di = null, sp = null,
 SAVE JSONL * TO "var/jsonl/resource-item.jsonl";
 
 MATCH {type: "Site"} AS card
-WITH card AS {text = null, ...card}
-SAVE JSONL card TO "var/jsonl/site.jsonl";
+WITH card AS {
+    set, type, alignment, name, site_type, site_path = null, sp = null, region, opp_draws, you_draw,
+    nearest_haven = null, nearest_haven1 = null, nearest_haven2 = null, site_path1 = null, site_path2 = null, adjacent_sites = null, playable = null, auto_attack = null, special = null
+}
+SAVE JSONL * TO "var/jsonl/site.jsonl";
 
 DELETE _;
 

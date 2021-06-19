@@ -54,8 +54,8 @@
         SITE TYPE: {{ card.site_type }}<BR>
         SITE_PATH: {{ card.site_path }}<BR>
         HAVEN: {{ card.nearest_haven }}<BR>
-        DRAW: {{ card.you_draw }}/{{ card.opp_draws }}<BR>
-        PLAYABLE: {{ card.playable }}<BR>
+        DRAW: {{ card.opp_draws }}/{{ card.you_draw }}<BR>
+        PLAYABLE: {{ card.playable|join('/') }}<BR>
         AUTO_ATTACK: {{ card.auto_attack }}<BR>
         {% if card.special is not none %}
             SPECIAL: {{ card.special }}<BR>

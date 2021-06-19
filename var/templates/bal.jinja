@@ -107,7 +107,7 @@
             SITE_PATH: {{ card.site_path }}<BR>
         {% endif %}
         DRAW: {{ card.opp_draws }}/{{ card.you_draw }}<BR>
-        PLAYABLE: {{ card.playable }}<BR>
+        PLAYABLE: {{ card.playable|join('/') }}<BR>
         AUTO_ATTACK: {{ card.auto_attack }}{% if card._auto_attack_br %}<BR>{% endif %}
         SPECIAL: {{ card.special }}{% if card._special_br %}<BR>{% endif %}
     {% endif %}

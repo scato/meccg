@@ -44,6 +44,19 @@ MERGE {adjacent_sites} INTO {set: "Dark Minions", name: "The Under-galleries", a
 MATCH {set: "The White Hand", name: "Deep Mines", alignment: "Fallen-wizard", text}
 MERGE {special: text} INTO {set: "The White Hand", name: "Deep Mines", alignment: "Fallen-wizard"};
 
+MATCH {set: "The Dragons", name: "Buhr Widu", alignment: "Hero", special}
+SET special = special.replace("Special: ", "")
+MERGE {special} INTO {set: "The Dragons", name: "Buhr Widu", alignment: "Hero"};
+
+MATCH {set: "The Lidless Eye", name: "Geann a-Lisch", alignment: "Minion", special}
+SET special = special.replace("\u00b2r\u00b3", "[r]")
+MERGE {special} INTO {set: "The Lidless Eye", name: "Geann a-Lisch", alignment: "Minion"};
+
+MATCH {set: "The Wizards", name: "Lossadan Cairn", alignment: "Hero", playable, auto_attack}
+SET playable = [...playable, "*--Palantíri only"]
+SET auto_attack = auto_attack + "; " + "each character wounded must make a corruption check"
+MERGE {playable, auto_attack, special: null} INTO {set: "The Wizards", name: "Lossadan Cairn", alignment: "Hero"};
+
 ------------------
 -- SET SPECIFIC --
 ------------------
@@ -71,6 +84,30 @@ SET home_site = ARRAY(
     RETURN line.replace("\n", "")
 )
 MERGE {home_site} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, playable}
+WHERE ["Against the Shadow", "Dark Minions", "The Lidless Eye"].includes(set)
+AND playable != null
+SET playable = playable
+    .replace("Items (", "")
+    .replace(")", "")
+    .replace("minor", "min")
+    .replace("major", "maj")
+    .replace("greater", "gr")
+    .replace("gold ring", "ring")
+    .replace("Information", "info")
+    .replace("\u2019", "\u00ed")
+    .replace(" *-", ", *--")
+    .replace(" * - ", ", *--")
+    .replace(",", ":")
+    .replace("*--weapon: armor: shield: or helmet only", "*--weapon, armor, shield, or helmet only")
+    .split(": ")
+MERGE {playable} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, special}
+WHERE ["Against the Shadow", "The Balrog", "Dark Minions", "The Dragons", "The Lidless Eye", "The White Hand"].includes(set)
+AND special != null
+MERGE {special: [special]} INTO {set, name, alignment};
 
 MATCH {set, name, alignment, text}
 WHERE ["Promo Cards"].includes(set)
@@ -189,7 +226,7 @@ SET site_path = CASE set
     ELSE site_path.split(" ")
 END
 SET site_path = CASE site_path
-    WHEN [""] THEN []
+    WHEN [""] THEN null
     ELSE site_path
 END
 MERGE {site_path} INTO {set, name, alignment};
@@ -246,13 +283,73 @@ SET adjacent_sites = adjacent_sites
     .split(", ")
 MERGE {adjacent_sites} INTO {set, name, alignment};
 
-------------------
--- AUTO_ATTACKS --
-------------------
+--------------
+-- PLAYABLE --
+--------------
 
-MATCH {set, name, alignment, auto_attacks, auto_attack2}
-SET auto_attacks = auto_attacks + "; " + auto_attack2
-MERGE {auto_attacks} INTO {set, name, alignment};
+MERGE {playable: null} INTO {playable: [""]};
+
+-----------------
+-- AUTO_ATTACK --
+-----------------
+
+MATCH {set, name, alignment, auto_attack, auto_attack2}
+SET auto_attack = auto_attack + "; " + auto_attack2
+MERGE {auto_attack} INTO {set, name, alignment};
+
+MATCH {set, name, alignment, auto_attack}
+WHERE auto_attack != null
+SET auto_attack = auto_attack
+    .replace("-\n", "-")
+    .replace("\n", " ")
+    .replace("  ", " ")
+    .replace(".", "")
+    .replace("(1st) ", "")
+    .replace("(2nd) ", "")
+    .replace(" (1st attack)", "")
+    .replace(" (2nd attack)", "")
+    .replace(", 1 strike", " - 1 strike")
+    .replace(", 2 strike", " - 2 strike")
+    .replace(", 3 strike", " - 3 strike")
+    .replace(", 4 strike", " - 4 strike")
+    .replace("Drake 2 strikes", "Drake - 2 strikes")
+    .replace("Orcs 3 strikes", "Orcs - 3 strikes")
+    .replace("Orcs 4 strikes", "Orcs - 4 strikes")
+    .replace("Orcs 5 strikes", "Orcs - 5 strikes")
+    .replace("Troll 2 strikes", "Troll - 2 strikes")
+    .replace("Trolls 2 strikes", "Trolls - 2 strikes")
+    .replace("Trolls 3 strikes", "Trolls - 3 strikes")
+    .replace("Trolls 4 strikes", "Trolls - 4 strikes")
+    .replace("Undead 3 strikes", "Undead - 3 strikes")
+    .replace("Undead 4 strikes", "Undead - 4 strikes")
+    .replace("Pûkel-creature 2 strikes", "Pûkel-creature - 2 strikes")
+    .replace("Nazgûl (cannot be canceled) 1 strike", "Nazgûl (cannot be canceled) - 1 strike")
+    .replace("Maia (cannot be canceled) 1 strike", "Maia (cannot be canceled) - 1 strike")
+    .replace("strikes,", "strikes with")
+    .replace(", Awakened Plant", "; Awakened Plant")
+    .replace(", each character", "; each character")
+    .replace("prowess Trolls", "prowess; Trolls")
+    .replace("automatic- attack", "automatic-attack")
+    .replace("men - ", "Men - ")
+    .replace("Pukel-Men", "Pukel-men")
+    .replace("Pûkel-Men", "Pukel-men")
+MERGE {auto_attack} INTO {set, name, alignment};
+
+MERGE {auto_attack: null} INTO {auto_attack: ""};
+
+-------------
+-- SPECIAL --
+-------------
+
+MATCH {set, name, alignment, special}
+WHERE special != null
+SET special = special
+    .join(" ")
+    .replace("\n", " ")
+    .replace("  ", " ")
+    .replace(". ", ".\n")
+    .split("\n")
+MERGE {special} INTO {set, name, alignment};
 
 ----------
 -- TEXT --
